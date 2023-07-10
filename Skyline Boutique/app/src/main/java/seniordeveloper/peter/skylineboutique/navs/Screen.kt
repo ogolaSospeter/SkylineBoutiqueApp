@@ -6,8 +6,13 @@ sealed class Screen(val route: String){
     object  About:Screen("about")
     object  Cart:Screen("cart")
     object  Settings:Screen("settings")
-    object  CartContent:Screen("cartcontent")
+    object  Notifications:Screen("notifications")
     object  OrderTracker:Screen("ordertracker")
+    object  PaymentHistory:Screen("paymenthistory")
+    object ShoppingCart:Screen("shoppingcart")
+    object  Undefined:Screen("undefined")
+    object Category:Screen("category")
+    object ItemDetails:Screen("itemdetails")
 
 
 }

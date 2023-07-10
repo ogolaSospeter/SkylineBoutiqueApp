@@ -1,4 +1,4 @@
-package seniordeveloper.peter.skylineboutique
+package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
 import android.preference.PreferenceManager
@@ -42,7 +42,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
@@ -74,9 +73,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models.ClotheData
 import seniordeveloper.peter.skylineboutique.models._menwears
+import seniordeveloper.peter.skylineboutique.models.categories
 import seniordeveloper.peter.skylineboutique.models.constants.GlobalWidgets
+import seniordeveloper.peter.skylineboutique.models.overFlow
 import seniordeveloper.peter.skylineboutique.navs.Screen
 import seniordeveloper.peter.skylineboutique.viewmodels.ClotheViewModel
 
@@ -98,7 +100,9 @@ fun Home(navController: NavHostController) {
     val vm = ClotheViewModel()
     val navitems = listOf("Purchases", "Home", "On Order")
     val navicons = listOf(Icons.Filled.Build, Icons.Filled.Home, Icons.Filled.Info)
-    val navs = listOf(Screen.OrderTracker.route, Screen.Home.route, Screen.CartContent.route)
+    val navs = listOf(Screen.OrderTracker.route, Screen.Home.route, Screen.Notifications.route)
+    var selectedCategory by remember { mutableStateOf("") }
+
 
     Column {
         Scaffold(
@@ -112,14 +116,6 @@ fun Home(navController: NavHostController) {
                             content = { Icon(Icons.Filled.Menu, contentDescription = null) })
                         if (menustate) {
 
-                            val itemLists = listOf(
-                                "Settings",
-                                "Payments History",
-                                "Track Orders",
-                                "About Us",
-                                "Log Out"
-                            )
-
                             DropdownMenu(
                                 expanded = menustate,
                                 onDismissRequest = { menustate = !menustate },
@@ -130,14 +126,16 @@ fun Home(navController: NavHostController) {
                                         color = colorResource(id = R.color.white),
                                         shape = RoundedCornerShape(10.dp)
                                     )
-                                    .width(150.dp)
+                                    .width(170.dp)
                                     .height(IntrinsicSize.Max)
                             ) {
-                                itemLists.forEach { item ->
-                                    DropdownMenuItem(text = { Text(item, style = TextStyle(
+                                overFlow.forEach { item ->
+                                    DropdownMenuItem(
+                                        leadingIcon = { Icon(painter = painterResource(id = item.image ), contentDescription = null, modifier = Modifier.size(20.dp))},
+                                        text = { Text(item.txt, style = TextStyle(
                                         colorResource(id = R.color.black),
                                     ) )}, onClick = {
-                                        run { navController.navigate(Screen.Login.route) }
+                                        run { navController.navigate(item.route) }
                                         Toast.makeText(
                                             context,
                                             "${R.string.progress}",
@@ -149,21 +147,15 @@ fun Home(navController: NavHostController) {
                         }
                     },
                     actions = {
-                        IconButton(onClick = { navController.navigate(Screen.Settings.route) }) {
-                            Icon(
-                                Icons.Filled.Settings,
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {
+
+                        IconButton(onClick = { navController.navigate(Screen.Notifications.route) }) {
                             Icon(
                                 Icons.Filled.Notifications,
                                 contentDescription = null,
                                 modifier = Modifier.size(20.dp)
                             )
                         }
-                        IconButton(onClick = { navController.navigate(Screen.CartContent.route) }) {
+                        IconButton(onClick = { navController.navigate(Screen.ShoppingCart.route) }) {
                             BadgedBox(badge ={
                                 if (itemCount > 0) {
                                     Text(
@@ -209,36 +201,30 @@ fun Home(navController: NavHostController) {
                         horizontalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier.padding(2.dp)
                     ) {
-                        item {
+                        items(categories) { itm ->
                             OutlinedButton(
-                                onClick = { /*TODO*/ },
-                                shape = RoundedCornerShape(10)
-                            ) { Text("Gents") }
-                        }
+                                onClick = {
+                                    selectedCategory = itm
+                                    if(_menwears.any { it.category == selectedCategory }) {
+                                        navController.navigate(Screen.Category.route + "/$selectedCategory")
 
-                        item {
-                            OutlinedButton(
-                                onClick = { /*TODO*/ },
-                                shape = RoundedCornerShape(10)
-                            ) { Text("Ladies") }
-                        }
-
-                        item {
-                            OutlinedButton(
-                                onClick = { /*TODO*/ },
+                                    }
+                                    else{
+                                        navController.navigate(Screen.Undefined.route)
+                                    }
+                                    navController.navigate(Screen.Category.route + "/$selectedCategory")
+                                },
                                 shape = RoundedCornerShape(10.dp)
-                            ) { Text("Children") }
+                            ) { Text(itm, color = colorResource(id = R.color.statusBar)) }
                         }
-
-                        item {
-                            OutlinedButton(
-                                onClick = { /*TODO*/ },
-                                shape = RoundedCornerShape(10.dp)
-                            ) { Text("Unisex") }
-                        }
-
 
                     }
+                    // Navigation route
+
+//                    if (selectedCategory.isNotEmpty()) {
+//                        navController.navigate(Screen.Category.route + "/$selectedCategory"
+//                        )
+//                    }
                     Spacer(modifier = Modifier.height(10.dp))
                     Column(
                         modifier = Modifier
@@ -249,42 +235,62 @@ fun Home(navController: NavHostController) {
                                 flingBehavior = ScrollableDefaults.flingBehavior()
                             )
                     ) {
-                           GlobalWidgets(text = "Weekly Specials 🌟🌟")
-                            Spacer(modifier = Modifier.height(3.dp))
+                        GlobalWidgets(text = "Weekly Specials 🌟🌟")
+                        Spacer(modifier = Modifier.height(3.dp))
 
-                            LazyRow(content = {
-                                items(categoryItems) { item ->
-                                    ClotheCard(clotheWear = item, onClick = {
-                                        vm.addItemToCart(item)
+                        LazyRow(content = {
+                            items(categoryItems) { item ->
+                                ClotheCard(clotheWear = item, onClick = {
+                                    navController.navigate(Screen.ItemDetails.route + "/${item.title}")
+                                    itemCount += 1
+                                }
+                                )
+                            }
+                        })
+                        Spacer(modifier = Modifier.height(10.dp))
+                        GlobalWidgets(text = "Specially Tailored.👔👕👘")
+                        FlowRow(
+                            horizontalArrangement = Arrangement.spacedBy(7.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            maxItemsInEachRow = 2,
+                        ) {
+                            _menwears.take(10).forEach {
+                                ClotheCard(clotheWear = it, onClick = {
+                                    navController.navigate(Screen.ItemDetails.route + "/${it.title}")
+                                    itemCount += 1
+                                }
+                                )
+                            }
+                        }
+
+                        val grouped = _menwears.groupBy { it.category }
+                        grouped.forEach { (category, items) ->
+                            GlobalWidgets(text = category)
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(7.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                items(items.take(4)){
+                                    ClotheCard(clotheWear = it, onClick = {
+                                        navController.navigate(Screen.ItemDetails.route + "/${it.title}")
                                         itemCount += 1
                                     }
                                     )
                                 }
-                            })
-                            Spacer(modifier = Modifier.height(10.dp))
-                           GlobalWidgets(text = "Specially Tailored.👔👕👘")
-                            FlowRow(
-                                horizontalArrangement = Arrangement.spacedBy(7.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                maxItemsInEachRow = 2,
-                            ) {
-                                _menwears.forEach {
-                                    ClotheCard(clotheWear = it, onClick = {
-                                        itemCount += 1
-                                    }
-                                    )
+//                                    ClotheCard(clotheWear = it, onClick = {
+//                                        navController.navigate(Screen.ItemDetails.route + "/${it.title}")
+//                                        itemCount += 1
+//                                    }
+//                                    )
                                 }
                             }
 
                         }
                     }
-
-//
-
             }
         )
 
-    }
+}
 }
 
 
@@ -307,8 +313,9 @@ fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
             .size(width = 165.dp, height = 160.dp)
             .clickable {
                 Toast
-                    .makeText(context, "${clotheWear.title} Added to cart", Toast.LENGTH_SHORT)
+                    .makeText(context, "${clotheWear.title} Selected.", Toast.LENGTH_SHORT)
                     .show()
+                onClick.invoke()
             },
         elevation = 2.dp,
     backgroundColor = Color.Transparent,
@@ -328,16 +335,16 @@ fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
                 contentScale = ContentScale.Crop
             )
             Text(text = clotheWear.title , style = TextStyle(fontSize = 12.sp))
-            Text(text = "Kshs. ${clotheWear.price}")
+            Text(text = "$. ${clotheWear.price}")
             Spacer(modifier =Modifier.height(3.dp))
-            OutlinedButton(onClick = {
-                onClick.invoke()
-                itemCount.value += 1
-                editor.putInt("itemCount", itemCount.value)
-                editor.apply()
-            }, ) {
-                Text(text = "Add to Cart", style = TextStyle(fontSize = 12.sp),color = Color.Blue)
-            }
+//            OutlinedButton(onClick = {
+//                onClick.invoke()
+//                itemCount.value += 1
+//                editor.putInt("itemCount", itemCount.value)
+//                editor.apply()
+//            }, ) {
+//                Text(text = "Add to Cart", style = TextStyle(fontSize = 12.sp),color = Color.Blue)
+//            }
             Spacer(modifier =Modifier.height(7.dp))
 
 //            Text(text = clotheWear.description)
