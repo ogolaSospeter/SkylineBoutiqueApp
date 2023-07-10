@@ -3,19 +3,25 @@ package seniordeveloper.peter.skylineboutique
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import seniordeveloper.peter.skylineboutique.navs.AppNav
+import seniordeveloper.peter.skylineboutique.navs.Screen
 import seniordeveloper.peter.skylineboutique.ui.theme.SkylineBoutiqueTheme
+import seniordeveloper.peter.skylineboutique.viewmodels.UserState
+import seniordeveloper.peter.skylineboutique.viewmodels.UserStateViewModel
 
 class MainActivity : ComponentActivity() {
+    private val userState by viewModels<UserStateViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContent {
             SkylineBoutiqueTheme {
@@ -25,9 +31,20 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+//                    val navController = rememberNavController()
                     AppNav(navController = navController)                   }
             }
         }
+    }
+}
+
+@Composable
+fun ApplicationSwitcher(navController: NavHostController) {
+    val vm = UserState.current
+    if (vm.isLoggedIn) {
+        navController.navigate(Screen.Home.route)
+    } else {
+        navController.navigate(Screen.Login.route)
     }
 }
 

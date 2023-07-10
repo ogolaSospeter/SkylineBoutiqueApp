@@ -1,46 +1,48 @@
 package seniordeveloper.peter.skylineboutique
 
 import android.annotation.SuppressLint
+import android.preference.PreferenceManager
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BadgedBox
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
@@ -48,10 +50,8 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -62,11 +62,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -76,168 +74,273 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.launch
-import seniordeveloper.peter.skylineboutique.model.MenWear
-import seniordeveloper.peter.skylineboutique.model.menwear
+import seniordeveloper.peter.skylineboutique.models.ClotheData
+import seniordeveloper.peter.skylineboutique.models._menwears
+import seniordeveloper.peter.skylineboutique.models.constants.GlobalWidgets
 import seniordeveloper.peter.skylineboutique.navs.Screen
+import seniordeveloper.peter.skylineboutique.viewmodels.ClotheViewModel
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
+    ExperimentalLayoutApi::class
+)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Home(navController: NavHostController){
+fun Home(navController: NavHostController) {
     val scaffoldState = rememberScaffoldState()
-    var menustate by remember{ mutableStateOf(false) }
+    var menustate by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    Column() {
-        Scaffold (
-            scaffoldState = scaffoldState,
+    var itemCount by remember { mutableStateOf(0) }
+    val scope = rememberCoroutineScope()
+    val categoryItems = _menwears.shuffled().take(4)
+    val scrollState = rememberScrollState()
+    var selectedItem by remember { mutableStateOf(0) }
+    val vm = ClotheViewModel()
+    val navitems = listOf("Purchases", "Home", "On Order")
+    val navicons = listOf(Icons.Filled.Build, Icons.Filled.Home, Icons.Filled.Info)
+    val navs = listOf(Screen.OrderTracker.route, Screen.Home.route, Screen.CartContent.route)
+
+    Column {
+        Scaffold(
             topBar = {
-                TopAppBar(title = {Text("Home Page")},
-                    navigationIcon = {IconButton(onClick = {menustate = !menustate}, content = {Icon(Icons.Filled.Menu,contentDescription = null)})},
-                    actions = {
-                        Column {
-                            Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
-                                IconButton(onClick = { /*TODO*/ }) {
-                                    Icon(
-                                        Icons.Filled.Favorite,
-                                        contentDescription = null,
-                                        tint = Color.Red,
-                                        modifier = Modifier.size(15.dp)
-                                    )
-                                }
-                                IconButton(onClick = { navController.navigate(Screen.Settings.route) }) {
-                                    Icon(
-                                        Icons.Filled.Settings,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(15.dp)
-                                    )
-                                }
-                                IconButton(onClick = { /*TODO*/ }) {
-                                    Icon(
-                                        Icons.Filled.Notifications,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(15.dp)
-                                    )
-                                }
-                                IconButton(onClick = {}) {
-                                    Icon(
-                                        Icons.Filled.ShoppingCart,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(15.dp)
-                                    )
-                                }
-                            }
-                        }
+                TopAppBar(contentColor = Color.White,
+                    backgroundColor = (colorResource(id = R.color.statusBar)),
+                    title = { Text("Home Page") },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = { menustate = !menustate },
+                            content = { Icon(Icons.Filled.Menu, contentDescription = null) })
+                        if (menustate) {
 
+                            val itemLists = listOf(
+                                "Settings",
+                                "Payments History",
+                                "Track Orders",
+                                "About Us",
+                                "Log Out"
+                            )
 
-                        if(menustate){
-
-                            val itemLists = listOf("Clothes","FootWear","Belts","Caps","Official Wear","Casuals","Track Suits","African Wear","Blazers","Shorts","Settings","Payments History","Track Orders","About Us","Log Out")
-
-//                             itemLists.forEach { item ->
-//                                DropdownMenuItem(text = {Text(item)},onClick = { Toast.makeText(context,"${R.string.progress}",Toast.LENGTH_SHORT).show() })
-//                            }
-                            DropdownMenu(expanded = menustate, onDismissRequest = { menustate = !menustate}, properties = PopupProperties(focusable = true), offset = DpOffset.Zero) {
+                            DropdownMenu(
+                                expanded = menustate,
+                                onDismissRequest = { menustate = !menustate },
+                                properties = PopupProperties(focusable = true),
+                                offset = DpOffset.Zero,
+                                modifier = Modifier
+                                    .background(
+                                        color = colorResource(id = R.color.white),
+                                        shape = RoundedCornerShape(10.dp)
+                                    )
+                                    .width(150.dp)
+                                    .height(IntrinsicSize.Max)
+                            ) {
                                 itemLists.forEach { item ->
-                                    DropdownMenuItem(text = {Text(item)},onClick = { Toast.makeText(context,"${R.string.progress}",Toast.LENGTH_SHORT).show() })
+                                    DropdownMenuItem(text = { Text(item, style = TextStyle(
+                                        colorResource(id = R.color.black),
+                                    ) )}, onClick = {
+                                        run { navController.navigate(Screen.Login.route) }
+                                        Toast.makeText(
+                                            context,
+                                            "${R.string.progress}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }, contentPadding = PaddingValues(10.dp))
                                 }
                             }
-
                         }
+                    },
+                    actions = {
+                        IconButton(onClick = { navController.navigate(Screen.Settings.route) }) {
+                            Icon(
+                                Icons.Filled.Settings,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                Icons.Filled.Notifications,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                        IconButton(onClick = { navController.navigate(Screen.CartContent.route) }) {
+                            BadgedBox(badge ={
+                                if (itemCount > 0) {
+                                    Text(
+                                        text = itemCount.toString(),
+                                        color = Color.Red,
+                                        fontWeight = FontWeight.W800,
+                                        fontSize = 15.sp
+                                        )
+                                }
+                            }) {
+                                Icon(
+                                    Icons.Filled.ShoppingCart,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+
                     }
 
-                ) },
+                )
+            },
+
             bottomBar = {
-                BottomAppBar(
-                    contentPadding = PaddingValues(10.dp),
-                    content = {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly
-                        ) {
-                            IconButton(onClick = { /*TODO*/ }) {
-                                Icon(Icons.Filled.AccountBox, contentDescription = null)
-                            }
-                            IconButton(onClick = { /*TODO*/ }) {
-                                Icon(Icons.Filled.Home, contentDescription = null)
-
-                            }
-                            IconButton(onClick = { /*TODO*/ }) {
-                                Icon(Icons.Filled.MoreVert, contentDescription = null)
-
-                            }
-
+                BottomAppBar{
+                        navitems.forEachIndexed { index, item ->
+                            NavigationBarItem(
+                                icon = { Icon(navicons[index], contentDescription = item)},
+                                label = { androidx.compose.material3.Text(item) },
+                                selected = selectedItem == index  ,
+                                onClick = {
+                                    selectedItem = index
+                                    navController.navigate(navs[index])
+                                }
+                            )
                         }
-
-                    })
+                    }
             },
             content = {
+
                 Column {
-                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.padding(5.dp)){
-                        OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(10)) {Text("Gents")}
-                        OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(10)) {Text("Ladies")}
-                        OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(10.dp)) {Text("Children")}
-                        OutlinedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(10.dp)) {Text("Unisex")}
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        modifier = Modifier.padding(2.dp)
+                    ) {
+                        item {
+                            OutlinedButton(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(10)
+                            ) { Text("Gents") }
+                        }
+
+                        item {
+                            OutlinedButton(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(10)
+                            ) { Text("Ladies") }
+                        }
+
+                        item {
+                            OutlinedButton(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(10.dp)
+                            ) { Text("Children") }
+                        }
+
+                        item {
+                            OutlinedButton(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(10.dp)
+                            ) { Text("Unisex") }
+                        }
+
 
                     }
                     Spacer(modifier = Modifier.height(10.dp))
-                    Text(text = "Weekly Specials", style = TextStyle(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = MaterialTheme.typography.titleMedium.fontFamily
-                    ))
-                    LazyVerticalGrid(
-                        columns =  GridCells.Fixed(2),
-                        contentPadding = PaddingValues(10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(5.dp),
-                        verticalArrangement = Arrangement.spacedBy(5.dp),
-                        content = {
-                        items(menwear){
-                                menWear ->
-                            ClotheCard(menWear = menWear)
+                    Column(
+                        modifier = Modifier
+                            .padding(start = 10.dp, end = 10.dp)
+                            .verticalScroll(
+                                state = ScrollState(1),
+                                enabled = true,
+                                flingBehavior = ScrollableDefaults.flingBehavior()
+                            )
+                    ) {
+                           GlobalWidgets(text = "Weekly Specials 🌟🌟")
+                            Spacer(modifier = Modifier.height(3.dp))
+
+                            LazyRow(content = {
+                                items(categoryItems) { item ->
+                                    ClotheCard(clotheWear = item, onClick = {
+                                        vm.addItemToCart(item)
+                                        itemCount += 1
+                                    }
+                                    )
+                                }
+                            })
+                            Spacer(modifier = Modifier.height(10.dp))
+                           GlobalWidgets(text = "Specially Tailored.👔👕👘")
+                            FlowRow(
+                                horizontalArrangement = Arrangement.spacedBy(7.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                maxItemsInEachRow = 2,
+                            ) {
+                                _menwears.forEach {
+                                    ClotheCard(clotheWear = it, onClick = {
+                                        itemCount += 1
+                                    }
+                                    )
+                                }
+                            }
+
                         }
-                    })
+                    }
+
 //
-                }
+
             }
         )
-
 
     }
 }
 
+
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ClotheCard(menWear: MenWear) {
+fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
     val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val isCardClicked by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+    val itemCount = remember { mutableStateOf(sharedPreferences.getInt("itemCount", 0)) }
+    val editor = sharedPreferences.edit()
+
 
     Card(
         modifier = Modifier
-            .size(width = 150.dp, height = 150.dp)
-            .clickable { coroutineScope.launch { bottomSheetState.show() } },
-        elevation = 2.dp
-    ) {
+            .size(width = 165.dp, height = 160.dp)
+            .clickable {
+                Toast
+                    .makeText(context, "${clotheWear.title} Added to cart", Toast.LENGTH_SHORT)
+                    .show()
+            },
+        elevation = 2.dp,
+    backgroundColor = Color.Transparent,
+        ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(5.dp)
         ) {
             Image(
-                painter = painterResource(menWear.image),
+                painter = painterResource(id = clotheWear.image),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape),
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(2.dp))
+                    .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
+            Text(text = clotheWear.title , style = TextStyle(fontSize = 12.sp))
+            Text(text = "Kshs. ${clotheWear.price}")
+            Spacer(modifier =Modifier.height(3.dp))
+            OutlinedButton(onClick = {
+                onClick.invoke()
+                itemCount.value += 1
+                editor.putInt("itemCount", itemCount.value)
+                editor.apply()
+            }, ) {
+                Text(text = "Add to Cart", style = TextStyle(fontSize = 12.sp),color = Color.Blue)
+            }
+            Spacer(modifier =Modifier.height(7.dp))
 
-            Text(text = menWear.name)
-            Text(text = "Kshs. ${menWear.price}")
-            Text(text = menWear.description)
+//            Text(text = clotheWear.description)
         }
     }
 
