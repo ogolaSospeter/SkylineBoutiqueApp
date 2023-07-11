@@ -41,6 +41,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
@@ -167,6 +168,14 @@ fun Home(navController: NavHostController) {
                                     modifier = Modifier.size(20.dp)
                                 )
                             }
+                        }
+                        IconButton(onClick = { navController.navigate(Screen.Sample.route) }) {
+                            Icon(
+                                Icons.Filled.Search,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+
                         }
 
                     }

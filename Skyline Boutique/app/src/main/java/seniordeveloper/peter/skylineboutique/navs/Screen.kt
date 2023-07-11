@@ -14,5 +14,7 @@ sealed class Screen(val route: String){
     object Category:Screen("category")
     object ItemDetails:Screen("itemdetails")
 
+    object  Sample:Screen("sample")
+
 
 }

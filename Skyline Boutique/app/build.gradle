@@ -77,11 +77,15 @@ dependencies {
 
     implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
-
-
     // Room components
     implementation "androidx.room:room-runtime:2.5.2"
     implementation "androidx.room:room-ktx:2.5.2"
 
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
+//Coil Images Loading
+    implementation 'io.coil-kt:coil-compose:1.4.0'
+    implementation 'io.coil-kt:coil:1.4.0'
+    implementation 'com.google.accompanist:accompanist-coil:0.18.0'
+    
 }
