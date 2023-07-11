@@ -4,13 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
@@ -33,6 +37,7 @@ import androidx.navigation.NavHostController
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models.ClotheData
 import seniordeveloper.peter.skylineboutique.models._menwears
+import seniordeveloper.peter.skylineboutique.navs.Screen
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -60,7 +65,10 @@ fun CategoryPage(navController: NavHostController,category: String) {
             items(filteredData) { item ->
                 // Display the item in your desired format
                 Column(modifier = Modifier.padding(5.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                    Card(onClick = { /*TODO*/ }, modifier = Modifier
+                    Card(onClick = {
+                        navController.navigate(Screen.ItemDetails.route + "/${item.title}")
+
+                    }, modifier = Modifier
                         .fillMaxWidth()
                         .height(intrinsicSize = IntrinsicSize.Max)
                         .padding(5.dp),
@@ -76,10 +84,18 @@ fun CategoryPage(navController: NavHostController,category: String) {
                                     .size(150.dp)
                                     .clip(CircleShape),
                             )
-                            Text(text = item.title)
-                            Text(text = item.price.toString())
+                            Text(text = " ${item.title} || ${item.category}")
+                            Text(text = "$ ${item.price}")
                             Text(text = item.description)
-                            Text(text = item.category + "\n " )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Button(colors = ButtonDefaults.buttonColors(colorResource(id = R.color.statusBar)),onClick = { /*TODO*/ }, modifier = Modifier
+                                .width(150.dp)
+                                .height(40.dp)) {
+                                Text(text = "Add to Cart", color = colorResource(id = R.color.white))
+
+                            }
+                            Spacer(modifier = Modifier.height(10.dp))
+
                         }
 
                     }

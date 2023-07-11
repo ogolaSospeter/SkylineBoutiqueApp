@@ -1,13 +1,14 @@
 package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -31,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -52,7 +54,6 @@ import seniordeveloper.peter.skylineboutique.models.DataList
 import seniordeveloper.peter.skylineboutique.navs.Screen
 
 
-@RequiresApi(Build.VERSION_CODES.M)
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,164 +71,182 @@ fun UserLoginPage(navController:NavHostController) {
     val username by mutableStateOf("")
     val userPassword by mutableStateOf("")
 
-    Column(modifier = Modifier.padding(top = 30.dp, start = 30.dp, end = 30.dp),
-        verticalArrangement = Arrangement.Top, horizontalAlignment = Alignment.CenterHorizontally) {
-        Spacer(modifier = Modifier.height(15.dp))
-        Image(painter = painterResource(R.drawable.auth),
-            contentDescription = stringResource(R.string.login_image),
-            Modifier.size(250.dp)
-
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.back),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
         )
+        Column(
+            modifier = Modifier.padding(top = 30.dp, start = 30.dp, end = 30.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        Text(
-            text = stringResource(R.string.logd),
-            textAlign = TextAlign.Center,
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = Color.Black,
-            modifier = Modifier
-                .padding(3.dp)
-        )
+            Spacer(modifier = Modifier.height(15.dp))
+            Image(
+                painter = painterResource(R.drawable.auth),
+                contentDescription = stringResource(R.string.login_image),
+                Modifier.size(250.dp)
 
-        Spacer(modifier = Modifier.height(15.dp))
-        OutlinedTextField(
-            value = userName,
-            onValueChange = { userName = it},
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done
-            ),
-            placeholder = { Text(text = stringResource(R.string.username))},
-            keyboardActions = KeyboardActions(
-                onDone = { /* Handle "Done" action */ }
-            ),
-            shape = RoundedCornerShape(10.dp)
+            )
 
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(R.string.logd),
+                textAlign = TextAlign.Center,
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.Black,
+                modifier = Modifier
+                    .padding(3.dp)
+            )
 
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it},
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Send
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = { /* Handle "Done" action */ }
-            ),
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            placeholder = { Text(text = stringResource(R.string.password))},
-            trailingIcon = {
-                val description = if (passwordVisible) stringResource(R.string.hide_password) else stringResource(
-                    R.string.show_password)
-
-                IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    if (passwordVisible)
-                        Image(
-                            painter = painterResource(id = R.drawable.visibility),
-                            modifier = Modifier.size(20.dp),
-                            contentDescription = description
-                        )
-                    else
-                        Image(
-                            painter = painterResource(id = R.drawable.visibility_off),
-                            modifier = Modifier.size(20.dp),
-                            contentDescription = description
-                        )
-                }
-            },
-            shape = RoundedCornerShape(10.dp)
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-
-//        Button(onClick = {showDialog = true},modifier = Modifier.width(150.dp)){
-        Row{
-            OutlinedButton(onClick = {
-
-                if (userName != "" &&  password.length <=8)
-                {
-                    navController.navigate(Screen.Home.route)
-
-                }
-
-                else
-                {
-                    showDialog = !showDialog
-                }
-            },modifier = Modifier.width(125.dp)) {
-
-                Text(
-                    text = stringResource(R.string.login),
-                    fontFamily = FontFamily.Monospace,
-                    textAlign = TextAlign.Center,
-                    fontStyle = FontStyle.Normal,
-                    color = Color.Black
-
-                )
-            }
-            ClickableText(
-                text = AnnotatedString(stringResource(R.string.register)),
-                onClick = {},
-                style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 15.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.ExtraBold
+            Spacer(modifier = Modifier.height(15.dp))
+            OutlinedTextField(
+                value = userName,
+                onValueChange = { userName = it },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
                 ),
-                modifier = Modifier.offset(5.dp,10.dp)
+                placeholder = { Text(text = stringResource(R.string.username)) },
+                keyboardActions = KeyboardActions(
+                    onDone = { /* Handle "Done" action */ }
+                ),
+                shape = RoundedCornerShape(10.dp)
 
-                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        }
-//
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Send
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { /* Handle "Done" action */ }
+                ),
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                placeholder = { Text(text = stringResource(R.string.password)) },
+                trailingIcon = {
+                    val description =
+                        if (passwordVisible) stringResource(R.string.hide_password) else stringResource(
+                            R.string.show_password
+                        )
 
-        OutlinedButton(
-            modifier = Modifier.width(250.dp), onClick = {navController.navigate(Screen.Home.route)}) {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        if (passwordVisible)
+                            Image(
+                                painter = painterResource(id = R.drawable.visibility),
+                                modifier = Modifier.size(20.dp),
+                                contentDescription = description
+                            )
+                        else
+                            Image(
+                                painter = painterResource(id = R.drawable.visibility_off),
+                                modifier = Modifier.size(20.dp),
+                                contentDescription = description
+                            )
+                    }
+                },
+                shape = RoundedCornerShape(10.dp)
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+
+            //        Button(onClick = {showDialog = true},modifier = Modifier.width(150.dp)){
             Row {
-                Image(
-                    painter = painterResource(id = R.drawable.googlelogo),
-                    contentDescription = stringResource(R.string.googlelogo),
-                    modifier = Modifier.size(25.dp)
+                OutlinedButton(onClick = {
+
+                    if (userName != "" && password.length <= 8) {
+                        navController.navigate(Screen.Home.route)
+
+                    } else {
+                        showDialog = !showDialog
+                    }
+                }, modifier = Modifier.width(125.dp)) {
+
+                    Text(
+                        text = stringResource(R.string.login),
+                        fontFamily = FontFamily.Monospace,
+                        textAlign = TextAlign.Center,
+                        fontStyle = FontStyle.Normal,
+                        color = Color.Black
+
+                    )
+                }
+                ClickableText(
+                    text = AnnotatedString(stringResource(R.string.register)),
+                    onClick = {},
+                    style = TextStyle(
+                        color = Color.Black,
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.ExtraBold
+                    ),
+                    modifier = Modifier.offset(5.dp, 13.dp)
+
                 )
-                Text(
-                    stringResource(R.string.google_account_login),
-                    Modifier.offset(5.dp, 2.dp),
-                    color = Color.DarkGray
-                )
+
             }
-        }
+            //
 
-        OutlinedButton(modifier = Modifier.width(250.dp), onClick = { }) {
-            Row {
-                Image(
-                    painter = painterResource(id = R.drawable.email),
-                    contentDescription = stringResource(R.string.email_logo),
-                    modifier = Modifier.size(25.dp)
-                )
-                Text(
-                    stringResource(R.string.email_account_login),
-                    Modifier.offset(5.dp, 2.dp),
-                    color = Color.DarkGray
-                )
+            OutlinedButton(
+                modifier = Modifier.width(250.dp),
+                onClick = { navController.navigate(Screen.Home.route) }) {
+                Row {
+                    Image(
+                        painter = painterResource(id = R.drawable.googlelogo),
+                        contentDescription = stringResource(R.string.googlelogo),
+                        modifier = Modifier.size(25.dp)
+                    )
+                    Text(
+                        stringResource(R.string.google_account_login),
+                        Modifier.offset(5.dp, 2.dp),
+                        color = Color.DarkGray
+                    )
+                }
             }
-        }
 
-        OutlinedButton(modifier = Modifier.width(250.dp), onClick = { navController.navigate(Screen.Home.route) }) {
-            Row {
-                Image(
-                    painter = painterResource(id = R.drawable.phonelog),
-                    contentDescription = stringResource(R.string.phone_login),
-                    modifier = Modifier.size(25.dp)
-                )
-                Text(
-                    stringResource(R.string.login_with_phone),
-                    Modifier.offset(5.dp, 2.dp),
-                    color = Color.DarkGray
-                )
+            OutlinedButton(modifier = Modifier.width(250.dp), onClick = { }) {
+                Row {
+                    Image(
+                        painter = painterResource(id = R.drawable.email),
+                        contentDescription = stringResource(R.string.email_logo),
+                        modifier = Modifier.size(25.dp)
+                    )
+                    Text(
+                        stringResource(R.string.email_account_login),
+                        Modifier.offset(5.dp, 2.dp),
+                        color = Color.DarkGray
+                    )
+                }
+            }
+
+            OutlinedButton(
+                modifier = Modifier.width(250.dp),
+                onClick = { navController.navigate(Screen.Home.route) }) {
+                Row {
+                    Image(
+                        painter = painterResource(id = R.drawable.phonelog),
+                        contentDescription = stringResource(R.string.phone_login),
+                        modifier = Modifier.size(25.dp)
+                    )
+                    Text(
+                        stringResource(R.string.login_with_phone),
+                        Modifier.offset(5.dp, 2.dp),
+                        color = Color.DarkGray
+                    )
+                }
             }
         }
     }

@@ -21,7 +21,7 @@ import seniordeveloper.peter.skylineboutique.view.UserLoginPage
 
 @Composable
 fun AppNav(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.Login.route) {
         composable(Screen.Home.route) { Home(navController) }
         composable(Screen.Settings.route) { Settings(navController) }
         composable(Screen.About.route) { AboutApp(navController) }
@@ -37,12 +37,11 @@ fun AppNav(navController: NavHostController) {
         composable(Screen.Category.route + "/{category}") { backStackEntry ->
             val category = backStackEntry.arguments?.getString("category")
 
-            if (category == null)
+            if (category.isNullOrEmpty())
             {
                 ToastMessage(message = "Category is null")
                 // Handle the case when the category is null, e.g., navigate back or show an error message
             }
-
             else {
                 CategoryPage(navController = navController, category = category)
             }

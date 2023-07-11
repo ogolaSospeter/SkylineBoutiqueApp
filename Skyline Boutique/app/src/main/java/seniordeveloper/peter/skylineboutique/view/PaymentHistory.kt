@@ -28,7 +28,7 @@ import seniordeveloper.peter.skylineboutique.R
 fun PaymentHistory(navController: NavHostController) {
     Column{
        TopAppBar(
-           title = { Text("Payment History") },
+           title = { Text("Payment History", color = colorResource(id =R.color.white)) },
            navigationIcon = {
                IconButton(onClick = { navController.navigateUp() }) {
                    Icon(Icons.Filled.ArrowBack, contentDescription = "Back")

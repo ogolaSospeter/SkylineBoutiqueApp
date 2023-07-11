@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BadgedBox
@@ -80,7 +79,6 @@ import seniordeveloper.peter.skylineboutique.models.categories
 import seniordeveloper.peter.skylineboutique.models.constants.GlobalWidgets
 import seniordeveloper.peter.skylineboutique.models.overFlow
 import seniordeveloper.peter.skylineboutique.navs.Screen
-import seniordeveloper.peter.skylineboutique.viewmodels.ClotheViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
@@ -93,11 +91,8 @@ fun Home(navController: NavHostController) {
     var menustate by remember { mutableStateOf(false) }
     val context = LocalContext.current
     var itemCount by remember { mutableStateOf(0) }
-    val scope = rememberCoroutineScope()
     val categoryItems = _menwears.shuffled().take(4)
-    val scrollState = rememberScrollState()
     var selectedItem by remember { mutableStateOf(0) }
-    val vm = ClotheViewModel()
     val navitems = listOf("Purchases", "Home", "On Order")
     val navicons = listOf(Icons.Filled.Build, Icons.Filled.Home, Icons.Filled.Info)
     val navs = listOf(Screen.OrderTracker.route, Screen.Home.route, Screen.Notifications.route)
@@ -193,104 +188,104 @@ fun Home(navController: NavHostController) {
                             )
                         }
                     }
-            },
-            content = {
+            }
+        ) {
 
-                Column {
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        modifier = Modifier.padding(2.dp)
-                    ) {
-                        items(categories) { itm ->
-                            OutlinedButton(
-                                onClick = {
-                                    selectedCategory = itm
-                                    if(_menwears.any { it.category == selectedCategory }) {
-                                        navController.navigate(Screen.Category.route + "/$selectedCategory")
-
-                                    }
-                                    else{
-                                        navController.navigate(Screen.Undefined.route)
-                                    }
+            Column {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.padding(2.dp)
+                ) {
+                    items(categories) { itm ->
+                        OutlinedButton(
+                            onClick = {
+                                selectedCategory = itm
+                                if (_menwears.filter { it.category == selectedCategory }
+                                        .isNotEmpty()
+                                ) {
                                     navController.navigate(Screen.Category.route + "/$selectedCategory")
-                                },
-                                shape = RoundedCornerShape(10.dp)
-                            ) { Text(itm, color = colorResource(id = R.color.statusBar)) }
-                        }
 
+                                } else {
+                                    navController.navigate(Screen.Undefined.route)
+                                }
+                                navController.navigate(Screen.Category.route + "/$selectedCategory")
+                            },
+                            shape = RoundedCornerShape(10.dp)
+                        ) { Text(itm, color = colorResource(id = R.color.statusBar)) }
                     }
-                    // Navigation route
+
+                }
+                // Navigation route
 
 //                    if (selectedCategory.isNotEmpty()) {
 //                        navController.navigate(Screen.Category.route + "/$selectedCategory"
 //                        )
 //                    }
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Column(
-                        modifier = Modifier
-                            .padding(start = 10.dp, end = 10.dp)
-                            .verticalScroll(
-                                state = ScrollState(1),
-                                enabled = true,
-                                flingBehavior = ScrollableDefaults.flingBehavior()
-                            )
-                    ) {
-                        GlobalWidgets(text = "Weekly Specials 🌟🌟")
-                        Spacer(modifier = Modifier.height(3.dp))
+                Spacer(modifier = Modifier.height(10.dp))
+                Column(
+                    modifier = Modifier
+                        .padding(start = 10.dp, end = 10.dp)
+                        .verticalScroll(
+                            state = ScrollState(1),
+                            enabled = true,
+                            flingBehavior = ScrollableDefaults.flingBehavior()
+                        )
+                ) {
+                    GlobalWidgets(text = "Weekly Specials 🌟🌟")
+                    Spacer(modifier = Modifier.height(3.dp))
 
-                        LazyRow(content = {
-                            items(categoryItems) { item ->
-                                ClotheCard(clotheWear = item, onClick = {
-                                    navController.navigate(Screen.ItemDetails.route + "/${item.title}")
-                                    itemCount += 1
-                                }
-                                )
+                    LazyRow(content = {
+                        items(categoryItems) { item ->
+                            ClotheCard(clotheWear = item, onClick = {
+                                navController.navigate(Screen.ItemDetails.route + "/${item.title}")
+                                itemCount += 1
                             }
-                        })
-                        Spacer(modifier = Modifier.height(10.dp))
-                        GlobalWidgets(text = "Specially Tailored.👔👕👘")
-                        FlowRow(
+                            )
+                        }
+                    })
+                    Spacer(modifier = Modifier.height(10.dp))
+                    GlobalWidgets(text = "Specially Tailored.👔👕👘")
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(7.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        maxItemsInEachRow = 2,
+                    ) {
+                        _menwears.take(10).forEach {
+                            ClotheCard(clotheWear = it, onClick = {
+                                navController.navigate(Screen.ItemDetails.route + "/${it.title}")
+                                itemCount += 1
+                            }
+                            )
+                        }
+                    }
+
+                    val grouped = _menwears.groupBy { it.category }
+                    grouped.forEach { (category, items) ->
+                        GlobalWidgets(text = category)
+                        LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(7.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            maxItemsInEachRow = 2,
                         ) {
-                            _menwears.take(10).forEach {
+                            items(items.take(4)) {
                                 ClotheCard(clotheWear = it, onClick = {
                                     navController.navigate(Screen.ItemDetails.route + "/${it.title}")
                                     itemCount += 1
                                 }
                                 )
                             }
-                        }
-
-                        val grouped = _menwears.groupBy { it.category }
-                        grouped.forEach { (category, items) ->
-                            GlobalWidgets(text = category)
-                            LazyRow(
-                                horizontalArrangement = Arrangement.spacedBy(7.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                items(items.take(4)){
-                                    ClotheCard(clotheWear = it, onClick = {
-                                        navController.navigate(Screen.ItemDetails.route + "/${it.title}")
-                                        itemCount += 1
-                                    }
-                                    )
-                                }
 //                                    ClotheCard(clotheWear = it, onClick = {
 //                                        navController.navigate(Screen.ItemDetails.route + "/${it.title}")
 //                                        itemCount += 1
 //                                    }
 //                                    )
-                                }
-                            }
-
                         }
                     }
-            }
-        )
 
-}
+                }
+            }
+        }
+
+    }
 }
 
 

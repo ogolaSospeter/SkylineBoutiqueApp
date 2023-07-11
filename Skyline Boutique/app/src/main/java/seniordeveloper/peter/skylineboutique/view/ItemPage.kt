@@ -87,7 +87,6 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClotheData) {
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(text = " Description: ", fontWeight = FontWeight.SemiBold, fontSize = 20.sp, textDecoration = TextDecoration.Underline)
                             Text(text = item.description)
-                            Text(text = item.category)
                             Spacer(modifier = Modifier.height(10.dp))
 
                             Button(colors = ButtonDefaults.buttonColors(colorResource(id = R.color.statusBar)),onClick = { /*TODO*/ }, modifier = Modifier
@@ -96,6 +95,8 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClotheData) {
                                 Text(text = "Add to Cart", color = colorResource(id = R.color.white))
 
                             }
+                            Spacer(modifier = Modifier.height(10.dp))
+
                         }
 
                     }

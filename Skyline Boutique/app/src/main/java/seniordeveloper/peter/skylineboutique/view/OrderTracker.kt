@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -35,10 +36,10 @@ import seniordeveloper.peter.skylineboutique.models._orderStatus
 @Composable
 fun TrackOrder(navController: NavHostController){
     Column{
-                TopAppBar(title = {Text("Track Order")},
+                TopAppBar(title = {Text("Track Order", color = colorResource(R.color.white))},
                     navigationIcon = {
                         IconButton(onClick = { navController.navigateUp()}){
-                            Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                            Icon(Icons.Filled.ArrowBack, contentDescription = "Back", tint = colorResource(R.color.white))
                         }
                     },
                     actions = {
@@ -50,13 +51,12 @@ fun TrackOrder(navController: NavHostController){
                     backgroundColor = colorResource(R.color.statusBar),
                 )
             Column {
-                FlowRow(
-                    maxItemsInEachRow = 1,
+                LazyColumn(
                     modifier = Modifier
                         .padding(10.dp)
                         .fillMaxWidth(1f)
                 ) {
-                    for (item in  _orderStatus){
+                    items(_orderStatus) { item ->
                         Card(onClick = { /*TODO*/ }, enabled = true,modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp)) {
