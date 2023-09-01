@@ -18,10 +18,12 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -96,9 +98,15 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClotheData) {
 
                             }
                             Spacer(modifier = Modifier.height(10.dp))
-
+Text(text = "Reviews:", fontStyle = MaterialTheme.typography.caption.fontStyle, fontWeight = MaterialTheme.typography.h1.fontWeight)
+                            var rev = 0
+                            while (rev <5){
+                                Icon(Icons.Filled.Star,contentDescription = null, tint = colorResource(
+                                    id = R.color.statusBar
+                                ))
+                                rev ++
+                            }
                         }
-
                     }
                 }
 

@@ -62,6 +62,16 @@ fun AppNav(navController: NavHostController) {
         }
         composable(Screen.Sample.route) {Sample(navController) }
 
+
+//        composable(Screen.ItemDetails.route + "/{itemId}"){ backStackEntry->
+//        val itemId = backStackEntry.arguments?.getString("category")
+//            val itm = _menwears.find { it.title == itemId }
+//
+//            if (itm != null) {
+//                ItemDetailsPage(navController = navController, itemId = itm)
+//            }
+//        }
+
     }
 }
 
@@ -74,3 +84,5 @@ fun AppNav(navController: NavHostController) {
 //            }
 //        }    }
 //}
+
+

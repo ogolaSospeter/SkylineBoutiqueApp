@@ -2,6 +2,7 @@ package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -57,10 +59,10 @@ fun TrackOrder(navController: NavHostController){
                         .fillMaxWidth(1f)
                 ) {
                     items(_orderStatus) { item ->
-                        Card(onClick = { /*TODO*/ }, enabled = true,modifier = Modifier
+                        Card(onClick = { /*TODO*/ },modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp)) {
-                            Column {
+                            Column (horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
                                 Image(painter = painterResource(item.image), contentDescription = null, modifier = Modifier.size(100.dp))
                                 Text(item.text)
                             }

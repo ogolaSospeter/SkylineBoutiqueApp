@@ -2,21 +2,21 @@ package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,11 +32,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -51,6 +49,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models.DataList
+import seniordeveloper.peter.skylineboutique.models.constants.ActionButton
+import seniordeveloper.peter.skylineboutique.models.constants.Space
 import seniordeveloper.peter.skylineboutique.navs.Screen
 
 
@@ -63,8 +63,11 @@ fun UserLoginPage(navController:NavHostController) {
     var passwordVisible by remember { mutableStateOf(false) }
     var showDialog by remember{mutableStateOf(false)}
     var logErrorDialog by remember{mutableStateOf(false)}
+    val context= LocalContext.current
     var passLog by remember{mutableStateOf(false)}
     val dataList = DataList()
+    val colort= Color(0xFF1976D2)
+
 
 
 //    val authViewModel: AuthViewModel = viewModel()
@@ -74,17 +77,28 @@ fun UserLoginPage(navController:NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.back),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.back),
+//            contentDescription = null,
+//            modifier = Modifier.fillMaxSize(),
+//            contentScale = ContentScale.FillBounds
+//        )
         Column(
-            modifier = Modifier.padding(top = 30.dp, start = 30.dp, end = 30.dp),
+            modifier = Modifier
+//                .padding(top = 1.dp, start = 1.dp, end = 1.dp, bottom = 1.dp)
+                .fillMaxHeight()
+                .border(width = 5.dp, color = colort, shape = RoundedCornerShape(5.dp)),
+
             verticalArrangement = Arrangement.Top,
+
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+        Column(
+            modifier = Modifier
+                .padding(top = 2.dp, start = 13.dp, end = 13.dp, bottom = 20.dp),
+            verticalArrangement = Arrangement.Top,
+
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -114,7 +128,7 @@ fun UserLoginPage(navController:NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
+                    imeAction = ImeAction.Next
                 ),
                 placeholder = { Text(text = stringResource(R.string.username)) },
                 keyboardActions = KeyboardActions(
@@ -131,7 +145,7 @@ fun UserLoginPage(navController:NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Send
+                    imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = { /* Handle "Done" action */ }
@@ -161,10 +175,15 @@ fun UserLoginPage(navController:NavHostController) {
                 },
                 shape = RoundedCornerShape(10.dp)
             )
-            Spacer(modifier = Modifier.height(15.dp))
-
+            Space(spaced = 20)
             //        Button(onClick = {showDialog = true},modifier = Modifier.width(150.dp)){
-            Row {
+
+            Row(
+                modifier = Modifier.safeContentPadding(),
+                horizontalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+
+
                 OutlinedButton(onClick = {
 
                     if (userName != "" && password.length <= 8) {
@@ -173,7 +192,7 @@ fun UserLoginPage(navController:NavHostController) {
                     } else {
                         showDialog = !showDialog
                     }
-                }, modifier = Modifier.width(125.dp)) {
+                }, modifier = Modifier.width(150.dp), shape = RoundedCornerShape(5.dp)) {
 
                     Text(
                         text = stringResource(R.string.login),
@@ -184,71 +203,28 @@ fun UserLoginPage(navController:NavHostController) {
 
                     )
                 }
-                ClickableText(
-                    text = AnnotatedString(stringResource(R.string.register)),
-                    onClick = {},
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 15.sp,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.ExtraBold
-                    ),
-                    modifier = Modifier.offset(5.dp, 13.dp)
-
-                )
-
+                ActionButton(R.string.register, Screen.Home.route, 150, navController)
             }
+
+            Space(spaced = 10)
+
+            ActionButton(
+                name = R.string.google_account_login,
+                route = Screen.About.route,
+                250,
+                navController
+            )
+            Space(spaced = 5)
+            ActionButton(
+                name = R.string.facebook_account_login,
+                route = Screen.About.route,
+                250,
+                navController
+            )
+        }
+    }
             //
 
-            OutlinedButton(
-                modifier = Modifier.width(250.dp),
-                onClick = { navController.navigate(Screen.Home.route) }) {
-                Row {
-                    Image(
-                        painter = painterResource(id = R.drawable.googlelogo),
-                        contentDescription = stringResource(R.string.googlelogo),
-                        modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        stringResource(R.string.google_account_login),
-                        Modifier.offset(5.dp, 2.dp),
-                        color = Color.DarkGray
-                    )
-                }
-            }
-
-            OutlinedButton(modifier = Modifier.width(250.dp), onClick = { }) {
-                Row {
-                    Image(
-                        painter = painterResource(id = R.drawable.email),
-                        contentDescription = stringResource(R.string.email_logo),
-                        modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        stringResource(R.string.email_account_login),
-                        Modifier.offset(5.dp, 2.dp),
-                        color = Color.DarkGray
-                    )
-                }
-            }
-
-            OutlinedButton(
-                modifier = Modifier.width(250.dp),
-                onClick = { navController.navigate(Screen.Home.route) }) {
-                Row {
-                    Image(
-                        painter = painterResource(id = R.drawable.phonelog),
-                        contentDescription = stringResource(R.string.phone_login),
-                        modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        stringResource(R.string.login_with_phone),
-                        Modifier.offset(5.dp, 2.dp),
-                        color = Color.DarkGray
-                    )
-                }
-            }
-        }
     }
 }
 

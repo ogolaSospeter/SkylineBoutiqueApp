@@ -605,5 +605,55 @@ Box(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, start = 70.dp)) {
 //        }
 
 
+loginbuttons
+
+//OutlinedButton(
+//modifier = Modifier.width(250.dp),
+//onClick = { navController.navigate(Screen.Home.route) }) {
+//Row {
+//Image(
+//painter = painterResource(id = R.drawable.googlelogo),
+//contentDescription = stringResource(R.string.googlelogo),
+//modifier = Modifier.size(25.dp)
+//)
+//Text(
+//stringResource(R.string.google_account_login),
+//Modifier.offset(5.dp, 2.dp),
+//color = Color.DarkGray
+//)
+//}
+//}
+//
+//OutlinedButton(modifier = Modifier.width(250.dp), onClick = { }) {
+//Row {
+//Image(
+//painter = painterResource(id = R.drawable.email),
+//contentDescription = stringResource(R.string.email_logo),
+//modifier = Modifier.size(25.dp)
+//)
+//Text(
+//stringResource(R.string.email_account_login),
+//Modifier.offset(5.dp, 2.dp),
+//color = Color.DarkGray
+//)
+//}
+//}
+//
+//OutlinedButton(
+//modifier = Modifier.width(250.dp),
+//onClick = { navController.navigate(Screen.Home.route) }) {
+//Row {
+//Image(
+//painter = painterResource(id = R.drawable.phonelog),
+//contentDescription = stringResource(R.string.phone_login),
+//modifier = Modifier.size(25.dp)
+//)
+//Text(
+//stringResource(R.string.login_with_phone),
+//Modifier.offset(5.dp, 2.dp),
+//color = Color.DarkGray
+//)
+//}
+//}
 
  */

@@ -1,7 +1,6 @@
 package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
-import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -30,7 +29,6 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -41,9 +39,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DropdownMenu
@@ -54,7 +50,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -169,14 +164,7 @@ fun Home(navController: NavHostController) {
                                 )
                             }
                         }
-                        IconButton(onClick = { navController.navigate(Screen.Sample.route) }) {
-                            Icon(
-                                Icons.Filled.Search,
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp)
-                            )
 
-                        }
 
                     }
 
@@ -241,7 +229,7 @@ fun Home(navController: NavHostController) {
                         )
                 ) {
                     GlobalWidgets(text = "Weekly Specials 🌟🌟")
-                    Spacer(modifier = Modifier.height(3.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
 
                     LazyRow(content = {
                         items(categoryItems) { item ->
@@ -254,12 +242,14 @@ fun Home(navController: NavHostController) {
                     })
                     Spacer(modifier = Modifier.height(10.dp))
                     GlobalWidgets(text = "Specially Tailored.👔👕👘")
+                    Spacer(modifier = Modifier.height(5.dp))
+
                     FlowRow(
                         horizontalArrangement = Arrangement.spacedBy(7.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        maxItemsInEachRow = 2,
+                        maxItemsInEachRow = 3,
                     ) {
-                        _menwears.take(10).forEach {
+                        _menwears.take(9).forEach {
                             ClotheCard(clotheWear = it, onClick = {
                                 navController.navigate(Screen.ItemDetails.route + "/${it.title}")
                                 itemCount += 1
@@ -288,9 +278,13 @@ fun Home(navController: NavHostController) {
 //                                    }
 //                                    )
                         }
+                        Spacer(modifier = Modifier.height(30.dp))
                     }
 
                 }
+                Spacer(modifier = Modifier.height(30.dp))
+
+
             }
         }
 
@@ -302,19 +296,19 @@ fun Home(navController: NavHostController) {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
-    val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    val isCardClicked by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
+//    val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+//    val isCardClicked by remember { mutableStateOf(false) }
+//    val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
-    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-    val itemCount = remember { mutableStateOf(sharedPreferences.getInt("itemCount", 0)) }
-    val editor = sharedPreferences.edit()
+//    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+//
+//    val itemCount = remember { mutableStateOf(sharedPreferences.getInt("itemCount", 0)) }
+//    val editor = sharedPreferences.edit()
 
 
     Card(
         modifier = Modifier
-            .size(width = 165.dp, height = 160.dp)
+            .size(width = 106.dp, height = 115.dp)
             .clickable {
                 Toast
                     .makeText(context, "${clotheWear.title} Selected.", Toast.LENGTH_SHORT)
@@ -333,7 +327,7 @@ fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
                 painter = painterResource(id = clotheWear.image),
                 contentDescription = null,
                 modifier = Modifier
-                    .height(80.dp)
+                    .height(65.dp)
                     .clip(RoundedCornerShape(2.dp))
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
@@ -343,7 +337,7 @@ fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
             Spacer(modifier =Modifier.height(3.dp))
 //            OutlinedButton(onClick = {
 //                onClick.invoke()
-//                itemCount.value += 1
+//                itemCount.valu;;;;;;;;;;;e += 1
 //                editor.putInt("itemCount", itemCount.value)
 //                editor.apply()
 //            }, ) {
@@ -354,6 +348,7 @@ fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
 //            Text(text = clotheWear.description)
         }
     }
+
 
 
 

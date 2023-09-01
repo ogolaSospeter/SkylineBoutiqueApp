@@ -20,10 +20,10 @@ ClotheData("3-Piece Suits", 4235.90f, "suits", generateRandomDescription(), R.dr
     ClotheData("Men-Flavor Suits", 5235.90f, "suits", generateRandomDescription(), R.drawable.sut5),
 
 
-    // Dresses
-//    ClotheData("dresses", "Dress 1", 49.99f, "dresses", generateRandomDescription(), R.drawable.dress1),
-//ClotheData("dresses", "Dress 2", 59.99f, "dresses", generateRandomDescription(), R.drawable.dress2),
-//ClotheData("dresses", "Dress 3", 69.99f, "dresses", generateRandomDescription(), R.drawable.dress3),
+//     Dresses
+    ClotheData("Dress 1", 49.99f, "dresses", generateRandomDescription(), R.drawable.not),
+ClotheData("Dress 2", 59.99f, "dresses", generateRandomDescription(), R.drawable.nocart),
+ClotheData("Dress 3", 69.99f, "dresses", generateRandomDescription(), R.drawable.nocart),
 //// ... Add more dress items here
 //
 //// Shorts
@@ -32,15 +32,14 @@ ClotheData("3-Piece Suits", 4235.90f, "suits", generateRandomDescription(), R.dr
 //ClotheData("shorts", "Shorts 3", 49.99f, "shorts", generateRandomDescription(), R.drawable.shorts3),
 //// ... Add more shorts items here
 //
-//// Shoes
-//ClotheData("shoes", "Shoes 1", 99.99f, "shoes", generateRandomDescription(), R.drawable.shoes1),
-//ClotheData("shoes", "Shoes 2", 109.99f, "shoes", generateRandomDescription(), R.drawable.shoes2),
-//ClotheData("shoes", "Shoes 3", 119.99f, "shoes", generateRandomDescription(), R.drawable.shoes3),
+ClotheData("ShoesSneakers", 99.99f, "shoes", generateRandomDescription(), R.drawable.nocart),
+ClotheData( "Men Leather", 109.99f, "shoes", generateRandomDescription(), R.drawable.nopage),
+ClotheData( "Executive Leather", 119.99f, "shoes", generateRandomDescription(), R.drawable.nonot),
 //// ... Add more shoes items here
 //
 //// Shirts
-//ClotheData("shirts", "Shirt 1", 39.99f, "shirts", generateRandomDescription(), R.drawable.shirt1),
-//ClotheData("shirts", "Shirt 2", 49.99f, "shirts", generateRandomDescription(), R.drawable.shirt2),
+ClotheData( "Multi choice", 39.99f, "shirts", generateRandomDescription(), R.drawable.ppl),
+ClotheData( "Cotton White", 49.99f, "shirts", generateRandomDescription(), R.drawable.ppl),
 //ClotheData("shirts", "Shirt 3", 59.99f, "shirts", generateRandomDescription(), R.drawable.shirt3),
 //// ... Add more shirts items here
 //

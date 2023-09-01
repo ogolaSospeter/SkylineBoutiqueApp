@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Skyline Boutique</string>
-    <string name="progress">Technical staff working on it.\nHang on a little longer...</string>
+    <string name="progress">Technical staff working on it.\nHang on a little longer…</string>
     <string name="login_image">Login Image</string>
     <string name="logtext">Welcome to Our One-Pool Application.\nProceed to login</string>
     <string name="logd"> Sign In</string>
@@ -21,6 +21,7 @@
     <string name="login_with_phone">" Login With Phone "</string>
     <string name="phone_login">phone login</string>
     <string name="google_account_login">" Google Account Login "</string>
+    <string name="facebook_account_login">" Facebook  Login "</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="cancel">Cancel</string>
