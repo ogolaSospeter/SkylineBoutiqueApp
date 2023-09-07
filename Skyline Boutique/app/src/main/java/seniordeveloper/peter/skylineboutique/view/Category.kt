@@ -1,6 +1,5 @@
 package seniordeveloper.peter.skylineboutique.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -12,7 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -31,9 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models.ClotheData
 import seniordeveloper.peter.skylineboutique.models._menwears
@@ -76,14 +75,23 @@ fun CategoryPage(navController: NavHostController,category: String) {
                         Column(
                             verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Image(
-                                painter = painterResource(id = item.image),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
+                            AsyncImage(
+                                model = item.image,
+                                contentDescription = item.title,
                                 modifier = Modifier
-                                    .size(150.dp)
-                                    .clip(CircleShape),
+                                    .size(300.dp)
+                                    .clip(RoundedCornerShape(7.dp))
+                                    .fillMaxWidth(),
+                                contentScale = ContentScale.Crop
                             )
+//                            Image(
+//                                painter = painterResource(id = item.image),
+//                                contentDescription = null,
+//                                contentScale = ContentScale.Crop,
+//                                modifier = Modifier
+//                                    .size(150.dp)
+//                                    .clip(CircleShape),
+//                            )
                             Text(text = " ${item.title} || ${item.category}")
                             Text(text = "$ ${item.price}")
                             Text(text = item.description)

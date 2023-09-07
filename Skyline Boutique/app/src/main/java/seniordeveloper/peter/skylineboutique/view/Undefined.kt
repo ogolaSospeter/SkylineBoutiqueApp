@@ -16,6 +16,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -28,17 +29,16 @@ Scaffold(
             BottomNavigationItem(icon = { Icons.Filled.ThumbUp},selected = true, onClick = { navController.navigateUp() },
                 label = { Text(text = "Go Back")}
             )
-
         }
     },
     content = {
         Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Image(painter = painterResource(id = R.drawable.nopage), contentDescription = null)
+            Image(painter = painterResource(id = R.drawable.nodata), contentDescription = null)
             Text(text = stringResource(id = R.string.progress))
-        }
 
+            AsyncImage(model="https://img.freepik.com/free-vector/fashion-shop-concept-illustration_114360-9613.jpg?w=740&t=st=1694098633~exp=1694099233~hmac=2f28f0e34d13a98acca3e5e53529334f27875251819fc193f4675b1f855be74b",contentDescription="loaded immage")
+        }
     }
 )
-        
     }
 }

@@ -13,8 +13,8 @@ sealed class Screen(val route: String){
     object  Undefined:Screen("undefined")
     object Category:Screen("category")
     object ItemDetails:Screen("itemdetails")
-
     object  Sample:Screen("sample")
+    object  Landing:Screen("landing")
 
 
 }

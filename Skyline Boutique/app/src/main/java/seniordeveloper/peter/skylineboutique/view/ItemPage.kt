@@ -1,17 +1,17 @@
 package seniordeveloper.peter.skylineboutique.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -32,12 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models.ClotheData
 import seniordeveloper.peter.skylineboutique.models._menwears
@@ -75,14 +75,25 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClotheData) {
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Image(
-                                painter = painterResource(id = item.image),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
+                            AsyncImage(
+                                model = item.image,
+                                contentDescription = item.title,
                                 modifier = Modifier
-                                    .size(150.dp)
-                                    .clip(CircleShape)
+//                    .height(65.dp)
+                                    .height(250.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .fillMaxWidth()
+                                    .padding(2.dp),
+                                contentScale = ContentScale.Crop
                             )
+//                            Image(
+//                                painter = painterResource(id = item.image),
+//                                contentDescription = null,
+//                                contentScale = ContentScale.Crop,
+//                                modifier = Modifier
+//                                    .size(150.dp)
+//                                    .clip(CircleShape)
+//                            )
                             Text(text = item.title,fontSize = 20.sp, fontWeight = FontWeight.W500)
                             Text(text = "Price:  $ ${item.price}")
                             Text(text = "Category: ${item.category}")
@@ -100,12 +111,20 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClotheData) {
                             Spacer(modifier = Modifier.height(10.dp))
 Text(text = "Reviews:", fontStyle = MaterialTheme.typography.caption.fontStyle, fontWeight = MaterialTheme.typography.h1.fontWeight)
                             var rev = 0
-                            while (rev <5){
-                                Icon(Icons.Filled.Star,contentDescription = null, tint = colorResource(
-                                    id = R.color.statusBar
-                                ))
-                                rev ++
+                            Row(){
+                                while (rev <5){
+                                    Icon(Icons.Filled.Star,contentDescription = null, tint = colorResource(
+                                        id = R.color.statusBar
+                                    ))
+                                    rev ++
+                                }
                             }
+//                            while (rev <5){
+//                                Icon(Icons.Filled.Star,contentDescription = null, tint = colorResource(
+//                                    id = R.color.statusBar
+//                                ))
+//                                rev ++
+//                            }
                         }
                     }
                 }

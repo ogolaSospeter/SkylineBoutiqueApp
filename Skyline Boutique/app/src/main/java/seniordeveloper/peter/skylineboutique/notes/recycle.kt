@@ -656,4 +656,149 @@ loginbuttons
 //}
 //}
 
+
+ landing page
+//                Text("Next", fontSize = 22.sp)
+//                IconButton(onClick = {navController.navigate(Screen.Login.route)}) {
+//                    Icon(Icons.Filled.ArrowForward,contentDescription = null,modifier=Modifier.size(25.dp), tint = colorResource(id = R.color.statusBar))
+//                }
+
+
+ Updating the sumtotal
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun ShoppingCartPage(navController: NavHostController) {
+//    val vm = ClotheViewModel()
+val quantity by remember { mutableIntStateOf(1) }
+
+var sumTotal by remember{ mutableFloatStateOf(0.0F) }
+// Create a list to store the calculated total prices for each item
+val itemTotalPrices = _menwears.map { clotheWear ->
+clotheWear.price * quantity.toFloat()
+}
+
+// Calculate the sum total by summing up all the item total prices
+sumTotal = itemTotalPrices.sum()
+
+Column {
+TopAppBar(
+title = { Text(text = "Shopping Cart", color = colorResource(id = R.color.white)) },
+navigationIcon = {
+IconButton(onClick = { navController.navigateUp() }) {
+Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+}
+},
+backgroundColor = colorResource( R.color.statusBar),
+contentColor = colorResource(R.color.white),
+
+)
+Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(20.dp)) {
+if (_menwears.isEmpty()) {
+EmptyCart()
+}
+else {
+LazyColumn {
+items(_menwears) { item ->
+CartCard(clotheWear = item)
+Space(spaced = 2)
+}
+item {
+ElevatedCard(onClick = { /*TODO*/ }) {
+val context = LocalContext.current
+Row {
+Column {
+Text("Item Count:\n \t${_menwears.size}")
+}
+Column {
+Text("\t\tTotal:\n \t${sumTotal}")
+}
+}
+Space(spaced = 2)
+OutlinedButton(onClick = {
+Toast.makeText(
+context,
+"Checkout Initiated. Await the Payment Prompt",
+Toast.LENGTH_SHORT
+).show()
+}) {
+Text(text = "Proceed to Checkout")
+
+}
+}
+}
+
+}
+
+}
+
+}
+
+}
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CartCard(clotheWear: ClotheData){
+
+var quantity by remember { mutableIntStateOf(1) }
+var totalPrice by remember { mutableStateOf(clotheWear.price * quantity) }
+
+ElevatedCard(onClick = { /*TODO*/ },
+modifier = Modifier.height(130.dp)) {
+Row(modifier= Modifier
+.fillMaxWidth()
+.safeContentPadding(), horizontalArrangement = Arrangement.SpaceEvenly) {
+Column{
+Image(painter = painterResource(id = clotheWear.image),
+contentDescription = null,
+modifier = Modifier
+.size(100.dp)
+.clip(CircleShape),
+contentScale = ContentScale.Crop)
+Space(spaced = 5)
+Text(text = clotheWear.title)
+
+}
+Column (modifier=Modifier.padding(top = 5.dp)){
+Text(text = "Unit Price: Kshs.${clotheWear.price}")
+Space(spaced =1)
+Text("Quantity: ${quantity}")
+Space(spaced =1)
+Row(horizontalArrangement = Arrangement.spacedBy(5.dp)){
+IconButton(onClick = {
+if(quantity > 1){
+quantity --
+totalPrice -= clotheWear.price
+
+}
+
+}) {
+Icon(Icons.Filled.KeyboardArrowDown, contentDescription = "Remove", tint = Color.Red)
+}
+IconButton(onClick = {
+quantity ++
+totalPrice += clotheWear.price
+
+}) {
+Icon(Icons.Filled.KeyboardArrowUp, contentDescription = "Add", tint = Color.Green)
+}
+}
+Space(spaced =1)
+
+Text(text = "Total: Kshs.${totalPrice}")
+
+}
+
+}
+}
+Space(spaced = 10)
+
+}
+
+
+
+
  */

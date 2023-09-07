@@ -65,7 +65,7 @@ fun AboutApp(navController: NavHostController) {
             }
 
 
-            val myImage = painterResource(id = R.drawable.ppl)
+            val myImage = painterResource(id = R.drawable.prsn)
             Box {
 
                 Column(modifier = Modifier) {

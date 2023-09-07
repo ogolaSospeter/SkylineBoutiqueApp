@@ -4,26 +4,26 @@ import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.navs.Screen
 
 
-data class ClotheData(val title: String, val price: Float, val category: String, val description: String, val image: Int)
+data class ClotheData(val title: String, val price: Float, val category: String, val description: String, val image: String)
 
 val _menwears = listOf(
-    ClotheData("Men Suit", 4599.99f, "suits", generateRandomDescription(), R.drawable.sut2),
-    ClotheData("Jeans", 409.69f, "shorts", generateRandomDescription(), R.drawable.st1),
-    ClotheData("Outdoor Short", 799.23f, "shorts", generateRandomDescription(), R.drawable.st2),
-    ClotheData("Men Checked Short", 1009.55f, "shorts", generateRandomDescription(), R.drawable.st3),
-    ClotheData("Cool & Drip Suit", 3200.30f, "suits", generateRandomDescription(), R.drawable.sut3),
-    ClotheData("Executive wear", 1304.57f, "shorts", generateRandomDescription(), R.drawable.st5),
-    ClotheData("Golden Crowned", 1260.65f, "shorts", generateRandomDescription(), R.drawable.st6),
-    ClotheData("Chicago Wear", 1578.67f, "shorts", generateRandomDescription(), R.drawable.st7),
-    ClotheData("Sneakers", 2235.90f, "shoes", generateRandomDescription(), R.drawable.st5),
-ClotheData("3-Piece Suits", 4235.90f, "suits", generateRandomDescription(), R.drawable.sut4),
-    ClotheData("Men-Flavor Suits", 5235.90f, "suits", generateRandomDescription(), R.drawable.sut5),
+    ClotheData("Men Suit", 4599.99f, "suits", generateRandomDescription(), "https://img.freepik.com/premium-photo/silk-blazer-isolated_624181-2387.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Jeans", 850.69f, "shorts", generateRandomDescription(), "https://img.freepik.com/free-photo/child-s-simple-plain-white-shorts_53876-97016.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Outdoor Short", 799.23f, "shorts", generateRandomDescription(),"https://img.freepik.com/premium-psd/white-shorts-isolated-mockup-realistic_181945-1354.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Men Checked Short", 1009.55f, "shorts", generateRandomDescription(), "https://img.freepik.com/premium-psd/shorts-pants-cotton-mockup-realistic_181945-1397.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Cool & Drip Suit", 3200.30f, "suits", generateRandomDescription(), "https://img.freepik.com/premium-photo/classic-shirt-black-silk-with-long-sleeves-pockets-chest-half-turn-front-side-back_236836-22576.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Executive wear", 1304.57f, "shorts", generateRandomDescription(), "https://img.freepik.com/free-photo/casual-men-short-pants_1203-8186.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData("Golden Crowned", 1260.65f, "shorts", generateRandomDescription(), "https://img.freepik.com/free-photo/casual-men-short-pants_1203-8171.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData("Chicago Wear", 1578.67f, "shorts", generateRandomDescription(), "https://img.freepik.com/premium-psd/shorts-pants-cotton-mockup-realistic_181945-1397.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Sneakers", 2235.90f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/men-s-ankle-sneakers-white-street-style-apparel-shoot_53876-119733.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+ClotheData("3-Piece Suits", 4235.00f, "suits", generateRandomDescription(), "https://img.freepik.com/free-vector/realistic-black-suit-object-white-with-cotton-shirt-strict-elegant-tie-colored-as-jacket-isolated_1284-49101.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Men-Flavor Suits", 5235.50f, "suits", generateRandomDescription(),"https://img.freepik.com/free-vector/mans-suit-realistic-composition-with-smart-costume-with-white-shirt-tie-jacket_1284-54345.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
 
 
 //     Dresses
-    ClotheData("Dress 1", 49.99f, "dresses", generateRandomDescription(), R.drawable.not),
-ClotheData("Dress 2", 59.99f, "dresses", generateRandomDescription(), R.drawable.nocart),
-ClotheData("Dress 3", 69.99f, "dresses", generateRandomDescription(), R.drawable.nocart),
+    ClotheData("Dress 1", 650.00f, "dresses", generateRandomDescription(),"https://img.freepik.com/free-photo/fashion-woman-with-clothes_1203-8302.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+ClotheData("Dress 2", 500.00f, "dresses", generateRandomDescription(), "https://img.freepik.com/free-photo/graphic-woman-dress-trendy-design-white-background_460848-13623.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+ClotheData("Dress 3", 690.00f, "dresses", generateRandomDescription(), "https://img.freepik.com/free-photo/fashion-woman-with-clothes_1203-8302.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
 //// ... Add more dress items here
 //
 //// Shorts
@@ -32,14 +32,20 @@ ClotheData("Dress 3", 69.99f, "dresses", generateRandomDescription(), R.drawable
 //ClotheData("shorts", "Shorts 3", 49.99f, "shorts", generateRandomDescription(), R.drawable.shorts3),
 //// ... Add more shorts items here
 //
-ClotheData("ShoesSneakers", 99.99f, "shoes", generateRandomDescription(), R.drawable.nocart),
-ClotheData( "Men Leather", 109.99f, "shoes", generateRandomDescription(), R.drawable.nopage),
-ClotheData( "Executive Leather", 119.99f, "shoes", generateRandomDescription(), R.drawable.nonot),
+ClotheData("ShoesSneakers", 5799.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/pair-trainers_144627-3799.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+ClotheData( "Men Sneakers", 5999.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/fashion-shoes-sneakers_1203-7528.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+ClotheData( "Executive Leather", 2890.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/one-white-sneaker-shoe-isolated-white_93675-134695.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData( "Executive Leather", 3230.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/white-vintage-view-new-shoes_1203-6515.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+
 //// ... Add more shoes items here
 //
 //// Shirts
-ClotheData( "Multi choice", 39.99f, "shirts", generateRandomDescription(), R.drawable.ppl),
-ClotheData( "Cotton White", 49.99f, "shirts", generateRandomDescription(), R.drawable.ppl),
+ClotheData( "Blue Cotton", 699.99f, "shirts", generateRandomDescription(), "https://img.freepik.com/free-photo/men-shirt-clothing_1203-8356.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+ClotheData( "Cotton Grey", 990.00f, "shirts", generateRandomDescription(), "https://img.freepik.com/premium-psd/dress-shirt-mockup-front-vie_373676-5.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData( "Multi choice", 599.99f, "shirts", generateRandomDescription(), "https://img.freepik.com/free-photo/white-shirt_1339-6376.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData( "Checked Blue", 999.99f, "shirts", generateRandomDescription(), "https://img.freepik.com/premium-photo/mens-blue-shirt-isolated-white-background-generative-ai_945369-2069.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData( "Cotton White", 1200.90f, "shirts", generateRandomDescription(), "https://img.freepik.com/premium-psd/business-formal-blue-shirt-front-back-view-mock-up-template-your-design_34168-1391.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+
 //ClotheData("shirts", "Shirt 3", 59.99f, "shirts", generateRandomDescription(), R.drawable.shirt3),
 //// ... Add more shirts items here
 //
@@ -55,10 +61,10 @@ ClotheData( "Cotton White", 49.99f, "shirts", generateRandomDescription(), R.dra
 //ClotheData("jackets", "Jacket 3", 109.99f, "jackets", generateRandomDescription(), R.drawable.jacket3),
 //// ... Add more jackets items here
 //
-//// Suits
-//ClotheData("suits", "Suit 1", 199.99f, "suits", generateRandomDescription(), R.drawable.suit1),
-//ClotheData("suits", "Suit 2", 209.99f, "suits", generateRandomDescription(), R.drawable.suit2),
-//ClotheData("suits", "Suit 3", 219.99f, "suits", generateRandomDescription(), R.drawable.suit3),
+// Suits
+ClotheData("Men Fashion Suits", 8000.00f, "suits", generateRandomDescription(), "https://img.freepik.com/free-vector/mans-suit-realistic-composition-with-smart-costume-with-white-shirt-tie-jacket_1284-54345.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+ClotheData("Dorn 3 Piece", 4570.50f,  "suits", generateRandomDescription(), "https://img.freepik.com/free-vector/man-suit-realistic-set-with-smart-jackets-neckties-shirts-different-colors-isolated-vector-illustration_1284-75786.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+ClotheData("2 Piece Suit", 5700.00f, "suits", generateRandomDescription(), "https://img.freepik.com/free-vector/realistic-black-suit-object-white-with-cotton-shirt-strict-elegant-tie-colored-as-jacket-isolated_1284-49101.jpg?size=626&ext=jpg&uid=R68194178&semt=aisR.drawable.sut3"),
 //// ... Add more suits items here
 )
 
@@ -102,30 +108,30 @@ data class OrderTracker(val image:Int,val text:String)
 
 val _orderStatus = listOf<OrderTracker>(
     OrderTracker(R.drawable.placeorder,"Order Placed"),
-    OrderTracker(R.drawable.orderpaymentwait,"Awaiting Payment"),
+    OrderTracker(R.drawable.orderwait,"Awaiting Payment"),
     OrderTracker(R.drawable.orderprocessed,"Order Successfully Processed"),
     OrderTracker(R.drawable.ordercomplete,"Order Purchase Complete"),
-    OrderTracker(R.drawable.orderpaymentwait,"Order Picked")
+    OrderTracker(R.drawable.orderdeliver,"Order Picked")
     )
 
 
 data class SettingData(val image: Int, val txt:String, val route:String)
 
 val setdata = listOf(
-    SettingData(R.drawable.settings,"General",Screen.Home.route),
-    SettingData(R.drawable.sound,"Sounds",Screen.Undefined.route),
+    SettingData(R.drawable.setting,"General",Screen.Undefined.route),
+    SettingData(R.drawable.sounds,"Sounds",Screen.Undefined.route),
     SettingData(R.drawable.language,"App Language",Screen.Undefined.route),
     SettingData(R.drawable.backup,"BackUp",Screen.Undefined.route),
     SettingData(R.drawable.privacy,"Privacy Center",Screen.Undefined.route),
-    SettingData(R.drawable.person,"About Developer",Screen.About.route),
+    SettingData(R.drawable.prsn,"About Developer",Screen.About.route),
 )
 
 data class OverFlow(val image: Int, val txt:String, val route:String)
 
 val overFlow = listOf(
-    OverFlow(R.drawable.settings,"Settings",Screen.Settings.route),
-    OverFlow(R.drawable.payment,"Payments History",Screen.PaymentHistory.route),
-    OverFlow(R.drawable.tracks,"Track Orders",Screen.OrderTracker.route),
+    OverFlow(R.drawable.setting,"Settings",Screen.Settings.route),
+    OverFlow(R.drawable.history,"Payments History",Screen.PaymentHistory.route),
+    OverFlow(R.drawable.ttrack,"Track Orders",Screen.OrderTracker.route),
     OverFlow(R.drawable.person,"About Us",Screen.About.route),
     OverFlow(R.drawable.logout,"Log Out",Screen.Login.route)
 )
@@ -149,5 +155,5 @@ val contactData = listOf(
     Contact("Facebook", "Get Us on FaceBook", R.drawable.fb,Screen.Undefined.route),
     Contact("Instagram", "Follow us on Instagram", R.drawable.ig,Screen.Undefined.route),
     Contact("WhatsApp", "Let's Chat on WhatsApp", R.drawable.what,Screen.Undefined.route),
-    Contact("LinkedIn", "We're also on LinkedIn", R.drawable.lkn,Screen.Undefined.route)
+    Contact("LinkedIn", "We're also on LinkedIn", R.drawable.ln,Screen.Undefined.route)
 )

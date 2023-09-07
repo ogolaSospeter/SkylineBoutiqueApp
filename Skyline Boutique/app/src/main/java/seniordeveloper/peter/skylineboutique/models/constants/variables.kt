@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import seniordeveloper.peter.skylineboutique.R
 
 @Composable
 fun VariableData(){
@@ -58,10 +60,11 @@ fun GlobalWidgets (text:String){
         text = text,
         style = TextStyle(
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Medium,
             fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
             fontStyle = FontStyle(5)
-        )
+        ),
+        color = colorResource(id = R.color.statusBar)
     )
 }
 

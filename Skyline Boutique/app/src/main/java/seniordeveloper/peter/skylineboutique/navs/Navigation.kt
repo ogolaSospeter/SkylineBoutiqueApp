@@ -11,6 +11,7 @@ import seniordeveloper.peter.skylineboutique.view.CategoryPage
 import seniordeveloper.peter.skylineboutique.view.ClothesView
 import seniordeveloper.peter.skylineboutique.view.Home
 import seniordeveloper.peter.skylineboutique.view.ItemDetailsPage
+import seniordeveloper.peter.skylineboutique.view.LandingPage
 import seniordeveloper.peter.skylineboutique.view.Notifications
 import seniordeveloper.peter.skylineboutique.view.PaymentHistory
 import seniordeveloper.peter.skylineboutique.view.Sample
@@ -22,7 +23,8 @@ import seniordeveloper.peter.skylineboutique.view.UserLoginPage
 
 @Composable
 fun AppNav(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.Landing.route) {
+        composable(Screen.Landing.route){ LandingPage(navController)}
         composable(Screen.Home.route) { Home(navController) }
         composable(Screen.Settings.route) { Settings(navController) }
         composable(Screen.About.route) { AboutApp(navController) }
@@ -46,9 +48,7 @@ fun AppNav(navController: NavHostController) {
             else {
                 CategoryPage(navController = navController, category = category)
             }
-
         }
-
         composable(Screen.ItemDetails.route + "/{itemId}") { backStackEntry ->
             val itemId = backStackEntry.arguments?.getString("itemId")
 
@@ -63,26 +63,8 @@ fun AppNav(navController: NavHostController) {
         composable(Screen.Sample.route) {Sample(navController) }
 
 
-//        composable(Screen.ItemDetails.route + "/{itemId}"){ backStackEntry->
-//        val itemId = backStackEntry.arguments?.getString("category")
-//            val itm = _menwears.find { it.title == itemId }
-//
-//            if (itm != null) {
-//                ItemDetailsPage(navController = navController, itemId = itm)
-//            }
-//        }
-
     }
 }
 
-
-//        composable(Screen.Category.route + "/{category}") { backStackEntry ->
-//            val category = backStackEntry.arguments?.getString("category")
-//            // Check if category is not null before displaying the CategoryPage
-//            category?.let {
-//                CategoryPage(navController = navController, category = it)
-//            }
-//        }    }
-//}
 
 

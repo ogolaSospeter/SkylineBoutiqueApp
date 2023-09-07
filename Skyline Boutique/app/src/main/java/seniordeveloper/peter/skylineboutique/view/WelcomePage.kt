@@ -2,7 +2,6 @@ package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +18,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -31,8 +34,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -47,8 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
-import seniordeveloper.peter.skylineboutique.models.DataList
 import seniordeveloper.peter.skylineboutique.models.constants.ActionButton
 import seniordeveloper.peter.skylineboutique.models.constants.Space
 import seniordeveloper.peter.skylineboutique.navs.Screen
@@ -62,52 +66,36 @@ fun UserLoginPage(navController:NavHostController) {
     var password by  remember{ mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var showDialog by remember{mutableStateOf(false)}
-    var logErrorDialog by remember{mutableStateOf(false)}
-    val context= LocalContext.current
-    var passLog by remember{mutableStateOf(false)}
-    val dataList = DataList()
-    val colort= Color(0xFF1976D2)
-
-
-
-//    val authViewModel: AuthViewModel = viewModel()
-    val username by mutableStateOf("")
-    val userPassword by mutableStateOf("")
 
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.back),
-//            contentDescription = null,
-//            modifier = Modifier.fillMaxSize(),
-//            contentScale = ContentScale.FillBounds
-//        )
-        Column(
+
+       Column(
             modifier = Modifier
 //                .padding(top = 1.dp, start = 1.dp, end = 1.dp, bottom = 1.dp)
-                .fillMaxHeight()
-                .border(width = 5.dp, color = colort, shape = RoundedCornerShape(5.dp)),
-
+                .fillMaxHeight(),
             verticalArrangement = Arrangement.Top,
-
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
         Column(
             modifier = Modifier
                 .padding(top = 2.dp, start = 13.dp, end = 13.dp, bottom = 20.dp),
             verticalArrangement = Arrangement.Top,
-
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Spacer(modifier = Modifier.height(15.dp))
-            Image(
-                painter = painterResource(R.drawable.auth),
-                contentDescription = stringResource(R.string.login_image),
-                Modifier.size(250.dp)
-
+            AsyncImage(
+                model = "https://img.freepik.com/premium-vector/sign-page-abstract-concept-vector-illustration_107173-25670.jpg?size=626&ext=jpg&uid=R68194178&semt=sph",
+                contentDescription = "nodata",
+                modifier = Modifier
+//                    .height(65.dp)
+                    .size(350.dp)
+                    .clip(RoundedCornerShape(2.dp)),
+                contentScale = ContentScale.Crop
             )
 
             Text(
@@ -135,7 +123,6 @@ fun UserLoginPage(navController:NavHostController) {
                     onDone = { /* Handle "Done" action */ }
                 ),
                 shape = RoundedCornerShape(10.dp)
-
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -208,23 +195,38 @@ fun UserLoginPage(navController:NavHostController) {
 
             Space(spaced = 10)
 
-            ActionButton(
-                name = R.string.google_account_login,
-                route = Screen.About.route,
-                250,
-                navController
-            )
-            Space(spaced = 5)
-            ActionButton(
-                name = R.string.facebook_account_login,
-                route = Screen.About.route,
-                250,
-                navController
-            )
+//            ActionButton(
+//                name = R.string.google_account_login,
+//                route = Screen.About.route,
+//                250,
+//                navController
+//            )
+//            Space(spaced = 5)
+//            ActionButton(
+//                name = R.string.facebook_account_login,
+//                route = Screen.About.route,
+//                250,
+//                navController
+//            )
+
+            Space(spaced = 20)
+
         }
     }
-            //
 
+    }
+    if (showDialog) {
+    AlertDialog(
+        onDismissRequest = { showDialog = !showDialog },
+        confirmButton = {
+            OutlinedButton(onClick = { showDialog = !showDialog}) {
+                Text(text = "Ok.")
+            }
+        },
+        title = { Text(text = "Empty Entry(s)") },
+        text = { Text("Kindly Enter Password and UserName") },
+        icon = {Icon(Icons.Filled.Warning,contentDescription = null, tint = Color.Red)}
+    )
     }
 }
 

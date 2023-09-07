@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'seniordeveloper.peter.skylineboutique'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "seniordeveloper.peter.skylineboutique"
@@ -84,5 +84,6 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
-
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }

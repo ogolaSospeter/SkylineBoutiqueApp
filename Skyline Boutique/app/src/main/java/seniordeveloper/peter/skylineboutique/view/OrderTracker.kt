@@ -12,11 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,7 +36,9 @@ import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models._orderStatus
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
+    ExperimentalMaterialApi::class
+)
 @Composable
 fun TrackOrder(navController: NavHostController){
     Column{
@@ -59,9 +63,12 @@ fun TrackOrder(navController: NavHostController){
                         .fillMaxWidth(1f)
                 ) {
                     items(_orderStatus) { item ->
-                        Card(onClick = { /*TODO*/ },modifier = Modifier
+                        Card(onClick = { /*TODO*/ },
+                            modifier = Modifier
                             .fillMaxWidth()
-                            .height(200.dp)) {
+                            .height(200.dp),
+                            backgroundColor = Color.Transparent,
+                        ) {
                             Column (horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
                                 Image(painter = painterResource(item.image), contentDescription = null, modifier = Modifier.size(100.dp))
                                 Text(item.text)
