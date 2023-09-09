@@ -322,12 +322,18 @@ fun Home(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 maxItemsInEachRow = 3,
                             ) {
-                                categoryItems?.take(10)?.forEach {
-                                    ClotheCard(clotheWear = it, onClick = {
-                                        navController.navigate(Screen.ItemDetails.route + "/${it.title}")
-                                        itemCount += 1
+                                for (category in categories) {
+                                    // Filter items for the current category
+                                    val categoryItemsForCategory =
+                                        categoryItems?.filter { it.category == category }
+
+                                    categoryItemsForCategory?.take(3)?.forEach {
+                                        ClotheCard(clotheWear = it, onClick = {
+                                            navController.navigate(Screen.ItemDetails.route + "/${it.title}")
+                                            itemCount += 1
+                                        }
+                                        )
                                     }
-                                    )
                                 }
                             }
                             val closetItems = dbHandle.getClosetData()

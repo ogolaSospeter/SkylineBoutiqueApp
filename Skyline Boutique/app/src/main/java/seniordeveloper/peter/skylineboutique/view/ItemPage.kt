@@ -36,6 +36,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -110,10 +111,12 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClosetData) {
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(
                                 text = " Description: ",
+                                textAlign = TextAlign.Center,
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 20.sp,
-                                textDecoration = TextDecoration.Underline
-                            )
+                                textDecoration = TextDecoration.Underline,
+                                modifier = Modifier.padding(start = 2.dp),
+                                )
                             Text(text = item.description)
                             Spacer(modifier = Modifier.height(10.dp))
 

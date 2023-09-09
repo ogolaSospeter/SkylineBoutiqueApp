@@ -50,7 +50,6 @@ import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.closetModel.ClosetDBHandler
 import seniordeveloper.peter.skylineboutique.closetModel.ClosetData
-import seniordeveloper.peter.skylineboutique.models._menwears
 import seniordeveloper.peter.skylineboutique.models.constants.Space
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -62,6 +61,7 @@ fun ShoppingCartPage(navController: NavHostController) {
     val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
     val viewModelScope = rememberCoroutineScope()
     val cartCount = dbHandle.getCartCount()
+    var cartItems by remember { mutableStateOf(dbHandle.getCartData() ?: emptyList()) }
 
     Column {
         TopAppBar(
@@ -79,43 +79,40 @@ fun ShoppingCartPage(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(20.dp)
         ) {
-            val cartItems = dbHandle.getCartData()
-            if (cartItems != null) {
-                if (cartItems.isEmpty()) {
-                    EmptyCart()
-                } else {
-                    val itemTotalPrices = cartItems.map { clotheWear ->
-                        clotheWear.price * quantity.toFloat()
+            if (cartItems.isEmpty()) {
+                EmptyCart()
+            } else {
+                val itemTotalPrices = cartItems.map { clotheWear ->
+                    clotheWear.price * quantity.toFloat()
+                }
+    // Calculate the sum total by summing up all the item total prices
+                sumTotal = itemTotalPrices.sum()
+                LazyColumn {
+                    items(dbHandle.getCartData()!!) { item ->
+                        CartCard(clotheWear = item, quantity) { updatedPrice ->
+                            sumTotal += updatedPrice
+                        }
+                        Space(spaced = 2)
                     }
-        // Calculate the sum total by summing up all the item total prices
-                    sumTotal = itemTotalPrices.sum()
-                    LazyColumn {
-                        items(dbHandle.getCartData()!!) { item ->
-                            CartCard(clotheWear = item, quantity) { updatedPrice ->
-                                sumTotal += updatedPrice
+                    item {
+                        ElevatedCard(onClick = { /*TODO*/ },modifier =Modifier.fillMaxWidth()) {
+                            Row {
+                                Column {
+                                    Text("Shopping Cart Items Count:\n \t$cartCount")
+                                }
+                                Column {
+                                    Text("\t\tTotal:\n \t\t\t${sumTotal}")
+                                }
                             }
                             Space(spaced = 2)
-                        }
-                        item {
-                            ElevatedCard(onClick = { /*TODO*/ },modifier =Modifier.fillMaxWidth()) {
-                                Row {
-                                    Column {
-                                        Text("Item Count:\n \t${_menwears.size + quantity}")
-                                    }
-                                    Column {
-                                        Text("\t\tTotal:\n \t${sumTotal}")
-                                    }
-                                }
-                                Space(spaced = 2)
-                                OutlinedButton(onClick = {
-                                    Toast.makeText(
-                                        context,
-                                        "Checkout Initiated. Await the Payment Prompt",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }) {
-                                    Text(text = "Proceed to Checkout")
-                                }
+                            OutlinedButton(onClick = {
+                                Toast.makeText(
+                                    context,
+                                    "Checkout Initiated. Await the Payment Prompt",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }) {
+                                Text(text = "Proceed to Checkout")
                             }
                         }
                     }
