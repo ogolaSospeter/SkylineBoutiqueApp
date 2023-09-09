@@ -322,7 +322,7 @@ fun Home(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 maxItemsInEachRow = 3,
                             ) {
-                                categoryItems?.take(9)?.forEach {
+                                categoryItems?.take(10)?.forEach {
                                     ClotheCard(clotheWear = it, onClick = {
                                         navController.navigate(Screen.ItemDetails.route + "/${it.title}")
                                         itemCount += 1
