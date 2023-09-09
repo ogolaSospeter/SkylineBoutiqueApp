@@ -123,7 +123,7 @@ data class OverFlow(val image: Int, val txt:String, val route:String)
 val overFlow = listOf(
     OverFlow(R.drawable.setting,"Settings",Screen.Settings.route),
     OverFlow(R.drawable.history,"Payments History",Screen.PaymentHistory.route),
-    OverFlow(R.drawable.ttrack,"Track Orders",Screen.OrderTracker.route),
+    OverFlow(R.drawable.track,"Track Orders",Screen.OrderTracker.route),
     OverFlow(R.drawable.person,"About Us",Screen.About.route),
     OverFlow(R.drawable.history,"View Database",Screen.ViewDatabase.route),
     OverFlow(R.drawable.logout,"Log Out",Screen.Login.route)
@@ -140,15 +140,15 @@ val lazLst = listOf(
 
 val categories = listOf("suits","shorts","shirts","jackets","dresses","trousers")
 
-data class Contact(val name: String, val description: String, val image: Int, val route: String) {
+data class Contact(val name: String, val description: String, val image: String, val route: String) {
 }
 
 val contactData = listOf(
-    Contact("Email", "Reach Out to Us Via Email", R.drawable.email,Screen.Undefined.route),
-    Contact("Facebook", "Get Us on FaceBook", R.drawable.fb,Screen.Undefined.route),
-    Contact("Instagram", "Follow us on Instagram", R.drawable.ig,Screen.Undefined.route),
-    Contact("WhatsApp", "Let's Chat on WhatsApp", R.drawable.what,Screen.Undefined.route),
-    Contact("LinkedIn", "We're also on LinkedIn", R.drawable.ln,Screen.Undefined.route)
+    Contact("Email", "Reach Out to Us Via Email", "https://img.freepik.com/free-photo/cartoon-with-red-sign_1156-293.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",Screen.Undefined.route),
+    Contact("Facebook", "Get Us on FaceBook", "https://img.freepik.com/premium-psd/facebook-social-media-3d-balloons-styles_437242-2977.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",Screen.Undefined.route),
+    Contact("Instagram", "Follow us on Instagram", "https://img.freepik.com/free-vector/instagram-vector-social-media-icon-7-june-2021-bangkok-thailand_53876-136728.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",Screen.Undefined.route),
+    Contact("WhatsApp", "Let's Chat on WhatsApp", "https://img.freepik.com/premium-vector/whatsapp-icon-3d-rendering_578229-154.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",Screen.Undefined.route),
+    Contact("LinkedIn", "We're also on LinkedIn", "https://img.freepik.com/premium-vector/linkedin-icon-paper-cut-style-social-media-icons_505135-239.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",Screen.Undefined.route)
 )
 
 data class LoginData(val useremail: String, val password: String)

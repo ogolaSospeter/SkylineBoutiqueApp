@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models.constants.DividerDefaults
 import seniordeveloper.peter.skylineboutique.models.contactData
@@ -95,12 +95,12 @@ fun AboutApp(navController: NavHostController) {
 
             contactData.forEach {
                 NavigationDrawerItem(
-                    icon = {Icon(painter = painterResource(id = it.image), contentDescription = null, modifier = Modifier.size(20.dp))},
+                    icon = {
+                        AsyncImage(model = it.image, contentDescription = null, modifier = Modifier.size(30.dp))},
                     label = { Text(text = it.description)},
                     selected = false,
                     onClick = { navController.navigate(it.route)},
                     modifier = Modifier.padding(top = 5.dp, bottom = 5.dp, start = 70.dp),
-                    shape = RoundedCornerShape(2.dp)
                     )
                 DividerDefaults()
 

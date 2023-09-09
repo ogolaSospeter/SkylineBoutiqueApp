@@ -101,6 +101,8 @@ fun Home(navController: NavHostController) {
     val dbHandle:ClosetDBHandler = ClosetDBHandler(context)
     val cartCount = dbHandle.getCartCount()
     val categoryItems = dbHandle.getClosetData()?.shuffled()?.take(4)
+    val catItems = dbHandle.getClosetData()?.shuffled()?.take(9)
+
     val closetData = dbHandle.getClosetData()
 
 
@@ -322,18 +324,18 @@ fun Home(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 maxItemsInEachRow = 3,
                             ) {
-                                for (category in categories) {
-                                    // Filter items for the current category
-                                    val categoryItemsForCategory =
-                                        categoryItems?.filter { it.category == category }
+//                                for (category in categories) {
+//                                    // Filter items for the current category
+//                                    val categoryItemsForCategory =
+//                                        categoryItems?.filter { it.category == category }
 
-                                    categoryItemsForCategory?.take(3)?.forEach {
+                                    catItems?.forEach {
                                         ClotheCard(clotheWear = it, onClick = {
                                             navController.navigate(Screen.ItemDetails.route + "/${it.title}")
                                             itemCount += 1
                                         }
                                         )
-                                    }
+//                                    }
                                 }
                             }
                             val closetItems = dbHandle.getClosetData()
