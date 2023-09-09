@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -150,7 +151,7 @@ fun LandPagesAnimated(navController: NavHostController) {
             LogoImage(navController = navController)
         }
         else{
-            UserLoginPage(navController = navController)
+            UserLoginPage(context = LocalContext.current,navController = navController)
         }
 
         // Automatically transition to the next page after 30 seconds
@@ -171,7 +172,13 @@ fun LandPagesAnimated(navController: NavHostController) {
         horizontalArrangement = Arrangement.Center
     ) {
         repeat(pageCount) { iteration ->
-            val color = if (pagerState.currentPage == iteration) Color.Magenta else Color.LightGray
+            val color =
+                if (pagerState.currentPage == iteration) {
+                    if (iteration == 0) colorResource(id = R.color.white)
+                    else
+                    colorResource(id = R.color.statusBar)
+                }
+                else Color.LightGray
             Box(
                 modifier = Modifier
                     .padding(2.dp)

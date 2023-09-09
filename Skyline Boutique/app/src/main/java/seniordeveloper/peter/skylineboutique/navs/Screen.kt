@@ -3,6 +3,7 @@ package seniordeveloper.peter.skylineboutique.navs
 sealed class Screen(val route: String){
     object  Home:Screen("home")
     object  Login:Screen("login")
+    object  Registration:Screen("registration")
     object  About:Screen("about")
     object  Cart:Screen("cart")
     object  Settings:Screen("settings")
@@ -15,6 +16,7 @@ sealed class Screen(val route: String){
     object ItemDetails:Screen("itemdetails")
     object  Sample:Screen("sample")
     object  Landing:Screen("landing")
+    object ViewDatabase:Screen("viewdatabase")
 
 
 }

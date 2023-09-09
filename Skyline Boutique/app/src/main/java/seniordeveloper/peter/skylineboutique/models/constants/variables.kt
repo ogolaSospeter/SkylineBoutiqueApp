@@ -6,15 +6,19 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -103,6 +107,27 @@ fun ActionButton(name:Int,route:String,wid:Int, navController: NavHostController
 fun Space(spaced:Int){
     Spacer(modifier = Modifier.height(spaced.dp))
 
+}
+
+@Composable
+fun AlertBox(title:String, message: String, color: Color,icon: ImageVector, dialogue:Boolean, accept:String){
+    AlertDialog(
+        onDismissRequest = {  !dialogue },
+        confirmButton = {
+            OutlinedButton(onClick = { !dialogue }) {
+                androidx.compose.material3.Text(text = accept)
+            }
+        },
+        title = { androidx.compose.material3.Text(text = title) },
+        text = { androidx.compose.material3.Text(message) },
+        icon = { Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(40.dp)) }
+    )
+}
+
+@Composable
+fun matchEmail(mail:String):Boolean{
+    val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    return mail.trim().matches(emailPattern.toRegex())
 }
 
 

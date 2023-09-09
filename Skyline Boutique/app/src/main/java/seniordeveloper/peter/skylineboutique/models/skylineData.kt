@@ -96,14 +96,6 @@ fun generateRandomDescription(): String {
     return descriptions.random()
 }
 
-
-class DataList {
-    val mutableStringList = mutableListOf("Monday", "Tuesday", "Wednesday", "Thursday","Friday","Saturday","Sunday")
-    //    val mutableLoginData = mutableMapOf("username" to "password")
-    val mutableLoginData = mutableMapOf<String, String>()
-
-}
-
 data class OrderTracker(val image:Int,val text:String)
 
 val _orderStatus = listOf<OrderTracker>(
@@ -133,6 +125,7 @@ val overFlow = listOf(
     OverFlow(R.drawable.history,"Payments History",Screen.PaymentHistory.route),
     OverFlow(R.drawable.ttrack,"Track Orders",Screen.OrderTracker.route),
     OverFlow(R.drawable.person,"About Us",Screen.About.route),
+    OverFlow(R.drawable.history,"View Database",Screen.ViewDatabase.route),
     OverFlow(R.drawable.logout,"Log Out",Screen.Login.route)
 )
 
@@ -157,3 +150,7 @@ val contactData = listOf(
     Contact("WhatsApp", "Let's Chat on WhatsApp", R.drawable.what,Screen.Undefined.route),
     Contact("LinkedIn", "We're also on LinkedIn", R.drawable.ln,Screen.Undefined.route)
 )
+
+data class LoginData(val useremail: String, val password: String)
+
+val loggedUsers = LoginData("ogolasospeter62@gmail.com","admin123")

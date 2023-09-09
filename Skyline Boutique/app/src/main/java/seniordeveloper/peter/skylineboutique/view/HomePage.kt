@@ -76,8 +76,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
-import seniordeveloper.peter.skylineboutique.models.ClotheData
-import seniordeveloper.peter.skylineboutique.models._menwears
+import seniordeveloper.peter.skylineboutique.closetModel.ClosetDBHandler
+import seniordeveloper.peter.skylineboutique.closetModel.ClosetData
 import seniordeveloper.peter.skylineboutique.models.categories
 import seniordeveloper.peter.skylineboutique.models.constants.GlobalWidgets
 import seniordeveloper.peter.skylineboutique.models.constants.Space
@@ -92,12 +92,18 @@ fun Home(navController: NavHostController) {
     var menustate by remember { mutableStateOf(false) }
     val context = LocalContext.current
     var itemCount by remember { mutableStateOf(0) }
-    val categoryItems = _menwears.shuffled().take(4)
+//    val categoryItems = _menwears.shuffled().take(4)
     var selectedItem by remember { mutableStateOf(0) }
     val navitems = listOf("Track Order", "Home", "Payment History")
     val navicons = listOf(Icons.Filled.Place, Icons.Filled.Home, Icons.Filled.DateRange)
     val navs = listOf(Screen.OrderTracker.route, Screen.Home.route, Screen.PaymentHistory.route)
     var selectedCategory by remember { mutableStateOf("") }
+    val dbHandle:ClosetDBHandler = ClosetDBHandler(context)
+    val cartCount = dbHandle.getCartCount()
+    val categoryItems = dbHandle.getClosetData()?.shuffled()?.take(4)
+    val closetData = dbHandle.getClosetData()
+
+
 
 
     Column {
@@ -185,7 +191,7 @@ fun Home(navController: NavHostController) {
                             BadgedBox(badge ={
 //                                if (itemCount > 0) {
                                     Text(
-                                        text = itemCount.toString(),
+                                        text = cartCount.toString(),
                                         color = Color.Red,
                                         fontWeight = FontWeight.W800,
                                         fontSize = 15.sp
@@ -261,12 +267,15 @@ fun Home(navController: NavHostController) {
                                 OutlinedButton(
                                     onClick = {
                                         selectedCategory = itm
-                                        if (_menwears.filter { it.category == selectedCategory }
-                                                .isNotEmpty()
-                                        ) {
+                                        if(dbHandle.getClosetData()?.filter { it.category == selectedCategory }
+                                                ?.isNotEmpty() == true){
                                             navController.navigate(Screen.Category.route + "/$selectedCategory")
-
-                                        } else {
+//                                        if (_menwears.filter { it.category == selectedCategory }
+//                                                .isNotEmpty()
+//                                        ) {
+//                                            navController.navigate(Screen.Category.route + "/$selectedCategory")
+//
+//                                        } else {
                                             navController.navigate(Screen.Undefined.route)
                                         }
                                         navController.navigate(Screen.Category.route + "/$selectedCategory")
@@ -296,7 +305,7 @@ fun Home(navController: NavHostController) {
                             Spacer(modifier = Modifier.height(5.dp))
 
                             LazyRow(content = {
-                                items(categoryItems) { item ->
+                                items(categoryItems.orEmpty()) { item ->
                                     ClotheCard(clotheWear = item, onClick = {
                                         navController.navigate(Screen.ItemDetails.route + "/${item.title}")
                                         itemCount += 1
@@ -313,7 +322,7 @@ fun Home(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 maxItemsInEachRow = 3,
                             ) {
-                                _menwears.take(9).forEach {
+                                categoryItems?.take(9)?.forEach {
                                     ClotheCard(clotheWear = it, onClick = {
                                         navController.navigate(Screen.ItemDetails.route + "/${it.title}")
                                         itemCount += 1
@@ -321,9 +330,9 @@ fun Home(navController: NavHostController) {
                                     )
                                 }
                             }
-
-                            val grouped = _menwears.groupBy { it.category }
-                            grouped.forEach { (category, items) ->
+                            val closetItems = dbHandle.getClosetData()
+                            val grouped = closetItems?.groupBy { it.category }
+                            grouped?.forEach { (category, items) ->
                                 GlobalWidgets(text = category)
                                 LazyRow(
                                     horizontalArrangement = Arrangement.spacedBy(7.dp),
@@ -371,7 +380,7 @@ fun Home(navController: NavHostController) {
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ClotheCard(clotheWear: ClotheData,onClick:() -> Unit = { }) {
+fun ClotheCard(clotheWear: ClosetData, onClick:() -> Unit = { }) {
 
     val context = LocalContext.current
 

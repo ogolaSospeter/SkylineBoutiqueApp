@@ -57,4 +57,5 @@
     <string name="whatsapp_connect">Let\'s Chat on WhatsApp</string>
     <string name="notifications">Nothing to display yet.\nCheck back later</string>
     <string name="select">You have selected %1$s</string>
+    <string name="view_clothes">View Clothes</string>
 </resources>

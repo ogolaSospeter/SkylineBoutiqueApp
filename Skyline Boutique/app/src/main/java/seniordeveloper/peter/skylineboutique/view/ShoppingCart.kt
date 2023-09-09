@@ -32,6 +32,7 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,7 +48,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
-import seniordeveloper.peter.skylineboutique.models.ClotheData
+import seniordeveloper.peter.skylineboutique.closetModel.ClosetDBHandler
+import seniordeveloper.peter.skylineboutique.closetModel.ClosetData
 import seniordeveloper.peter.skylineboutique.models._menwears
 import seniordeveloper.peter.skylineboutique.models.constants.Space
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,6 +58,10 @@ import seniordeveloper.peter.skylineboutique.models.constants.Space
 fun ShoppingCartPage(navController: NavHostController) {
     var quantity by remember { mutableIntStateOf(1) }
     var sumTotal by remember { mutableFloatStateOf(0.0F) }
+    val context = LocalContext.current
+    val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
+    val viewModelScope = rememberCoroutineScope()
+    val cartCount = dbHandle.getCartCount()
 
     Column {
         TopAppBar(
@@ -73,41 +79,43 @@ fun ShoppingCartPage(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(20.dp)
         ) {
-            if (_menwears.isEmpty()) {
-                EmptyCart()
-            } else {
-                val itemTotalPrices = _menwears.map { clotheWear ->
-                    clotheWear.price * quantity.toFloat()
-                }
-// Calculate the sum total by summing up all the item total prices
-                sumTotal = itemTotalPrices.sum()
-                LazyColumn {
-                    items(_menwears) { item ->
-                        CartCard(clotheWear = item, quantity) { updatedPrice ->
-                            sumTotal += updatedPrice
-                        }
-                        Space(spaced = 2)
+            val cartItems = dbHandle.getCartData()
+            if (cartItems != null) {
+                if (cartItems.isEmpty()) {
+                    EmptyCart()
+                } else {
+                    val itemTotalPrices = cartItems.map { clotheWear ->
+                        clotheWear.price * quantity.toFloat()
                     }
-                    item {
-                        ElevatedCard(onClick = { /*TODO*/ },modifier =Modifier.fillMaxWidth()) {
-                            val context = LocalContext.current
-                            Row {
-                                Column {
-                                    Text("Item Count:\n \t${_menwears.size + quantity}")
-                                }
-                                Column {
-                                    Text("\t\tTotal:\n \t${sumTotal}")
-                                }
+        // Calculate the sum total by summing up all the item total prices
+                    sumTotal = itemTotalPrices.sum()
+                    LazyColumn {
+                        items(dbHandle.getCartData()!!) { item ->
+                            CartCard(clotheWear = item, quantity) { updatedPrice ->
+                                sumTotal += updatedPrice
                             }
                             Space(spaced = 2)
-                            OutlinedButton(onClick = {
-                                Toast.makeText(
-                                    context,
-                                    "Checkout Initiated. Await the Payment Prompt",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }) {
-                                Text(text = "Proceed to Checkout")
+                        }
+                        item {
+                            ElevatedCard(onClick = { /*TODO*/ },modifier =Modifier.fillMaxWidth()) {
+                                Row {
+                                    Column {
+                                        Text("Item Count:\n \t${_menwears.size + quantity}")
+                                    }
+                                    Column {
+                                        Text("\t\tTotal:\n \t${sumTotal}")
+                                    }
+                                }
+                                Space(spaced = 2)
+                                OutlinedButton(onClick = {
+                                    Toast.makeText(
+                                        context,
+                                        "Checkout Initiated. Await the Payment Prompt",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }) {
+                                    Text(text = "Proceed to Checkout")
+                                }
                             }
                         }
                     }
@@ -119,7 +127,9 @@ fun ShoppingCartPage(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartCard(clotheWear: ClotheData,  initialQuantity: Int, onUpdateTotal: (Float) -> Unit) {
+fun CartCard(clotheWear: ClosetData, initialQuantity: Int, onUpdateTotal: (Float) -> Unit) {
+    val context = LocalContext.current
+    val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
     var quantity by remember {
         mutableStateOf(initialQuantity)}
     var totalPrice by remember { mutableFloatStateOf(clotheWear.price * quantity) }
@@ -144,14 +154,7 @@ fun CartCard(clotheWear: ClotheData,  initialQuantity: Int, onUpdateTotal: (Floa
                         .clip(RoundedCornerShape(10.dp)),
                     contentScale = ContentScale.Crop
                 )
-//                Image(
-//                    painter = painterResource(id = clotheWear.image),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .size(95.dp)
-//                        .clip(CircleShape),
-//                    contentScale = ContentScale.Crop
-//                )
+
                Space(spaced = 5)
                 Text(text = clotheWear.title)
             }
@@ -178,7 +181,10 @@ fun CartCard(clotheWear: ClotheData,  initialQuantity: Int, onUpdateTotal: (Floa
                         Icon(Icons.Filled.KeyboardArrowUp, contentDescription = "Add", tint = Color.Green)
                     }
 
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        dbHandle.deleteCartItem(clotheWear.title)
+                        Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show()
+                    }) {
                         Column {
                             Icon(Icons.Filled.Delete, contentDescription = null, tint = Color.Red)
 Space(spaced = 1)
