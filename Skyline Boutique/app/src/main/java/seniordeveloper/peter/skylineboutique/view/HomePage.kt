@@ -92,20 +92,16 @@ fun Home(navController: NavHostController) {
     var menustate by remember { mutableStateOf(false) }
     val context = LocalContext.current
     var itemCount by remember { mutableStateOf(0) }
-//    val categoryItems = _menwears.shuffled().take(4)
     var selectedItem by remember { mutableStateOf(0) }
-    val navitems = listOf("Track Order", "Home", "Payment History")
-    val navicons = listOf(Icons.Filled.Place, Icons.Filled.Home, Icons.Filled.DateRange)
+    val navItems = listOf("Track Order", "Home", "Payment History")
+    val navIcons = listOf(Icons.Filled.Place, Icons.Filled.Home, Icons.Filled.DateRange)
     val navs = listOf(Screen.OrderTracker.route, Screen.Home.route, Screen.PaymentHistory.route)
     var selectedCategory by remember { mutableStateOf("") }
     val dbHandle:ClosetDBHandler = ClosetDBHandler(context)
     val cartCount = dbHandle.getCartCount()
     val categoryItems = dbHandle.getClosetData()?.shuffled()?.take(4)
     val catItems = dbHandle.getClosetData()?.shuffled()?.take(9)
-
-    val closetData = dbHandle.getClosetData()
-
-
+    dbHandle.getClosetData()
 
 
     Column {
@@ -216,7 +212,6 @@ fun Home(navController: NavHostController) {
                                 .size(30.dp),
                             contentScale = ContentScale.Crop)
 
-
                     }
 
                 )
@@ -224,9 +219,9 @@ fun Home(navController: NavHostController) {
 
             bottomBar = {
                 BottomAppBar(modifier = Modifier.height(IntrinsicSize.Max)){
-                        navitems.forEachIndexed { index, item ->
+                        navItems.forEachIndexed { index, item ->
                             NavigationBarItem(
-                                icon = { Icon(navicons[index], contentDescription = item)},
+                                icon = { Icon(navIcons[index], contentDescription = item)},
                                 label = { androidx.compose.material3.Text(item) },
                                 selected = false,
 //                                selected = selectedItem == index  ,
@@ -272,12 +267,6 @@ fun Home(navController: NavHostController) {
                                         if(dbHandle.getClosetData()?.filter { it.category == selectedCategory }
                                                 ?.isNotEmpty() == true){
                                             navController.navigate(Screen.Category.route + "/$selectedCategory")
-//                                        if (_menwears.filter { it.category == selectedCategory }
-//                                                .isNotEmpty()
-//                                        ) {
-//                                            navController.navigate(Screen.Category.route + "/$selectedCategory")
-//
-//                                        } else {
                                             navController.navigate(Screen.Undefined.route)
                                         }
                                         navController.navigate(Screen.Category.route + "/$selectedCategory")
@@ -287,12 +276,7 @@ fun Home(navController: NavHostController) {
                             }
 
                         }
-                        // Navigation route
 
-//                    if (selectedCategory.isNotEmpty()) {
-//                        navController.navigate(Screen.Category.route + "/$selectedCategory"
-//                        )
-//                    }
                         Spacer(modifier = Modifier.height(10.dp))
                         Column(
                             modifier = Modifier
@@ -324,10 +308,6 @@ fun Home(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 maxItemsInEachRow = 3,
                             ) {
-//                                for (category in categories) {
-//                                    // Filter items for the current category
-//                                    val categoryItemsForCategory =
-//                                        categoryItems?.filter { it.category == category }
 
                                     catItems?.forEach {
                                         ClotheCard(clotheWear = it, onClick = {
@@ -335,7 +315,6 @@ fun Home(navController: NavHostController) {
                                             itemCount += 1
                                         }
                                         )
-//                                    }
                                 }
                             }
                             val closetItems = dbHandle.getClosetData()
@@ -353,11 +332,6 @@ fun Home(navController: NavHostController) {
                                         }
                                         )
                                     }
-//                                    ClotheCard(clotheWear = it, onClick = {
-//                                        navController.navigate(Screen.ItemDetails.route + "/${it.title}")
-//                                        itemCount += 1
-//                                    }
-//                                    )
                                 }
                             }
                             Spacer(modifier = Modifier.height(10.dp))
@@ -375,12 +349,10 @@ fun Home(navController: NavHostController) {
                             Spacer(modifier = Modifier.height(50.dp))
 
                         }
-
                     }
                 }
             }
         }
-
     }
 }
 

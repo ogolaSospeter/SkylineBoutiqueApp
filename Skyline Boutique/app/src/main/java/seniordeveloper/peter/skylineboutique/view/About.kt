@@ -103,10 +103,7 @@ fun AboutApp(navController: NavHostController) {
                     modifier = Modifier.padding(top = 5.dp, bottom = 5.dp, start = 70.dp),
                     )
                 DividerDefaults()
-
             }
-
-
     }
 }
 }
