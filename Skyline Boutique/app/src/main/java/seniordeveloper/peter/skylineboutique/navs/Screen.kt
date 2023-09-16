@@ -14,9 +14,9 @@ sealed class Screen(val route: String){
     object  Undefined:Screen("undefined")
     object Category:Screen("category")
     object ItemDetails:Screen("itemdetails")
-    object  Sample:Screen("sample")
     object  Landing:Screen("landing")
     object ViewDatabase:Screen("viewdatabase")
+    object  Payment:Screen("payment")
 
 
 }

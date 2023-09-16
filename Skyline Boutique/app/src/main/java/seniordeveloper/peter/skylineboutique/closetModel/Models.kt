@@ -287,6 +287,13 @@ class ClosetDBHandler(context: Context?) :
         db.close()
     }
 
+    // delete all cart data
+    fun deleteAllCartItems() {
+        val db = this.writableDatabase
+        db.delete(SHOPPING_CART_TABLE_NAME, null, null)
+        db.close()
+    }
+
 
 
 }

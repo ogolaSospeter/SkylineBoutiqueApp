@@ -152,11 +152,41 @@ fun UserLoginPage(context: Context, navController:NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next
+                    imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(
-                    onDone = { /* Handle "Done" action */ }
-                ),
+                    onDone = {
+                        viewModelScope.launch {
+                            run {
+                                if (userEmail.isNotEmpty() && password.isNotEmpty()) {
+                                    val user = dbHandle.getUser(userEmail)
+                                    if (user != null && user.password == password) {
+                                        alertSuccess = !alertSuccess
+                                        delay(duration = Duration.ofMillis(2000))
+                                        navController.navigate(Screen.Home.route)
+                                    } else {
+                                        if (user!==null) {
+                                            alertDuplicate = !alertDuplicate
+                                            delay(duration = Duration.ofMillis(2000))
+                                            alertDuplicate = !alertDuplicate
+                                        }
+                                        if (user == null) {
+                                            alertNull = !alertNull
+                                            delay(duration = Duration.ofMillis(2000))
+                                            alertNull = !alertNull
+                                        }
+                                        // Handle incorrect credentials here, e.g., show an error message
+                                    }
+                                }
+                                else {
+                                    showDialog = !showDialog
+                                    delay(duration = Duration.ofMillis(2000))
+                                    showDialog = !showDialog
+                    }
+                            }
+                        }
+                    }
+                )                ,
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 placeholder = { Text(text = stringResource(R.string.password)) },
                 trailingIcon = {

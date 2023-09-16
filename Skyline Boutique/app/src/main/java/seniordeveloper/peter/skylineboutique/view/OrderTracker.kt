@@ -1,10 +1,10 @@
 package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,13 +27,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models._orderStatus
+import seniordeveloper.peter.skylineboutique.models.constants.Space
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
@@ -65,23 +66,38 @@ fun TrackOrder(navController: NavHostController){
                     items(_orderStatus) { item ->
                         Card(onClick = { /*TODO*/ },
                             modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
+                                .fillMaxWidth()
+                                .height(200.dp),
                             backgroundColor = Color.Transparent,
                         ) {
-                            Column (horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
-                                Image(painter = painterResource(item.image), contentDescription = null, modifier = Modifier.size(100.dp))
-                                Text(item.text)
+                            Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier.padding(2.dp)
+                                ) {
+                                    AsyncImage(model = item.image, contentDescription = item.text)
+                                    Text(item.text)
+                                }
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier.padding(2.dp)
+                                ) {
+                                    Text("Status.")
+                                    Space(3)
+                                    AsyncImage(
+                                        model = item.status,
+                                        contentDescription = item.text,
+                                        modifier = Modifier.size(100.dp)
+                                    )
+                                }
                             }
                         }
                         Spacer(modifier = Modifier.height(5.dp))
-
                 }
-
             }
-
         }
-
     }
 }
 

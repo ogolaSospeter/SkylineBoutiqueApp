@@ -7,12 +7,12 @@ import seniordeveloper.peter.skylineboutique.navs.Screen
 data class ClotheData(val title: String, val price: Float, val category: String, val description: String, val image: String)
 
 val _menwears = listOf(
-    ClotheData("Men Suit", 4599.99f, "suits", generateRandomDescription(), "https://img.freepik.com/premium-photo/silk-blazer-isolated_624181-2387.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
+    ClotheData("Fashion Mens Two Piece Set ( Jacket + Pant ) Fashion Blazers And Trousers XF03 Red", 4599.99f, "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/27/171336/1.jpg?6312"),
     ClotheData("Jeans", 850.69f, "shorts", generateRandomDescription(), "https://img.freepik.com/free-photo/child-s-simple-plain-white-shorts_53876-97016.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
     ClotheData("Outdoor Short", 799.23f, "shorts", generateRandomDescription(),"https://img.freepik.com/premium-psd/white-shorts-isolated-mockup-realistic_181945-1354.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
     ClotheData("Men Checked Short", 1009.55f, "shorts", generateRandomDescription(), "https://img.freepik.com/premium-psd/shorts-pants-cotton-mockup-realistic_181945-1397.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
     ClotheData("Cool & Drip Suit", 3200.30f, "suits", generateRandomDescription(), "https://img.freepik.com/premium-photo/classic-shirt-black-silk-with-long-sleeves-pockets-chest-half-turn-front-side-back_236836-22576.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
-    ClotheData("Executive wear", 1304.57f, "shorts", generateRandomDescription(), "https://img.freepik.com/free-photo/casual-men-short-pants_1203-8186.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData("Sport Shorts.", 1304.57f, "shorts", generateRandomDescription(), "https://img.freepik.com/free-photo/casual-men-short-pants_1203-8186.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
     ClotheData("Golden Crowned", 1260.65f, "shorts", generateRandomDescription(), "https://img.freepik.com/free-photo/casual-men-short-pants_1203-8171.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
     ClotheData("Chicago Wear", 1578.67f, "shorts", generateRandomDescription(), "https://img.freepik.com/premium-psd/shorts-pants-cotton-mockup-realistic_181945-1397.jpg?size=626&ext=jpg&uid=R68194178&semt=sph"),
     ClotheData("Sneakers", 2235.90f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/men-s-ankle-sneakers-white-street-style-apparel-shoot_53876-119733.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
@@ -32,10 +32,10 @@ ClotheData("Dress 3", 690.00f, "dresses", generateRandomDescription(), "https://
 //ClotheData("shorts", "Shorts 3", 49.99f, "shorts", generateRandomDescription(), R.drawable.shorts3),
 //// ... Add more shorts items here
 //
-ClotheData("ShoesSneakers", 5799.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/pair-trainers_144627-3799.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+ClotheData("Sporty Trends", 5799.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/pair-trainers_144627-3799.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
 ClotheData( "Men Sneakers", 5999.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/fashion-shoes-sneakers_1203-7528.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
 ClotheData( "Executive Leather", 2890.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/one-white-sneaker-shoe-isolated-white_93675-134695.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
-    ClotheData( "Executive Leather", 3230.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/white-vintage-view-new-shoes_1203-6515.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    ClotheData( "Men Sporty", 3230.99f, "shoes", generateRandomDescription(), "https://img.freepik.com/free-photo/white-vintage-view-new-shoes_1203-6515.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
 
 //// ... Add more shoes items here
 //
@@ -55,16 +55,20 @@ ClotheData( "Cotton Grey", 990.00f, "shirts", generateRandomDescription(), "http
 //ClotheData("vests", "Vest 3", 39.99f, "vests", generateRandomDescription(), R.drawable.vest3),
 //// ... Add more vests items here
 //
-//// Jackets
-//ClotheData("jackets", "Jacket 1", 89.99f, "jackets", generateRandomDescription(), R.drawable.jacket1),
-//ClotheData("jackets", "Jacket 2", 99.99f, "jackets", generateRandomDescription(), R.drawable.jacket2),
-//ClotheData("jackets", "Jacket 3", 109.99f, "jackets", generateRandomDescription(), R.drawable.jacket3),
-//// ... Add more jackets items here
+// Jackets
+ClotheData( "Fashion Mens Casual Bomber Business Lightweight Casual Jackets Blazers Trench Coats", 89.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/97/4101701/1.jpg?4477"),
+ClotheData( "Fashion Mens Fall Winter Casual Flight Bomer Jacket Thicken Warm Loose Coat Stand Collar", 99.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/11/154656/1.jpg?3713"),
+ClotheData( "Fashion Mens Cotton Jacket Autumn&Winter Windbreak Blazers", 109.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/90/163726/1.jpg?0191"),
+    ClotheData( "Fashion Men Stand Collar Bomber Jacket", 109.99f, "jackets", generateRandomDescription(),"https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/13/123567/1.jpg?6540"),
+    ClotheData( "Fashion Stand Collar Zip Pocket Slim Men's Jacket/Epaulet Design", 109.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/29/015807/1.jpg?8981"),
+    ClotheData( "Fashion Men's Casual Lightweight Slim Jacket - White", 109.99f, "jackets", generateRandomDescription(),"https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/34/3376411/1.jpg?0408"),
+
+// ... Add more jackets items here
 //
 // Suits
-ClotheData("Men Fashion Suits", 8000.00f, "suits", generateRandomDescription(), "https://img.freepik.com/free-vector/mans-suit-realistic-composition-with-smart-costume-with-white-shirt-tie-jacket_1284-54345.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
-ClotheData("Dorn 3 Piece", 4570.50f,  "suits", generateRandomDescription(), "https://img.freepik.com/free-vector/man-suit-realistic-set-with-smart-jackets-neckties-shirts-different-colors-isolated-vector-illustration_1284-75786.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
-ClotheData("2 Piece Suit", 5700.00f, "suits", generateRandomDescription(), "https://img.freepik.com/free-vector/realistic-black-suit-object-white-with-cotton-shirt-strict-elegant-tie-colored-as-jacket-isolated_1284-49101.jpg?size=626&ext=jpg&uid=R68194178&semt=aisR.drawable.sut3"),
+ClotheData("Fashion Blazer 2 Piece Suit Male Slim Wedding Suit Coats Costume Homme Navy Blue", 8000.00f, "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/52/003336/1.jpg?8911"),
+ClotheData("Dorn 3 PieceFashion Slim Fit Business Suits Groom Wear Tuxedos For Formal Wedding Suit Jacket Pant Vest", 4570.50f,  "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/47/174336/1.jpg?2552"),
+ClotheData("Generic Mens Summer Suit 3 Pieces Mens Royal Suits Plaid Slim Fit WeddingRoyal Blue", 5700.00f, "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/46/5522111/1.jpg?2921"),
 //// ... Add more suits items here
 )
 
@@ -90,20 +94,24 @@ fun generateRandomDescription(): String {
         "Experience the luxury of our premium fabrics against your skin. Our clothing offers a sumptuous feel and exceptional comfort that will keep you coming back for more.",
         "Upgrade your wardrobe with our collection of timeless classics. From essential basics to elegant pieces, our clothing will never go out of style.",
         "Discover the perfect balance of comfort and elegance with our collection of sophisticated clothing. From tailored silhouettes to relaxed styles, we have something for every taste.",
-        "Experience the difference that quality makes with our premium clothing collection. Our garments are made to the highest standards, ensuring long-lasting durability and style."
+        "Experience the difference that quality makes with our premium clothing collection. Our garments are made to the highest standards, ensuring long-lasting durability and style.",
+"Discover the joy of dressing well with our collection of premium clothing. Our garments are designed to make you look and feel your best, so you can take on the world with confidence.",
+"Experience the luxury of our premium fabrics against your skin. Our clothing offers a sumptuous feel and exceptional comfort that will keep you coming back for more.",
+
+
     )
 
     return descriptions.random()
 }
 
-data class OrderTracker(val image:Int,val text:String)
+data class OrderTracker(val image: String, val text:String, val status:String)
 
 val _orderStatus = listOf<OrderTracker>(
-    OrderTracker(R.drawable.placeorder,"Order Placed"),
-    OrderTracker(R.drawable.orderwait,"Awaiting Payment"),
-    OrderTracker(R.drawable.orderprocessed,"Order Successfully Processed"),
-    OrderTracker(R.drawable.ordercomplete,"Order Purchase Complete"),
-    OrderTracker(R.drawable.orderdeliver,"Order Picked")
+    OrderTracker("https://img.freepik.com/free-vector/add-cart-concept-illustration_114360-1510.jpg?w=740&t=st=1694450919~exp=1694451519~hmac=2cefd13d84855dc69bd3f1c7b75207ff34bb6ea03058368d3a1c6e891da159b9","Order Placed","https://img.freepik.com/free-vector/green-eco-loop-leaf-check-mark_78370-658.jpg?w=740&t=st=1694449938~exp=1694450538~hmac=e0ff5b5fb8cc0de58c5580d4996d47f75c6d935c0dc2cf5467bfc06c3391adda"),
+    OrderTracker("https://img.freepik.com/free-vector/order-confirmed-concept-illustration_114360-6599.jpg?w=740&t=st=1694450249~exp=1694450849~hmac=dbe462212c76d6b473971ce39fbea624cf322c5e25fcdf3fb3cdd824b2d96886","Awaiting Payment","https://img.freepik.com/premium-vector/deal-completed_116137-111.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    OrderTracker("https://img.freepik.com/premium-vector/cargo-boxed-packages-delivery-concepts_662093-294.jpg?size=626&ext=jpg&uid=R68194178&semt=ais","Order Successfully Processed","https://img.freepik.com/premium-vector/deal-completed_116137-111.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    OrderTracker("https://img.freepik.com/premium-vector/order-confirmed-concept-illustration_353829-159.jpg?size=626&ext=jpg&uid=R68194178&semt=ais","Order Purchase Complete","https://img.freepik.com/premium-vector/deal-completed_116137-111.jpg?size=626&ext=jpg&uid=R68194178&semt=ais"),
+    OrderTracker("https://img.freepik.com/free-vector/order-confirmed-concept-illustration_114360-1545.jpg?size=626&ext=jpg&uid=R68194178&semt=ais","Order Picked","https://img.freepik.com/premium-vector/deal-completed_116137-111.jpg?size=626&ext=jpg&uid=R68194178&semt=ais")
     )
 
 
@@ -125,17 +133,7 @@ val overFlow = listOf(
     OverFlow(R.drawable.history,"Payments History",Screen.PaymentHistory.route),
     OverFlow(R.drawable.track,"Track Orders",Screen.OrderTracker.route),
     OverFlow(R.drawable.person,"About Us",Screen.About.route),
-    OverFlow(R.drawable.history,"View Database",Screen.ViewDatabase.route),
     OverFlow(R.drawable.logout,"Log Out",Screen.Login.route)
-)
-
-data class LazyList(val txt:String, val route:String)
-
-val lazLst = listOf(
-    LazyList("Gents",Screen.Undefined.route),
-    LazyList("Ladies",Screen.Undefined.route),
-    LazyList("Children",Screen.Undefined.route),
-    LazyList("Unisex",Screen.Undefined.route),
 )
 
 val categories = listOf("suits","shorts","shirts","jackets","dresses","trousers")
@@ -152,5 +150,3 @@ val contactData = listOf(
 )
 
 data class LoginData(val useremail: String, val password: String)
-
-val loggedUsers = LoginData("ogolasospeter62@gmail.com","admin123")

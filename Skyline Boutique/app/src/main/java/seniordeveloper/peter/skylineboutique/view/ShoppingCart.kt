@@ -27,12 +27,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,10 +47,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.androidstudy.daraja.Daraja
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.closetModel.ClosetDBHandler
 import seniordeveloper.peter.skylineboutique.closetModel.ClosetData
 import seniordeveloper.peter.skylineboutique.models.constants.Space
+import seniordeveloper.peter.skylineboutique.navs.Screen
+import java.text.SimpleDateFormat
+import java.util.*
+
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -59,9 +64,10 @@ fun ShoppingCartPage(navController: NavHostController) {
     var sumTotal by remember { mutableFloatStateOf(0.0F) }
     val context = LocalContext.current
     val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
-    val viewModelScope = rememberCoroutineScope()
     val cartCount = dbHandle.getCartCount()
     var cartItems by remember { mutableStateOf(dbHandle.getCartData() ?: emptyList()) }
+    val daraja = Daraja
+
 
     Column {
         TopAppBar(
@@ -73,6 +79,14 @@ fun ShoppingCartPage(navController: NavHostController) {
             },
             backgroundColor = colorResource(R.color.statusBar),
             contentColor = colorResource(R.color.white),
+            actions = {
+                IconButton(onClick = {
+                    dbHandle.deleteAllCartItems()
+                    Toast.makeText(context, "Cart Emptied", Toast.LENGTH_SHORT).show()
+                }) {
+                    Icon(Icons.Filled.Delete, contentDescription = "Delete", tint = Color.White)
+                }
+            }
         )
         Column(
             verticalArrangement = Arrangement.Center,
@@ -89,7 +103,7 @@ fun ShoppingCartPage(navController: NavHostController) {
                 sumTotal = itemTotalPrices.sum()
                 LazyColumn {
                     items(dbHandle.getCartData()!!) { item ->
-                        CartCard(clotheWear = item, quantity) { updatedPrice ->
+                        CartCard(clotheWear = item, quantity,navController) { updatedPrice ->
                             sumTotal += updatedPrice
                         }
                         Space(spaced = 2)
@@ -111,20 +125,39 @@ fun ShoppingCartPage(navController: NavHostController) {
                                     "Checkout Initiated. Await the Payment Prompt",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                            }) {
+                                //Payment Handling
+// on below line we are getting date and then we
+                                // are setting this date as transaction id.
+                                val c: Date = Calendar.getInstance().getTime()
+                                val df = SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault())
+                                val transcId: String = df.format(c)
+                                val description = "Skyline Boutique Online Shopping"
+                                navController.navigate(Screen.Payment.route)
+                            },
+                                // on below line we are adding modifier to our button.
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                            ) {
                                 Text(text = "Proceed to Checkout")
                             }
                         }
+                        LaunchedEffect(cartItems) {
+                            // This code will run whenever cartItems changes
+                            cartItems = dbHandle.getCartData() ?: emptyList()
+                        }
                     }
+
                 }
             }
         }
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartCard(clotheWear: ClosetData, initialQuantity: Int, onUpdateTotal: (Float) -> Unit) {
+fun CartCard(clotheWear: ClosetData, initialQuantity: Int,navController: NavHostController, onUpdateTotal: (Float) -> Unit,) {
     val context = LocalContext.current
     val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
     var quantity by remember {
@@ -180,7 +213,9 @@ fun CartCard(clotheWear: ClosetData, initialQuantity: Int, onUpdateTotal: (Float
 
                     IconButton(onClick = {
                         dbHandle.deleteCartItem(clotheWear.title)
-                        Toast.makeText(context, "Item Deleted", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "${clotheWear.title} Deleted Successfully.", Toast.LENGTH_SHORT).show()
+                        navController.navigate(Screen.ShoppingCart.route)
+
                     }) {
                         Column {
                             Icon(Icons.Filled.Delete, contentDescription = null, tint = Color.Red)

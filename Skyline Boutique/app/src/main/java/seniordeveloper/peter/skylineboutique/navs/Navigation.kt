@@ -17,8 +17,8 @@ import seniordeveloper.peter.skylineboutique.view.ItemDetailsPage
 import seniordeveloper.peter.skylineboutique.view.LandingPage
 import seniordeveloper.peter.skylineboutique.view.Notifications
 import seniordeveloper.peter.skylineboutique.view.PaymentHistory
+import seniordeveloper.peter.skylineboutique.view.PaymentScreen
 import seniordeveloper.peter.skylineboutique.view.Registration
-import seniordeveloper.peter.skylineboutique.view.Sample
 import seniordeveloper.peter.skylineboutique.view.Settings
 import seniordeveloper.peter.skylineboutique.view.ShoppingCartPage
 import seniordeveloper.peter.skylineboutique.view.TrackOrder
@@ -67,9 +67,9 @@ fun AppNav(context: Context, navController: NavHostController) {
                 // Handle the case when the itemId is null, e.g., navigate back or show an error message
             }
         }
-        composable(Screen.Sample.route) {Sample(navController) }
         composable(Screen.ViewDatabase.route) { ClosetViewDatabase(navController) }
         composable(Screen.Registration.route) { Registration(navController) }
+        composable(Screen.Payment.route) { PaymentScreen(navController) }
 
 
     }

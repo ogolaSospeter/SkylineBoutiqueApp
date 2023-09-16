@@ -57,7 +57,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -213,7 +212,6 @@ fun Home(navController: NavHostController) {
                             contentScale = ContentScale.Crop)
 
                     }
-
                 )
             },
 
@@ -244,13 +242,19 @@ fun Home(navController: NavHostController) {
             }
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Image(
-                    painter = painterResource(id = R.drawable.bk),
-                    contentDescription = "background.",
+                AsyncImage(model = "https://img.freepik.com/free-vector/paper-style-white-monochrome-background_52683-66443.jpg?w=740&t=st=1694847971~exp=1694848571~hmac=525c0d9da2f6224911c0b064d33bac9ae667e0d01ae7a6fbd29fa19b0c7fdcb8",
+                    contentDescription = "bk",
                     modifier = Modifier
                         .fillMaxSize()
-                        .alpha(0.2f)
-                )
+//                        .alpha(0.1f)
+                    )
+//                Image(
+//                    painter = painterResource(id = R.drawable.bk),
+//                    contentDescription = "background.",
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .alpha(0.2f)
+//                )
 
 
                 Column {

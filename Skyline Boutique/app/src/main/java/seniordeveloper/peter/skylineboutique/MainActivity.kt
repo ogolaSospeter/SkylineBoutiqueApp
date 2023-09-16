@@ -13,13 +13,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.androidstudy.daraja.Daraja
 import seniordeveloper.peter.skylineboutique.navs.AppNav
 import seniordeveloper.peter.skylineboutique.navs.Screen
 import seniordeveloper.peter.skylineboutique.ui.theme.SkylineBoutiqueTheme
 import seniordeveloper.peter.skylineboutique.viewmodels.UserState
 import seniordeveloper.peter.skylineboutique.viewmodels.UserStateViewModel
 
+
 class MainActivity : ComponentActivity() {
+     lateinit var daraja:Daraja
     private val userState by viewModels<UserStateViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -35,8 +38,11 @@ class MainActivity : ComponentActivity() {
                     val context = LocalContext.current
                     AppNav(context,navController = navController)                   }
             }
+
         }
+
     }
+
 }
 
 @Composable
