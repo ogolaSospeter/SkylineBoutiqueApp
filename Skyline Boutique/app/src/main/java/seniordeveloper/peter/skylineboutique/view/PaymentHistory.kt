@@ -10,7 +10,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -38,7 +37,7 @@ fun PaymentHistory(navController: NavHostController) {
            title = { Text("Payment History", color = colorResource(id =R.color.white)) },
            navigationIcon = {
                IconButton(onClick = { navController.navigateUp() }) {
-                   Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                   Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                }
            },
            contentColor = colorResource(id =R.color.white),
@@ -50,7 +49,8 @@ fun PaymentHistory(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally){
             Text(text = "No Payment History", style = MaterialTheme.typography.h6)
             AsyncImage(
-                model = "https://img.freepik.com/premium-vector/utility-bills-statements-electricity-natural-gas-water-internet-telephone_183665-887.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
+//                model = "https://img.freepik.com/premium-vector/utility-bills-statements-electricity-natural-gas-water-internet-telephone_183665-887.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
+                model ="https://img.freepik.com/free-vector/payment-with-mobile-phone_1133-381.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
                 contentDescription = "nodata",
                 modifier = Modifier
 //                    .height(65.dp)

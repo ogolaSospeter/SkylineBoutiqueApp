@@ -106,7 +106,7 @@ class ClosetDBHandler(context: Context?) :
     }
 
     @SuppressLint("Range")
-    fun getClosetData(): ArrayList<ClosetData>? {
+    fun getClosetData(): ArrayList<ClosetData> {
         val db = this.readableDatabase
         val cursor:Cursor = db.rawQuery("SELECT * FROM $CLOSET_TABLE_NAME", null)
         val clothesArrayList: ArrayList<ClosetData> = ArrayList()
@@ -164,7 +164,7 @@ class ClosetDBHandler(context: Context?) :
         db.close()
     }
 
-    fun getEmails(): ArrayList<String>? {
+    fun getEmails(): ArrayList<String> {
         val db = this.readableDatabase
         val cursor:Cursor = db.rawQuery("SELECT * FROM $LOGIN_TABLE_NAME", null)
         val emailArrayList: ArrayList<String> = ArrayList()
@@ -211,9 +211,7 @@ class ClosetDBHandler(context: Context?) :
         return user
 
     }
-
     //The shopping cart database functions
-
     fun addNewClothToCart(
         title: String,
         price: Float,
@@ -252,7 +250,7 @@ class ClosetDBHandler(context: Context?) :
     }
 
     @SuppressLint("Range")
-    fun getCartData(): ArrayList<ClosetData>? {
+    fun getCartData(): ArrayList<ClosetData> {
         val db = this.readableDatabase
         val cursor:Cursor = db.rawQuery("SELECT * FROM $SHOPPING_CART_TABLE_NAME", null)
         val cartArrayList: ArrayList<ClosetData> = ArrayList()

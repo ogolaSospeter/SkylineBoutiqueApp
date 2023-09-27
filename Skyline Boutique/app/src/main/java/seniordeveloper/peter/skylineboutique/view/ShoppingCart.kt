@@ -1,9 +1,6 @@
 package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent
-import android.content.Intent
-import android.telephony.SmsManager
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +19,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -79,7 +76,7 @@ fun ShoppingCartPage(navController: NavHostController) {
             title = { Text(text = "Shopping Cart", color = colorResource(id = R.color.white)) },
             navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                 }
             },
             backgroundColor = colorResource(R.color.statusBar),
@@ -119,13 +116,14 @@ fun ShoppingCartPage(navController: NavHostController) {
                         Space(spaced = 2)
                     }
                     item {
-                        ElevatedCard(onClick = { /*TODO*/ },modifier =Modifier.fillMaxWidth()) {
-                            Row {
+                        ElevatedCard(onClick = { /*TODO*/ },
+                            modifier =Modifier.fillMaxWidth()) {
+                            Row (modifier=Modifier.padding(4.dp)){
                                 Column {
-                                    Text("Cart Items Count:\n \t\t\t$cartCount")
+                                    Text("Cart Count:\n \t\t\t$cartCount")
                                 }
                                 Column {
-                                    Text("\t\t\tTotal:\n \t\t\t${sumTotal}")
+                                    Text("\t\t\tTotal Checkout:\n \t\t\tKshs. ${sumTotal}")
                                 }
                             }
                             Space(spaced = 2)
@@ -138,7 +136,7 @@ fun ShoppingCartPage(navController: NavHostController) {
                                 //Payment Handling
 // on below line we are getting date and then we
                                 // are setting this date as transaction id.
-                                val c: Date = Calendar.getInstance().getTime()
+                                val c: Date = Calendar.getInstance().time
                                 val df = SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault())
                                 val transcId: String = df.format(c)
                                 val description = "Skyline Boutique Online Shopping"
@@ -146,7 +144,7 @@ fun ShoppingCartPage(navController: NavHostController) {
                             },
                                 // on below line we are adding modifier to our button.
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .width(200.dp)
                                     .padding(16.dp)
                             ) {
                                 Text(text = "Proceed to Checkout")
@@ -189,7 +187,7 @@ fun CartCard(
                 .safeContentPadding(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Column {
+            Column(modifier = Modifier.padding(top = 5.dp)) {
                 AsyncImage(
                     model = clotheWear.image,
                     contentDescription = clotheWear.title,
@@ -257,42 +255,6 @@ fun EmptyCart(){
         Image(painter = painterResource(id = R.drawable.nocart), contentDescription = null)
     }
 
-@Composable
-fun SendMessage(phoneNumber: String, message: String) {
-    val smsManager = SmsManager.getDefault()
-    val sentIntent = PendingIntent.getBroadcast(
-        LocalContext.current,
-        0,
-        Intent("SMS_SENT"),
-        PendingIntent.FLAG_IMMUTABLE
-    )
-
-    val deliveredIntent = PendingIntent.getBroadcast(
-       LocalContext.current,
-        0,
-        Intent("SMS_DELIVERED"),
-        PendingIntent.FLAG_IMMUTABLE
-    )
-
-    try {
-        smsManager.sendTextMessage(
-            phoneNumber,
-            null,
-            message,
-            sentIntent,
-            deliveredIntent
-        )
-    } catch (e: Exception) {
-        // Handle SMS sending failure
-        // You can display a toast or provide feedback to the user
-        // using Composable functions like Snackbar or Toast Composables
-        Toast.makeText(
-            LocalContext.current,
-            "Failed to send SMS",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-}
 
 
 

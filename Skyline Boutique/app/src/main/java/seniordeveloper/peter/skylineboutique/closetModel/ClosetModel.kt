@@ -7,3 +7,8 @@ data class ClosetData(
     val description: String,
     val image: String
 )
+
+data class UserLoginData(
+    val username: String,
+    val password: String
+)

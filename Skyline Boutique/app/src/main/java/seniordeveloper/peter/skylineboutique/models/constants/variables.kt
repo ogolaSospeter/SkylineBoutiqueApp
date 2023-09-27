@@ -114,7 +114,9 @@ fun AlertBox(title:String, message: String, color: Color,icon: ImageVector, dial
     AlertDialog(
         onDismissRequest = {  !dialogue },
         confirmButton = {
-            OutlinedButton(onClick = { !dialogue }) {
+            OutlinedButton(onClick = {
+
+                !dialogue }) {
                 androidx.compose.material3.Text(text = accept)
             }
         },

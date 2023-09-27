@@ -5,17 +5,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,7 +43,7 @@ fun Settings(navController: NavHostController) {
         TopAppBar(backgroundColor = (colorResource(id = R.color.statusBar))) {
 
             IconButton(onClick = { navController.navigateUp() }) {
-                Icon(Icons.Filled.ArrowBack, "BackIcon", tint = Color.White)
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon", tint = Color.White)
             }
 
             Text(
@@ -64,14 +62,13 @@ fun Settings(navController: NavHostController) {
                         .clickable {
                             navController.navigate(item.route)
                         }
-                        .height(120.dp)
+                        .height(50.dp)
                         .fillMaxWidth()
                         ,
-                        horizontalArrangement = Arrangement.SpaceBetween,
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         Icon(painter = painterResource(id = item.image), contentDescription = null,modifier=Modifier.size(20.dp))
-                        Spacer(modifier = Modifier.width(10.dp))
                         Text(item.txt)
                     }
                     VariableData()

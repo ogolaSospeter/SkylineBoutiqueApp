@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -21,7 +21,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -64,7 +64,7 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClosetData) {
             },
             navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(Icons.Filled.ArrowBack, "BackIcon")
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon")
                 }
             },
             backgroundColor = colorResource(id = R.color.statusBar),
@@ -92,21 +92,20 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClosetData) {
                     ) {
                         Column(
                             verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(5.dp)
                         ) {
                             AsyncImage(
                                 model = item.image,
                                 contentDescription = item.title,
                                 modifier = Modifier
-                                    //                    .height(65.dp)
-                                    .height(250.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .fillMaxWidth()
+                                    .size(250.dp)
+                                    .clip(CircleShape)
                                     .padding(2.dp),
                                 contentScale = ContentScale.Crop
                             )
 
-                            Text(text = item.title, fontSize = 20.sp, fontWeight = FontWeight.W500)
+                            Text(text = item.title, fontSize = 20.sp, fontWeight = FontWeight.W500, overflow = TextOverflow.Ellipsis, maxLines = 1)
                             Text(text = "Price:  $ ${item.price}")
                             Text(text = "Category: ${item.category}")
                             Spacer(modifier = Modifier.height(10.dp))
@@ -153,7 +152,7 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClosetData) {
                                 fontWeight = MaterialTheme.typography.h1.fontWeight
                             )
                             var rev = 0
-                            Row() {
+                            Row {
                                 while (rev < 5) {
                                     Icon(
                                         Icons.Filled.Star,

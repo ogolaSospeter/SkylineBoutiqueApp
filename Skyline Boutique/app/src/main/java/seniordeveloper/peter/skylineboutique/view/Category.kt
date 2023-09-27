@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -21,7 +21,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -45,7 +45,7 @@ fun CategoryPage(navController: NavHostController,category: String) {
         TopAppBar(title = { Text(text = category) },
             navigationIcon = {
             IconButton(onClick = { navController.navigateUp() }) {
-                Icon(Icons.Filled.ArrowBack, "BackIcon")
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon")
             }
         },
         backgroundColor = colorResource(id = R.color.statusBar),
@@ -73,27 +73,23 @@ fun CategoryPage(navController: NavHostController,category: String) {
                         .padding(5.dp),
                         ) {
                         Column(
-                            verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier
+                                .padding(5.dp)
+
                         ) {
                             AsyncImage(
                                 model = item.image,
                                 contentDescription = item.title,
                                 modifier = Modifier
-                                    .size(300.dp)
-                                    .clip(RoundedCornerShape(7.dp))
-                                    .fillMaxWidth(),
+                                    .size(200.dp)
+                                    .clip(CircleShape),
                                 contentScale = ContentScale.Crop
                             )
-//                            Image(
-//                                painter = painterResource(id = item.image),
-//                                contentDescription = null,
-//                                contentScale = ContentScale.Crop,
-//                                modifier = Modifier
-//                                    .size(150.dp)
-//                                    .clip(CircleShape),
-//                            )
+
                             Text(text = " ${item.title} || ${item.category}")
-                            Text(text = "$ ${item.price}")
+                            Text(text = "Kshs. ${item.price}")
                             Text(text = item.description)
                             Spacer(modifier = Modifier.height(10.dp))
                             Button(colors = ButtonDefaults.buttonColors(colorResource(id = R.color.statusBar)),onClick = { /*TODO*/ }, modifier = Modifier
