@@ -15,7 +15,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.runtime.Composable
@@ -52,10 +52,10 @@ fun AboutApp(navController: NavHostController) {
             TopAppBar(backgroundColor = (colorResource(id = R.color.statusBar))) {
 
                 IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(Icons.Filled.ArrowBack, "BackIcon", tint = Color.White)
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon", tint = Color.White)
                 }
 
-                androidx.compose.material.Text(
+                Text(
                     text = "About Developer",
                     color = Color.White,
                     modifier = Modifier.padding(start = 60.dp)

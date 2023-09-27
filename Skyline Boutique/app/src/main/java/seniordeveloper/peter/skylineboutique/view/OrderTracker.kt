@@ -16,7 +16,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,7 +45,7 @@ fun TrackOrder(navController: NavHostController){
                 TopAppBar(title = {Text("Track Order", color = colorResource(R.color.white))},
                     navigationIcon = {
                         IconButton(onClick = { navController.navigateUp()}){
-                            Icon(Icons.Filled.ArrowBack, contentDescription = "Back", tint = colorResource(R.color.white))
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = colorResource(R.color.white))
                         }
                     },
                     contentColor = colorResource(R.color.white),

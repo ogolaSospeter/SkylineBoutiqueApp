@@ -69,7 +69,7 @@ fun ReadDataFromDatabase(context: Context) {
     lateinit var clothesList: List<ClosetData>
     clothesList = ArrayList<ClosetData>()
 
-    val dbHandler: ClosetDBHandler = ClosetDBHandler(context);
+    val dbHandler: ClosetDBHandler = ClosetDBHandler(context)
     clothesList = dbHandler.getClosetData()!!
     LazyColumn {
         itemsIndexed(clothesList) { index, item ->

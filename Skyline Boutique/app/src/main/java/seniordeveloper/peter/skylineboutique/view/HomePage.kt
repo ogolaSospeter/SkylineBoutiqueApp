@@ -241,7 +241,7 @@ fun Home(navController: NavHostController) {
                     }
             }
         ) {
-            Column() {
+            Column {
                 AsyncImage(
                     model = "https://img.freepik.com/free-vector/paper-style-white-monochrome-background_52683-66443.jpg?w=740&t=st=1694847971~exp=1694848571~hmac=525c0d9da2f6224911c0b064d33bac9ae667e0d01ae7a6fbd29fa19b0c7fdcb8",
                     contentDescription = "bk",

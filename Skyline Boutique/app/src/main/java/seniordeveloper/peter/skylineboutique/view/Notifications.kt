@@ -11,7 +11,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,7 +50,7 @@ fun Notifications(navController: NavHostController){
     TopAppBar (
         title = { Text("Your Notifications", color = cntclr) },
         navigationIcon = {IconButton(onClick = {navController.navigateUp() }) {
-            Icon(Icons.Filled.ArrowBack,contentDescription = null, tint = cntclr)
+            Icon(Icons.AutoMirrored.Filled.ArrowBack,contentDescription = null, tint = cntclr)
         }},
         backgroundColor = clr,
         contentColor = cntclr

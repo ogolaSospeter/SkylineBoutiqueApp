@@ -21,7 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +46,7 @@ fun ClosetViewDatabase(navController:NavHostController)
 {
     TopAppBar {
         IconButton(onClick = { navController.navigateUp() }) {
-            Icon(Icons.Filled.ArrowBack, "BackIcon", tint = Color.White)
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon", tint = Color.White)
         }
 
         Text(
