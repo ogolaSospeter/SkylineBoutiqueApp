@@ -56,18 +56,18 @@ ClotheData( "Cotton Grey", 990.00f, "shirts", generateRandomDescription(), "http
 //// ... Add more vests items here
 //
 // Jackets
-ClotheData( "Fashion Mens Casual Bomber Business Lightweight Casual Jackets Blazers Trench Coats", 89.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/97/4101701/1.jpg?4477"),
-ClotheData( "Fashion Mens Fall Winter Casual Flight Bomer Jacket Thicken Warm Loose Coat Stand Collar", 99.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/11/154656/1.jpg?3713"),
+ClotheData( "Fashion Men\'s Casual Bomber Business Lightweight Casual Jackets Blazers Trench Coats", 89.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/97/4101701/1.jpg?4477"),
+ClotheData( "Fashion Men\'s Fall Winter Casual Flight Bomer Jacket Thicken Warm Loose Coat Stand Collar", 99.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/11/154656/1.jpg?3713"),
 ClotheData( "Fashion Mens Cotton Jacket Autumn&Winter Windbreak Blazers", 109.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/90/163726/1.jpg?0191"),
     ClotheData( "Fashion Men Stand Collar Bomber Jacket", 109.99f, "jackets", generateRandomDescription(),"https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/13/123567/1.jpg?6540"),
-    ClotheData( "Fashion Stand Collar Zip Pocket Slim Men's Jacket/Epaulet Design", 109.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/29/015807/1.jpg?8981"),
-    ClotheData( "Fashion Men's Casual Lightweight Slim Jacket - White", 109.99f, "jackets", generateRandomDescription(),"https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/34/3376411/1.jpg?0408"),
+    ClotheData( "Fashion Stand Collar Zip Pocket Slim Men\'s Jacket Epaulet Design", 109.99f, "jackets", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/29/015807/1.jpg?8981"),
+    ClotheData( "Fashion Men\'s Casual Lightweight Slim Jacket White", 109.99f, "jackets", generateRandomDescription(),"https://ke.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/34/3376411/1.jpg?0408"),
 
 // ... Add more jackets items here
 //
 // Suits
-ClotheData("Fashion Blazer 2 Piece Suit Male Slim Wedding Suit Coats Costume Homme Navy Blue", 8000.00f, "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/52/003336/1.jpg?8911"),
-ClotheData("Dorn 3 PieceFashion Slim Fit Business Suits Groom Wear Tuxedos For Formal Wedding Suit Jacket Pant Vest", 4570.50f,  "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/47/174336/1.jpg?2552"),
+ClotheData("Fashion Blazer 2 Piece Suit Male Slim Wedding Suit Coats Costume Home Navy Blue", 8000.00f, "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/52/003336/1.jpg?8911"),
+ClotheData("Down 3 PieceFashion Slim Fit Business Suits Groom Wear Tuxedos For Formal Wedding Suit Jacket Pant Vest", 4570.50f,  "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/47/174336/1.jpg?2552"),
 ClotheData("Generic Mens Summer Suit 3 Pieces Mens Royal Suits Plaid Slim Fit WeddingRoyal Blue", 5700.00f, "suits", generateRandomDescription(), "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/46/5522111/1.jpg?2921"),
 //// ... Add more suits items here
 )

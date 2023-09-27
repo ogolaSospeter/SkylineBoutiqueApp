@@ -17,7 +17,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,11 +48,6 @@ fun TrackOrder(navController: NavHostController){
                             Icon(Icons.Filled.ArrowBack, contentDescription = "Back", tint = colorResource(R.color.white))
                         }
                     },
-                    actions = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(Icons.Filled.MoreVert, contentDescription = "Back")
-                        }
-                    },
                     contentColor = colorResource(R.color.white),
                     backgroundColor = colorResource(R.color.statusBar),
                 )
@@ -67,7 +61,7 @@ fun TrackOrder(navController: NavHostController){
                         Card(onClick = { /*TODO*/ },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(200.dp),
+                                .height(150.dp),
                             backgroundColor = Color.Transparent,
                         ) {
                             Row(horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -76,7 +70,10 @@ fun TrackOrder(navController: NavHostController){
                                     verticalArrangement = Arrangement.Center,
                                     modifier = Modifier.padding(2.dp)
                                 ) {
-                                    AsyncImage(model = item.image, contentDescription = item.text)
+                                    AsyncImage(model = item.image,
+                                        contentDescription = item.text,
+                                        modifier = Modifier.size(80.dp)
+                                        )
                                     Text(item.text)
                                 }
                                 Column(
@@ -84,12 +81,13 @@ fun TrackOrder(navController: NavHostController){
                                     verticalArrangement = Arrangement.Center,
                                     modifier = Modifier.padding(2.dp)
                                 ) {
+                                    Space(spaced = 3)
                                     Text("Status.")
                                     Space(3)
                                     AsyncImage(
                                         model = item.status,
                                         contentDescription = item.text,
-                                        modifier = Modifier.size(100.dp)
+                                        modifier = Modifier.size(50.dp)
                                     )
                                 }
                             }
@@ -101,7 +99,7 @@ fun TrackOrder(navController: NavHostController){
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun TrackOrderPreview(){
     TrackOrder(navController = rememberNavController())

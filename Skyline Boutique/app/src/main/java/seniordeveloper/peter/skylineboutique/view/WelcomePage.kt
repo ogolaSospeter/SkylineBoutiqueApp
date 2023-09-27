@@ -65,6 +65,7 @@ import seniordeveloper.peter.skylineboutique.navs.Screen
 import java.time.Duration
 
 
+
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,9 +81,6 @@ fun UserLoginPage(context: Context, navController:NavHostController) {
     var alertSuccess by remember { mutableStateOf(false) }
     var alertDuplicate by remember { mutableStateOf(false) }
     var alertNull by remember { mutableStateOf(false) }
-
-
-
 
 
     Box(
@@ -268,6 +266,25 @@ fun UserLoginPage(context: Context, navController:NavHostController) {
                 ActionButton(R.string.register, Screen.Registration.route, 150, navController)
             }
             Space(spaced = 20)
+            ActionButton(R.string.home_page,Screen.Home.route, 150, navController)
+//            androidx.compose.material.OutlinedButton(
+//                modifier = Modifier.width(250.dp), onClick = {
+//                    oneTapSignInState.open()
+//                }, enabled = !oneTapSignInState.opened
+//            ) {
+//                Row {
+//                    Image(
+//                        painter = painterResource(id = R.drawable.googlelogo),
+//                        contentDescription = "googlelogo",
+//                        modifier = Modifier.size(25.dp)
+//                    )
+//                    androidx.compose.material.Text(
+//                        " Google Account Login ",
+//                        Modifier.offset(5.dp, 2.dp),
+//                        color = Color.DarkGray
+//                    )
+//                }
+//            }
 
         }
     }
@@ -305,4 +322,10 @@ fun UserLoginPage(context: Context, navController:NavHostController) {
 @Composable
 fun LogPreview(){
     UserLoginPage(LocalContext.current,navController = rememberNavController())
+}
+
+//Implement One Tap Phone Login
+fun OneTapPhoneLogin(context: Context) {
+
+
 }

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Add the INTERNET permission -->
+    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- Add the SEND_SMS permission -->
+
 
     <application
         android:allowBackup="true"

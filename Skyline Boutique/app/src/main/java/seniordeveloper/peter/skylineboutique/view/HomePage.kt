@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -16,7 +15,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -66,6 +65,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
@@ -241,23 +241,18 @@ fun Home(navController: NavHostController) {
                     }
             }
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                AsyncImage(model = "https://img.freepik.com/free-vector/paper-style-white-monochrome-background_52683-66443.jpg?w=740&t=st=1694847971~exp=1694848571~hmac=525c0d9da2f6224911c0b064d33bac9ae667e0d01ae7a6fbd29fa19b0c7fdcb8",
+            Column() {
+                AsyncImage(
+                    model = "https://img.freepik.com/free-vector/paper-style-white-monochrome-background_52683-66443.jpg?w=740&t=st=1694847971~exp=1694848571~hmac=525c0d9da2f6224911c0b064d33bac9ae667e0d01ae7a6fbd29fa19b0c7fdcb8",
                     contentDescription = "bk",
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxHeight()
+                        .fillMaxWidth()
 //                        .alpha(0.1f)
-                    )
-//                Image(
-//                    painter = painterResource(id = R.drawable.bk),
-//                    contentDescription = "background.",
-//                    modifier = Modifier
-//                        .fillMaxSize()
-//                        .alpha(0.2f)
-//                )
-
-
-                Column {
+                )
+            }
+//            Box(modifier = Modifier.fillMaxSize()) {
+//                Column {
 
                     Column {
                         LazyRow(
@@ -353,12 +348,13 @@ fun Home(navController: NavHostController) {
                             Spacer(modifier = Modifier.height(50.dp))
 
                         }
-                    }
-                }
+
+
             }
         }
     }
 }
+
 
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -400,17 +396,14 @@ fun ClotheCard(clotheWear: ClosetData, onClick:() -> Unit = { }) {
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
-//            Image(
-//                painter = painterResource(id = clotheWear.image),
-//                contentDescription = null,
-//                modifier = Modifier
-////                    .height(65.dp)
-//                    .height(70.dp)
-//                    .clip(RoundedCornerShape(2.dp))
-//                    .fillMaxWidth(),
-//                contentScale = ContentScale.Crop
-//            )
-            Text(text = clotheWear.title , style = TextStyle(fontSize = 12.sp))
+
+            Text(
+                text = clotheWear.title ,
+                style = TextStyle(fontSize = 12.sp),
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+                )
             Text(text = "Kshs. ${clotheWear.price}")
             Spacer(modifier =Modifier.height(10.dp))
         }

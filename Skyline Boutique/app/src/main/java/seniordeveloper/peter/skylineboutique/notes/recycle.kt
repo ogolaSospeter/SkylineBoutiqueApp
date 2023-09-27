@@ -1236,4 +1236,119 @@ fun PreviewShoppingCartPage() {
 ShoppingCartPage(navController = rememberNavController())
 }
 
+
+
+//package seniordeveloper.peter.skylineboutique.view
+//
+//import androidx.compose.foundation.layout.Arrangement
+//import androidx.compose.foundation.layout.Column
+//import androidx.compose.foundation.layout.fillMaxSize
+//import androidx.compose.material.Button
+//import androidx.compose.material.Text
+//import androidx.compose.material.TextField
+//import androidx.compose.runtime.Composable
+//import androidx.compose.runtime.getValue
+//import androidx.compose.runtime.mutableStateOf
+//import androidx.compose.runtime.remember
+//import androidx.compose.runtime.setValue
+//import androidx.compose.ui.Alignment
+//import androidx.compose.ui.Modifier
+//import androidx.navigation.NavHostController
+//import com.androidstudy.daraja.Daraja
+//import com.androidstudy.daraja.Daraja.initiatePayment
+//import com.androidstudy.daraja.util.TransactionType
+//
+//@Composable
+//fun PaymentScreen(navController: NavHostController){
+//    Column{
+//        var paymentSuccessful by remember { mutableStateOf(false) }
+//        var paymentFailed by remember { mutableStateOf(false) }
+//        CheckOutScreen(
+//            onPaymentSuccessful = {
+//                paymentSuccessful = true
+//                // Handle payment success
+//            },
+//            onPaymentFailed = {
+//                paymentSuccessful = false
+//                // Handle payment failure
+//            }
+//        )
+//
+//        if (paymentSuccessful) {
+//            // Show a success message or navigate to another screen
+//            Text("Payment Successful!")
+//        }
+//
+//    }
+//}
+//
+//@Composable
+//fun CheckOutScreen(
+//    onPaymentSuccessful: () -> Unit,
+//    onPaymentFailed: () -> Unit
+//) {
+//    // Define local state for phone number and amount
+//    var phoneNumber by remember { mutableStateOf("") }
+//    var amount by remember { mutableStateOf("") }
+//
+//    Column(
+//        modifier = Modifier.fillMaxSize(),
+//        verticalArrangement = Arrangement.Center,
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        TextField(
+//            value = phoneNumber,
+//            onValueChange = { phoneNumber = it },
+//            label = { Text("Phone Number") }
+//        )
+//
+//        TextField(
+//            value = amount,
+//            onValueChange = { amount = it },
+//            label = { Text("Amount") }
+//        )
+//
+//        Button(
+//            onClick = {
+//                // Call a function to initiate the payment
+//                initiatePayment(phoneNumber, amount, onPaymentSuccessful, onPaymentFailed)
+//            }
+//        ) {
+//            Text("Pay Now")
+//        }
+//    }
+//}
+//
+//
+//fun initiatePayment(
+//    phoneNumber: String,
+//    amount: String,
+//    onPaymentSuccessful: () -> Unit,
+//    onPaymentFailed: () -> Unit
+//) {
+//    val request = STKPush(
+//        businessShortCode = "YourShortCode",
+//        password = "YourPassword",
+//        timestamp = "YourTimestamp",
+//        transactionType = TransactionType.CustomerPayBillOnline,
+//        amount = amount,
+//        partyA = phoneNumber,
+//        partyB = "YourShortCode",
+//        phoneNumber = phoneNumber,
+//        callBackURL = "YourCallbackURL",
+//        accountReference = "YourReference",
+//        transactionDesc = "Payment for Goods/Services"
+//    )
+//
+//    daraja.requestMPesaExpress(request, onResponse = {
+//        // Handle success
+//        onPaymentSuccessful()
+//    }, onError = {
+//        // Handle error
+//        onPaymentFailed()
+//    })
+//}
+//
+//
+
  */

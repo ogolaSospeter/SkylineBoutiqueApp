@@ -1,6 +1,9 @@
 package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.Intent
+import android.telephony.SmsManager
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,6 +46,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -80,12 +85,17 @@ fun ShoppingCartPage(navController: NavHostController) {
             backgroundColor = colorResource(R.color.statusBar),
             contentColor = colorResource(R.color.white),
             actions = {
-                IconButton(onClick = {
-                    dbHandle.deleteAllCartItems()
-                    Toast.makeText(context, "Cart Emptied", Toast.LENGTH_SHORT).show()
-                }) {
-                    Icon(Icons.Filled.Delete, contentDescription = "Delete", tint = Color.White)
+                if (cartCount > 0) {
+                    IconButton(onClick = {
+                        dbHandle.deleteAllCartItems()
+                        Toast.makeText(context, "Cart Emptied", Toast.LENGTH_SHORT).show()
+                        navController.navigate(Screen.ShoppingCart.route)
+                    }) {
+                        Icon(Icons.Filled.Delete, contentDescription = "Delete", tint = Color.White)
+                    }
                 }
+                else
+                    return@TopAppBar
             }
         )
         Column(
@@ -112,10 +122,10 @@ fun ShoppingCartPage(navController: NavHostController) {
                         ElevatedCard(onClick = { /*TODO*/ },modifier =Modifier.fillMaxWidth()) {
                             Row {
                                 Column {
-                                    Text("Shopping Cart Items Count:\n \t$cartCount")
+                                    Text("Cart Items Count:\n \t\t\t$cartCount")
                                 }
                                 Column {
-                                    Text("\t\tTotal:\n \t\t\t${sumTotal}")
+                                    Text("\t\t\tTotal:\n \t\t\t${sumTotal}")
                                 }
                             }
                             Space(spaced = 2)
@@ -157,7 +167,12 @@ fun ShoppingCartPage(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartCard(clotheWear: ClosetData, initialQuantity: Int,navController: NavHostController, onUpdateTotal: (Float) -> Unit,) {
+fun CartCard(
+    clotheWear: ClosetData,
+    initialQuantity: Int,
+    navController: NavHostController,
+    onUpdateTotal: (Float) -> Unit
+) {
     val context = LocalContext.current
     val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
     var quantity by remember {
@@ -186,7 +201,11 @@ fun CartCard(clotheWear: ClosetData, initialQuantity: Int,navController: NavHost
                 )
 
                Space(spaced = 5)
-                Text(text = clotheWear.title)
+                Text(text = clotheWear.title,
+                    modifier=Modifier.width(90.dp),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    color = colorResource(id = R.color.black))
             }
             Column(modifier = Modifier.padding(top = 5.dp)) {
                 Text(text = "Unit Price: Kshs.${clotheWear.price}")
@@ -237,6 +256,45 @@ fun EmptyCart(){
         Text(text = "Your cart is empty.")
         Image(painter = painterResource(id = R.drawable.nocart), contentDescription = null)
     }
+
+@Composable
+fun SendMessage(phoneNumber: String, message: String) {
+    val smsManager = SmsManager.getDefault()
+    val sentIntent = PendingIntent.getBroadcast(
+        LocalContext.current,
+        0,
+        Intent("SMS_SENT"),
+        PendingIntent.FLAG_IMMUTABLE
+    )
+
+    val deliveredIntent = PendingIntent.getBroadcast(
+       LocalContext.current,
+        0,
+        Intent("SMS_DELIVERED"),
+        PendingIntent.FLAG_IMMUTABLE
+    )
+
+    try {
+        smsManager.sendTextMessage(
+            phoneNumber,
+            null,
+            message,
+            sentIntent,
+            deliveredIntent
+        )
+    } catch (e: Exception) {
+        // Handle SMS sending failure
+        // You can display a toast or provide feedback to the user
+        // using Composable functions like Snackbar or Toast Composables
+        Toast.makeText(
+            LocalContext.current,
+            "Failed to send SMS",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+}
+
+
 
 
 @Preview

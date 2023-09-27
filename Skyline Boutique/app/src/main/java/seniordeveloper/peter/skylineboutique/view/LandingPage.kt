@@ -132,7 +132,7 @@ fun LogoImage(navController: NavHostController){
     }
 }
 
-@SuppressLint("CoroutineCreationDuringComposition")
+@SuppressLint("CoroutineCreationDuringComposition", "SuspiciousIndentation")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LandPagesAnimated(navController: NavHostController) {
@@ -184,7 +184,7 @@ fun LandPagesAnimated(navController: NavHostController) {
                     .padding(2.dp)
                     .clip(CircleShape)
                     .background(color)
-                    .size(20.dp)
+                    .size(5.dp)
             )
         }
     }

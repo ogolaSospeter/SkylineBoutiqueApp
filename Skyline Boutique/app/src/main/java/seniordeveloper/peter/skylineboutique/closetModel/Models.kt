@@ -164,6 +164,22 @@ class ClosetDBHandler(context: Context?) :
         db.close()
     }
 
+    fun getEmails(): ArrayList<String>? {
+        val db = this.readableDatabase
+        val cursor:Cursor = db.rawQuery("SELECT * FROM $LOGIN_TABLE_NAME", null)
+        val emailArrayList: ArrayList<String> = ArrayList()
+        if (cursor.moveToFirst()) {
+            do {
+                emailArrayList.add(
+                    cursor.getString(cursor.getColumnIndex(COLUMN_USEREMAIL))
+                )
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return emailArrayList
+    }
+
     fun updateUser(username: String, password: String) {
         val db = this.writableDatabase
         val values = ContentValues()
