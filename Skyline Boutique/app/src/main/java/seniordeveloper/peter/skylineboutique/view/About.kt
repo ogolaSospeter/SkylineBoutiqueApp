@@ -34,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.models.constants.DividerDefaults
+import seniordeveloper.peter.skylineboutique.models.constants.Space
 import seniordeveloper.peter.skylineboutique.models.contactData
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +70,7 @@ fun AboutApp(navController: NavHostController) {
             Box {
 
                 Column(modifier = Modifier) {
-
+Space(spaced = 3)
                     Row(modifier = Modifier.padding(top = 3.dp, start = 140.dp)) {
                         Image(
                             painter = myImage,

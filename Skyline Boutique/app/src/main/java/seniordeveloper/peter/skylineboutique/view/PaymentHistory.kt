@@ -2,9 +2,9 @@ package seniordeveloper.peter.skylineboutique.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -48,16 +48,18 @@ fun PaymentHistory(navController: NavHostController) {
             modifier = Modifier.padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally){
-            Text(text = "No Payment History", style = MaterialTheme.typography.h6)
+            Text(text = "No Payment History", style = MaterialTheme.typography.subtitle1)
+Space(spaced = 4)
             AsyncImage(
 //                model = "https://img.freepik.com/premium-vector/utility-bills-statements-electricity-natural-gas-water-internet-telephone_183665-887.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
-                model ="https://img.freepik.com/free-vector/payment-with-mobile-phone_1133-381.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
+//                model ="https://img.freepik.com/free-vector/payment-with-mobile-phone_1133-381.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
+                model = "https://img.freepik.com/premium-vector/startup-funding-financial-planning-investment_1133-877.jpg?size=626&ext=jpg",
                 contentDescription = "nodata",
                 modifier = Modifier
 //                    .height(65.dp)
                     .height(250.dp)
                     .clip(RoundedCornerShape(2.dp))
-                    .fillMaxWidth(),
+                    .size(200.dp),
                 contentScale = ContentScale.Crop
             )
             Space(spaced = 5)

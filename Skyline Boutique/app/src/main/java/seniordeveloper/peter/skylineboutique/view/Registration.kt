@@ -1,6 +1,7 @@
 package seniordeveloper.peter.skylineboutique.view
 
 import android.content.Context
+import android.view.View
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -49,13 +53,18 @@ import seniordeveloper.peter.skylineboutique.navs.Screen
 @Composable
 fun Registration(navController: NavHostController) {
     Column {
-        RegisterUser(context = navController.context,navController = navController)
+        val view = LocalView.current
+        val keyboardController = LocalSoftwareKeyboardController.current
+
+        if (keyboardController != null) {
+            RegisterUser(context = navController.context,navController = navController,view = view,keyboardController = keyboardController)
+        }
     }
 
 }
 
 @Composable
-fun RegisterUser(context: Context,navController: NavHostController) {
+fun RegisterUser(context: Context,navController: NavHostController,view:View,keyboardController: SoftwareKeyboardController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -105,11 +114,18 @@ fun RegisterUser(context: Context,navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(2.dp)),
-            keyboardActions = KeyboardActions(KeyboardActions.Default.onGo),
+
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Done,
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    view.clearFocus()
+                    keyboardController.hide()
+                }
+
             ),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {

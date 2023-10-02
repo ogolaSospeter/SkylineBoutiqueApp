@@ -253,7 +253,6 @@ fun Home(navController: NavHostController) {
             }
 //            Box(modifier = Modifier.fillMaxSize()) {
 //                Column {
-
                     Column {
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -273,7 +272,6 @@ fun Home(navController: NavHostController) {
                                     shape = RoundedCornerShape(10.dp)
                                 ) { Text(itm, color = colorResource(id = R.color.statusBar)) }
                             }
-
                         }
 
                         Spacer(modifier = Modifier.height(10.dp))
@@ -355,15 +353,12 @@ fun Home(navController: NavHostController) {
     }
 }
 
-
-
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ClotheCard(clotheWear: ClosetData, onClick:() -> Unit = { }) {
 
     val context = LocalContext.current
-
 
     Card(
         modifier = Modifier

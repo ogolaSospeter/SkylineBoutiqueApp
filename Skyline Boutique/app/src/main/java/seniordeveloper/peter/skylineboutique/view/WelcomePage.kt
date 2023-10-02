@@ -305,7 +305,7 @@ fun WelcomeViewModel(viewModel:SkylineBoutiqueViewModel, navController: NavHostC
                             ActionButton(R.string.register, Screen.Registration.route, 150, navController)
                         }
                         Space(spaced = 20)
-                        ActionButton(R.string.home_page,Screen.Home.route, 150, navController)
+//                        ActionButton(R.string.home_page,Screen.Home.route, 150, navController)
 //            androidx.compose.material.OutlinedButton(
 //                modifier = Modifier.width(250.dp), onClick = {
 //                    oneTapSignInState.open()

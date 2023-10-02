@@ -1,5 +1,6 @@
 package seniordeveloper.peter.skylineboutique.models
 
+import androidx.compose.ui.graphics.Color
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.navs.Screen
 
@@ -149,3 +150,12 @@ val contactData = listOf(
 )
 
 data class LoginData(val useremail: String, val password: String)
+
+
+class OrderState(val state:String, val color:Color)
+val orderState = listOf(
+    OrderState("Pending",Color.Magenta),
+    OrderState("Approved",Color.Blue),
+    OrderState("Delivered",Color.Gray),
+    OrderState("Cleared",Color.Green)
+)

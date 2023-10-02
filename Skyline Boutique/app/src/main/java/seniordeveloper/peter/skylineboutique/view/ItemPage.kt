@@ -93,7 +93,7 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClosetData) {
                         Column(
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.padding(5.dp)
+                            modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 5.dp)
                         ) {
                             AsyncImage(
                                 model = item.image,
@@ -132,7 +132,14 @@ fun ItemDetailsPage(navController: NavHostController, itemId: ClosetData) {
                                             item.image
                                         )
                                         delay(500 )
-                                        Toast.makeText(context, "${item.title} added to cart Successfully", Toast.LENGTH_SHORT).show()
+                                        val maxTitleLength = 30 // Adjust the maximum length as needed
+
+                                        val itemTitle = if (item.title.length > maxTitleLength) {
+                                            "${item.title.substring(0, maxTitleLength)}..." // Truncate title if too long
+                                        } else {
+                                            item.title
+                                        }
+                                        Toast.makeText(context, "${itemTitle} added to cart Successfully", Toast.LENGTH_SHORT).show()
                                     }
                                 },
                                 modifier = Modifier
