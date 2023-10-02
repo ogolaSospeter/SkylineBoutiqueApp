@@ -265,9 +265,8 @@ fun Home(navController: NavHostController) {
                                         if(dbHandle.getClosetData()?.filter { it.category == selectedCategory }
                                                 ?.isNotEmpty() == true){
                                             navController.navigate(Screen.Category.route + "/$selectedCategory")
-                                            navController.navigate(Screen.Undefined.route)
                                         }
-                                        navController.navigate(Screen.Category.route + "/$selectedCategory")
+                                        navController.navigate(Screen.Undefined.route)
                                     },
                                     shape = RoundedCornerShape(10.dp)
                                 ) { Text(itm, color = colorResource(id = R.color.statusBar)) }
