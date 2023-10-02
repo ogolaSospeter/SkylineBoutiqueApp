@@ -1,6 +1,6 @@
 # Skyline Boutique
 
-<img src="images/logo.png" alt="Logo" width="300" height="400">
+<img src="images/logo.png" alt="Logo" width="300" height="600">
 
 *Skyline Boutique*
 
@@ -12,18 +12,18 @@ The Skyline Boutique Application is an Android Application built in Kotlin to al
 
 <!-- Add image sizes for better formatting -->
 
-<img src="images/login.png" alt="Login" width="300" height="400">
+<img src="images/login.png" alt="Login" width="300" height="600">
 
 *User Login*
 
-<img src="images/logfail.png" alt="Log Fail" width="300" height="400">
+<img src="images/logfail.png" alt="Log Fail" width="300" height="600">
 
 *Login Failure*
 
-<img src="images/logsuccess.png" alt="Log Success" width="300" height="400">
+<img src="images/logsuccess.png" alt="Log Success" width="300" height="600">
 
 *Login Successful*
 
-<img src="images/home.png" alt="Home" width="300" height="400">
+<img src="images/home.png" alt="Home" width="300" height="600">
 
 *Home Screen*
