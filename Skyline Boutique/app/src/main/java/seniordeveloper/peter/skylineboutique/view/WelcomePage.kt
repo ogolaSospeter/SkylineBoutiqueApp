@@ -135,7 +135,8 @@ fun WelcomeViewModel(viewModel:SkylineBoutiqueViewModel, navController: NavHostC
 
                         Spacer(modifier = Modifier.height(15.dp))
                         AsyncImage(
-                            model ="https://img.freepik.com/free-vector/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection_1150-37372.jpg?size=626&ext=jpg&uid=R68194178&semt=sph",
+                            model="https://img.freepik.com/premium-vector/data-analysis-business-illustration-concept_498307-606.jpg?size=626&ext=jpg",
+//                            model ="https://img.freepik.com/free-vector/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection_1150-37372.jpg?size=626&ext=jpg&uid=R68194178&semt=sph",
 //                            model = "https://img.freepik.com/premium-vector/sign-page-abstract-concept-vector-illustration_107173-25670.jpg?size=626&ext=jpg&uid=R68194178&semt=sph",
                             contentDescription = "nodata",
                             modifier = Modifier
