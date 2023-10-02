@@ -98,8 +98,9 @@ fun Home(navController: NavHostController) {
     var selectedCategory by remember { mutableStateOf("") }
     val dbHandle:ClosetDBHandler = ClosetDBHandler(context)
     val cartCount = dbHandle.getCartCount()
-    val categoryItems = dbHandle.getClosetData()?.shuffled()?.take(4)
-    val catItems = dbHandle.getClosetData()?.shuffled()?.take(9)
+    val categoryItems = dbHandle.getClosetData().shuffled().take(4)
+    val catItems = dbHandle.getClosetData().shuffled().take(9)
+
     dbHandle.getClosetData()
 
 
@@ -258,15 +259,18 @@ fun Home(navController: NavHostController) {
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                             modifier = Modifier.padding(2.dp)
                         ) {
+                            val clothData = dbHandle.getClosetData()
                             items(categories) { itm ->
                                 OutlinedButton(
                                     onClick = {
                                         selectedCategory = itm
-                                        if(dbHandle.getClosetData()?.filter { it.category == selectedCategory }
-                                                ?.isNotEmpty() == true){
+                                        if(dbHandle.getClosetData()?.filter { it.category == selectedCategory }?.isNotEmpty() == true){
                                             navController.navigate(Screen.Category.route + "/$selectedCategory")
                                         }
-                                        navController.navigate(Screen.Undefined.route)
+                                        else {
+                                            navController.navigate(Screen.Undefined.route)
+                                        }
+
                                     },
                                     shape = RoundedCornerShape(10.dp)
                                 ) { Text(itm, color = colorResource(id = R.color.statusBar)) }
