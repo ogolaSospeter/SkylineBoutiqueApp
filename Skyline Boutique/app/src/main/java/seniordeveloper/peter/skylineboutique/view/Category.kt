@@ -61,7 +61,25 @@ fun CategoryPage(navController: NavHostController,category: String) {
         filteredData.addAll(_menwears.filter { it.category == category })
 
         if (filteredData.isEmpty()) {
-            Text(text = "No items in this category")
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(intrinsicSize = IntrinsicSize.Max)
+                    .padding(5.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AsyncImage(
+                    model = "https://img.freepik.com/free-vector/404-error-page-found_41910-364.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
+                    contentDescription = "nodata",
+                    modifier = Modifier
+                        .size(300.dp),
+                    contentScale = ContentScale.Crop
+                )
+
+                Text(text = "No data found")
+            }
+
         } else {        // Display the filtered items
             LazyColumn {
                 items(filteredData) { item ->

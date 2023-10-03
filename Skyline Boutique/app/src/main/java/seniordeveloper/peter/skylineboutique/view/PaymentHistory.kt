@@ -32,7 +32,10 @@ import seniordeveloper.peter.skylineboutique.models.constants.Space
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PaymentHistory(navController: NavHostController) {
-    Column{
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
        TopAppBar(
            title = { Text("Payment History", color = colorResource(id =R.color.white)) },
            navigationIcon = {
@@ -56,7 +59,6 @@ Space(spaced = 4)
                 model = "https://img.freepik.com/premium-vector/startup-funding-financial-planning-investment_1133-877.jpg?size=626&ext=jpg",
                 contentDescription = "nodata",
                 modifier = Modifier
-//                    .height(65.dp)
                     .clip(RoundedCornerShape(2.dp))
                     .size(200.dp),
                 contentScale = ContentScale.Crop

@@ -58,7 +58,7 @@ fun Notifications(navController: NavHostController){
         Column (modifier=Modifier.padding(20.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally){
             Text(text = "Your Notifications should appear here.")
             AsyncImage(
-                model = "https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
+                model = "https://img.freepik.com/premium-vector/no-data-concept-illustration_86047-486.jpg?size=626&ext=jpg&ga=GA1.1.490597256.1696316941&semt=ais",
                 contentDescription = "nodata",
                 modifier = Modifier
 //                    .height(65.dp)
