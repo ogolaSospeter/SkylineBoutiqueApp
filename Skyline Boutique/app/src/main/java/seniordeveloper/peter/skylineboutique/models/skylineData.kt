@@ -1,6 +1,14 @@
 package seniordeveloper.peter.skylineboutique.models
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.twotone.VolumeUp
+import androidx.compose.material.icons.rounded.Backup
+import androidx.compose.material.icons.rounded.Language
+import androidx.compose.material.icons.rounded.PrivacyTip
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import seniordeveloper.peter.skylineboutique.R
 import seniordeveloper.peter.skylineboutique.navs.Screen
 
@@ -116,15 +124,15 @@ val _orderStatus = listOf<OrderTracker>(
     )
 
 
-data class SettingData(val image: Int, val txt:String, val route:String)
+data class SettingData(val image: ImageVector, val txt:String, val route:String)
 
 val setdata = listOf(
-    SettingData(R.drawable.setting,"General",Screen.Undefined.route),
-    SettingData(R.drawable.sounds,"Sounds",Screen.Undefined.route),
-    SettingData(R.drawable.language,"App Language",Screen.Undefined.route),
-    SettingData(R.drawable.backup,"BackUp",Screen.Undefined.route),
-    SettingData(R.drawable.privacy,"Privacy Center",Screen.Undefined.route),
-    SettingData(R.drawable.prsn,"About Developer",Screen.About.route),
+    SettingData(Icons.Rounded.Settings,"General",Screen.Undefined.route),
+    SettingData(Icons.AutoMirrored.TwoTone.VolumeUp,"Sounds",Screen.Undefined.route),
+    SettingData(Icons.Rounded.Language,"App Language",Screen.Undefined.route),
+    SettingData(Icons.Rounded.Backup,"BackUp",Screen.Undefined.route),
+    SettingData(Icons.Rounded.PrivacyTip,"Privacy Center",Screen.Undefined.route),
+    SettingData(Icons.Rounded.VerifiedUser,"About Developer",Screen.About.route),
 )
 
 data class OverFlow(val image: Int, val txt:String, val route:String)
@@ -137,7 +145,7 @@ val overFlow = listOf(
     OverFlow(R.drawable.logout,"Log Out",Screen.Login.route)
 )
 
-val categories = listOf("suits","shorts","shirts","jackets","dresses","trousers")
+val categories = listOf("suits","shorts","shirts","jackets","dresses","trousers","shoes")
 
 data class Contact(val name: String, val description: String, val image: String, val route: String)
 

@@ -35,7 +35,7 @@ fun AppNav(context: Context, navController: NavHostController) {
         composable(Screen.Settings.route) { Settings(navController) }
         composable(Screen.About.route) { AboutApp(navController) }
 //        composable(Screen.Login.route){ LoginPage(navController) }
-        composable(Screen.Login.route) { UserLoginPage(context,navController) }
+        composable(Screen.Login.route) { UserLoginPage(navController) }
 
         composable(Screen.Cart.route) { ClothesView(navController) }
         composable(Screen.Notifications.route) { Notifications(navController) }

@@ -67,7 +67,7 @@ fun ShoppingCartPage(navController: NavHostController) {
     val context = LocalContext.current
     val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
     val cartCount = dbHandle.getCartCount()
-    var cartItems by remember { mutableStateOf(dbHandle.getCartData() ?: emptyList()) }
+    var cartItems by remember { mutableStateOf(dbHandle.getCartData()) }
     val daraja = Daraja
 
 
@@ -109,7 +109,7 @@ fun ShoppingCartPage(navController: NavHostController) {
     // Calculate the sum total by summing up all the item total prices
                 sumTotal = itemTotalPrices.sum()
                 LazyColumn {
-                    items(dbHandle.getCartData()!!) { item ->
+                    items(dbHandle.getCartData()) { item ->
                         CartCard(clotheWear = item, quantity,navController) { updatedPrice ->
                             sumTotal += updatedPrice
                         }
@@ -152,7 +152,7 @@ fun ShoppingCartPage(navController: NavHostController) {
                         }
                         LaunchedEffect(cartItems) {
                             // This code will run whenever cartItems changes
-                            cartItems = dbHandle.getCartData() ?: emptyList()
+                            cartItems = dbHandle.getCartData()
                         }
                     }
 

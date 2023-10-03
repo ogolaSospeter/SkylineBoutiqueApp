@@ -114,3 +114,16 @@ Space(spaced = 3)
 fun Preview(){
     AboutApp(navController = rememberNavController())
 }
+
+
+//function to launch the developer's email
+
+fun launchEmail(email: String) {
+
+}
+//function to launch the developer's phone number
+
+//function to launch the developer's website
+
+//function to launch the developer's github account
+

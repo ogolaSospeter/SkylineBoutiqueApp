@@ -1,7 +1,6 @@
 package seniordeveloper.peter.skylineboutique.view
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.View
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -33,7 +32,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -76,9 +74,8 @@ import java.time.Duration
 
 
 @SuppressLint("UnrememberedMutableState")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserLoginPage(context: Context, navController:NavHostController) {
+fun UserLoginPage(navController: NavHostController) {
     val view = LocalView.current
     val keyboardController = LocalSoftwareKeyboardController.current
     if (keyboardController != null) {
@@ -94,22 +91,21 @@ fun WelcomeViewModel(viewModel:SkylineBoutiqueViewModel, navController: NavHostC
                      keyboardController: SoftwareKeyboardController
 )
 {
-    val screenState by viewModel.screenState.observeAsState()
 
 
-            var userEmail by remember{ mutableStateOf("") }
+    var userEmail by remember{ mutableStateOf("") }
             var password by  remember{ mutableStateOf("") }
             //Check email matches
 
             var passwordVisible by remember { mutableStateOf(false) }
             var showDialog by remember{mutableStateOf(false)}
             val context = LocalContext.current
-            val dbHandle: ClosetDBHandler = ClosetDBHandler(context)
+            val dbHandle = ClosetDBHandler(context)
             val viewModelScope = rememberCoroutineScope()
             var alertSuccess by remember { mutableStateOf(false) }
             var alertDuplicate by remember { mutableStateOf(false) }
             var alertNull by remember { mutableStateOf(false) }
-            var showprogress by remember { mutableStateOf(false) }
+            val showprogress by remember { mutableStateOf(false) }
 
 
 
@@ -362,7 +358,7 @@ fun WelcomeViewModel(viewModel:SkylineBoutiqueViewModel, navController: NavHostC
             if (alertNull) {
                 AlertBox(
                     title = "No user.",
-                    message = "User $userEmail does not exist!!\nPlease Register.",
+                    message = "User ${userEmail.take(3)}${"*".repeat(userEmail.length -15)}${userEmail.take(13)} does not exist!!\nPlease Register.",
                     icon = Icons.Filled.Warning,
                     dialogue = alertNull,
                     color = Color.Red, accept = "OK")
@@ -377,11 +373,5 @@ fun WelcomeViewModel(viewModel:SkylineBoutiqueViewModel, navController: NavHostC
 @Preview(showBackground = true)
 @Composable
 fun LogPreview(){
-    UserLoginPage(LocalContext.current,navController = rememberNavController())
-}
-
-//Implement One Tap Phone Login
-fun OneTapPhoneLogin(context: Context) {
-
-
+    UserLoginPage(navController = rememberNavController())
 }

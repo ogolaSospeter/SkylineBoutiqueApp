@@ -46,7 +46,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.TopAppBarDefaults
@@ -59,6 +59,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -106,23 +107,28 @@ fun Home(navController: NavHostController) {
 
 
     Column {
+        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
         Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+
             topBar = {
-                LargeTopAppBar(
+                MediumTopAppBar(
 //                    contentColor = Color.White,
 //                    backgroundColor = (colorResource(id = R.color.statusBar)),
-                    title = { Text("Home Page") },
-                    colors = TopAppBarDefaults.largeTopAppBarColors(
+                    title = { Text("Home Page", color = colorResource(id = R.color.white)) },
+
+                    colors = TopAppBarDefaults.mediumTopAppBarColors(
+                        colorResource(id = R.color.statusBar),
                         colorResource(id = R.color.statusBar),
                         colorResource(id = R.color.white),
-                        colorResource(id = R.color.white),
-                        colorResource(id = R.color.white),
+                        colorResource(id = R.color.statusBar),
                         colorResource(id = R.color.white)
                     ),
                     navigationIcon = {
                         IconButton(
                             onClick = { menustate = !menustate },
-                            content = { Icon(Icons.Filled.Menu, contentDescription = null) })
+                            content = { Icon(Icons.Filled.Menu, contentDescription = null,tint = colorResource(id = R.color.white))})
                         if (menustate) {
 
                             DropdownMenu(
@@ -140,7 +146,7 @@ fun Home(navController: NavHostController) {
                             ) {
                                 overFlow.forEach { item ->
                                     DropdownMenuItem(
-                                        leadingIcon = { Icon(painter = painterResource(id = item.image ), contentDescription = null, modifier = Modifier.size(10.dp))},
+                                        leadingIcon = { Icon(painter = painterResource(id = item.image ), contentDescription = null, modifier = Modifier.size(15.dp))},
                                         text = { Text(item.txt, style = TextStyle(
                                         colorResource(id = R.color.black),
                                     ) )}, onClick = {
@@ -191,7 +197,8 @@ fun Home(navController: NavHostController) {
                             Icon(
                                 Icons.Filled.Notifications,
                                 contentDescription = null,
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(20.dp),
+                                tint = Color.White
                             )
                         }
                         IconButton(onClick = { navController.navigate(Screen.ShoppingCart.route) }) {
@@ -221,8 +228,9 @@ fun Home(navController: NavHostController) {
                                 .size(30.dp),
                             contentScale = ContentScale.Crop)
 
-                    }
-                )
+                    },
+                    scrollBehavior = scrollBehavior
+                    )
             },
 
             bottomBar = {
@@ -312,16 +320,16 @@ fun Home(navController: NavHostController) {
                                 maxItemsInEachRow = 3,
                             ) {
 
-                                    catItems?.forEach {
-                                        ClotheCard(clotheWear = it, onClick = {
-                                            navController.navigate(Screen.ItemDetails.route + "/${it.title}")
-                                            itemCount += 1
-                                        }
-                                        )
+                                catItems.forEach {
+                                    ClotheCard(clotheWear = it, onClick = {
+                                        navController.navigate(Screen.ItemDetails.route + "/${it.title}")
+                                        itemCount += 1
+                                    }
+                                    )
                                 }
                             }
                             val closetItems = dbHandle.getClosetData()
-                            val grouped = closetItems?.groupBy { it.category }
+                            val grouped = closetItems.groupBy { it.category }
                             grouped?.forEach { (category, items) ->
                                 GlobalWidgets(text = category)
                                 LazyRow(
