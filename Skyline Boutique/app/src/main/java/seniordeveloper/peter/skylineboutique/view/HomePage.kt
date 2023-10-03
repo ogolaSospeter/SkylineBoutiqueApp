@@ -35,7 +35,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
@@ -47,8 +46,10 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -107,9 +108,17 @@ fun Home(navController: NavHostController) {
     Column {
         Scaffold(
             topBar = {
-                TopAppBar(contentColor = Color.White,
-                    backgroundColor = (colorResource(id = R.color.statusBar)),
+                LargeTopAppBar(
+//                    contentColor = Color.White,
+//                    backgroundColor = (colorResource(id = R.color.statusBar)),
                     title = { Text("Home Page") },
+                    colors = TopAppBarDefaults.largeTopAppBarColors(
+                        colorResource(id = R.color.statusBar),
+                        colorResource(id = R.color.white),
+                        colorResource(id = R.color.white),
+                        colorResource(id = R.color.white),
+                        colorResource(id = R.color.white)
+                    ),
                     navigationIcon = {
                         IconButton(
                             onClick = { menustate = !menustate },
