@@ -264,13 +264,7 @@ fun Home(navController: NavHostController) {
                                 OutlinedButton(
                                     onClick = {
                                         selectedCategory = itm
-                                        if(dbHandle.getClosetData()?.filter { it.category == selectedCategory }?.isNotEmpty() == true){
-                                            navController.navigate(Screen.Category.route + "/$selectedCategory")
-                                        }
-                                        else {
-                                            navController.navigate(Screen.Undefined.route)
-                                        }
-
+                                        navController.navigate(Screen.Category.route + "/$selectedCategory")
                                     },
                                     shape = RoundedCornerShape(10.dp)
                                 ) { Text(itm, color = colorResource(id = R.color.statusBar)) }

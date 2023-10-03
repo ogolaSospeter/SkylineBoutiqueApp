@@ -42,15 +42,16 @@ import seniordeveloper.peter.skylineboutique.navs.Screen
 @Composable
 fun CategoryPage(navController: NavHostController,category: String) {
     Column {
-        TopAppBar(title = { Text(text = category) },
+        TopAppBar(
+            title = { Text(text = category) },
             navigationIcon = {
-            IconButton(onClick = { navController.navigateUp() }) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon")
-            }
-        },
-        backgroundColor = colorResource(id = R.color.statusBar),
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon")
+                }
+            },
+            backgroundColor = colorResource(id = R.color.statusBar),
             contentColor = colorResource(id = R.color.white)
-            )
+        )
 
         val filteredData = remember {
             mutableStateListOf<ClotheData>()
@@ -59,52 +60,68 @@ fun CategoryPage(navController: NavHostController,category: String) {
         filteredData.clear()
         filteredData.addAll(_menwears.filter { it.category == category })
 
-        // Display the filtered items
-        LazyColumn {
-            items(filteredData) { item ->
-                // Display the item in your desired format
-                Column(modifier = Modifier.padding(5.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                    Card(onClick = {
-                        navController.navigate(Screen.ItemDetails.route + "/${item.title}")
+        if (filteredData.isEmpty()) {
+            Text(text = "No items in this category")
+        } else {        // Display the filtered items
+            LazyColumn {
+                items(filteredData) { item ->
+                    // Display the item in your desired format
+                    Column(
+                        modifier = Modifier.padding(5.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Card(
+                            onClick = {
+                                navController.navigate(Screen.ItemDetails.route + "/${item.title}")
 
-                    }, modifier = Modifier
-                        .fillMaxWidth()
-                        .height(intrinsicSize = IntrinsicSize.Max)
-                        .padding(5.dp),
-                        ) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally,
+                            },
                             modifier = Modifier
-                                .padding(5.dp)
-
+                                .fillMaxWidth()
+                                .height(intrinsicSize = IntrinsicSize.Max)
+                                .padding(5.dp),
                         ) {
-                            AsyncImage(
-                                model = item.image,
-                                contentDescription = item.title,
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally,
                                 modifier = Modifier
-                                    .size(200.dp)
-                                    .clip(CircleShape),
-                                contentScale = ContentScale.Crop
-                            )
+                                    .padding(5.dp)
 
-                            Text(text = " ${item.title} || ${item.category}")
-                            Text(text = "Kshs. ${item.price}")
-                            Text(text = item.description)
-                            Spacer(modifier = Modifier.height(10.dp))
-                            Button(colors = ButtonDefaults.buttonColors(colorResource(id = R.color.statusBar)),onClick = { /*TODO*/ }, modifier = Modifier
-                                .width(150.dp)
-                                .height(40.dp)) {
-                                Text(text = "Add to Cart", color = colorResource(id = R.color.white))
+                            ) {
+                                AsyncImage(
+                                    model = item.image,
+                                    contentDescription = item.title,
+                                    modifier = Modifier
+                                        .size(200.dp)
+                                        .clip(CircleShape),
+                                    contentScale = ContentScale.Crop
+                                )
+
+                                Text(text = " ${item.title} || ${item.category}")
+                                Text(text = "Kshs. ${item.price}")
+                                Text(text = item.description)
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Button(
+                                    colors = ButtonDefaults.buttonColors(colorResource(id = R.color.statusBar)),
+                                    onClick = { /*TODO*/ },
+                                    modifier = Modifier
+                                        .width(150.dp)
+                                        .height(40.dp)
+                                ) {
+                                    Text(
+                                        text = "Add to Cart",
+                                        color = colorResource(id = R.color.white)
+                                    )
+
+                                }
+                                Spacer(modifier = Modifier.height(10.dp))
 
                             }
-                            Spacer(modifier = Modifier.height(10.dp))
 
                         }
-
                     }
-                }
 
+                }
             }
         }
     }

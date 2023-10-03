@@ -136,7 +136,7 @@ fun LogoImage(navController: NavHostController){
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LandPagesAnimated(navController: NavHostController) {
-    val pageCount = 3
+    val pageCount = 2
     val pagerState = rememberPagerState(pageCount = {pageCount})
     val coroutineScope = rememberCoroutineScope()
 
@@ -147,9 +147,9 @@ fun LandPagesAnimated(navController: NavHostController) {
         if (page == 0) {
             LogoLand(navController = navController)
         }
-        else if (page == 1) {
-            LogoImage(navController = navController)
-        }
+//        else if (page == 1) {
+//            LogoImage(navController = navController)
+//        }
         else{
             UserLoginPage(context = LocalContext.current,navController = navController)
         }

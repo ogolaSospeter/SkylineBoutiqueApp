@@ -2,7 +2,6 @@ package seniordeveloper.peter.skylineboutique.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,6 +43,7 @@ fun PaymentHistory(navController: NavHostController) {
            contentColor = colorResource(id =R.color.white),
            backgroundColor = colorResource(id = R.color.statusBar),
        )
+
         Column(
             modifier = Modifier.padding(20.dp),
             verticalArrangement = Arrangement.Center,
@@ -57,7 +57,6 @@ Space(spaced = 4)
                 contentDescription = "nodata",
                 modifier = Modifier
 //                    .height(65.dp)
-                    .height(250.dp)
                     .clip(RoundedCornerShape(2.dp))
                     .size(200.dp),
                 contentScale = ContentScale.Crop
