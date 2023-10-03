@@ -43,7 +43,7 @@ import seniordeveloper.peter.skylineboutique.navs.Screen
 fun CategoryPage(navController: NavHostController,category: String) {
     Column {
         TopAppBar(
-            title = { Text(text = category) },
+            title = { Text(text = category.replaceFirstChar { it.uppercaseChar() }) },
             navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, "BackIcon")
