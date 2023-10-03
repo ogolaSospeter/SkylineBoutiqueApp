@@ -56,7 +56,7 @@ Space(spaced = 4)
             AsyncImage(
 //                model = "https://img.freepik.com/premium-vector/utility-bills-statements-electricity-natural-gas-water-internet-telephone_183665-887.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
 //                model ="https://img.freepik.com/free-vector/payment-with-mobile-phone_1133-381.jpg?size=626&ext=jpg&uid=R68194178&semt=ais",
-                model = "https://img.freepik.com/premium-vector/startup-funding-financial-planning-investment_1133-877.jpg?size=626&ext=jpg",
+                model ="https://img.freepik.com/free-vector/money-stress-concept-illustration_114360-9549.jpg?size=626&ext=jpg&ga=GA1.1.490597256.1696316941&semt=ais",
                 contentDescription = "nodata",
                 modifier = Modifier
                     .clip(RoundedCornerShape(2.dp))
