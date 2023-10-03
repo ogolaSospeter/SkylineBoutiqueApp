@@ -344,7 +344,7 @@ fun WelcomeViewModel(viewModel:SkylineBoutiqueViewModel, navController: NavHostC
                         }
                     },
                     title = { Text(text = "Successful Login") },
-                    text = { Text("User $userEmail login Successful") },
+                    text = { Text("User ${userEmail.take(3)}${"*".repeat(userEmail.length - 15)}${userEmail.takeLast(12)} login Successful") },
                     icon = { Icon(Icons.AutoMirrored.TwoTone.Subject, contentDescription = null, tint = Color.Green, modifier = Modifier.size(40.dp)) }
                 )
 //                AlertBox(title = "Successful Login", message = "User $userEmail login Successful", icon = Icons.Filled.Done, dialogue = alertSuccess,
